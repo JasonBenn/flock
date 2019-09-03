@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Flock</title>
-    <script src="../assets/jquery-3.3.1.js"></script>
+    <script src="static/jquery-3.3.1.js"></script>
 </head>
 <body>
 <div id="container">
@@ -14,7 +14,7 @@
     var element = document.createElement("link");
     element.setAttribute("rel", "stylesheet");
     element.setAttribute("type", "text/css");
-    element.setAttribute("href", "../assets/styles.css");
+    element.setAttribute("href", "static/styles.css");
     document.getElementsByTagName("head")[0].appendChild(element);
 
     var knownDevices = {};
@@ -147,7 +147,7 @@
                         <div class='${location}Icon'></div>
                         <div class="locationHolder">
                             <p class='locationName'>${location}</p>
-                            <object id="yoursvg" width="24" height="24" data="../assets/svg/${location}.svg" type="image/svg+xml" ></object>
+                            <object id="yoursvg" width="24" height="24" data="static/svg/${location}.svg" type="image/svg+xml" ></object>
                         </div>
                     </div>
                 `);
@@ -162,13 +162,13 @@
 
 <script>
 
-    request.open('GET', 'http://192.168.86.131:8005/api/v1/by_location/archive', true)
-    request.onload = function() {
-        window.data = JSON.parse(this.response)
-        renderLocation();
-    }
-    request.send()
-    array.reduce((h, obj) => Object.assign(h, { [obj.key]:( h[obj.key] || [] ).concat(obj) }), {})
+    // request.open('GET', 'http://192.168.86.131:8005/api/v1/by_location/archive', true)
+    // request.onload = function() {
+    //     window.data = JSON.parse(this.response)
+    //     renderLocation();
+    // }
+    // request.send()
+    // array.reduce((h, obj) => Object.assign(h, { [obj.key]:( h[obj.key] || [] ).concat(obj) }), {})
 
 </script>
 
