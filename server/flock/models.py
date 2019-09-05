@@ -18,12 +18,16 @@ class Person(models.Model):
     last_name = models.CharField(max_length=200)
     location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
 
+    class Meta:
+        unique_together = ("first_name", "last_name")
+
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.location}"
 
 
 class Device(models.Model):
-    mac = models.CharField(max_length=17)  # 00:00:00:00:00:00
+    mac = models.CharField(max_length=17, unique=True)  # 00:00:00:00:00:00
+    name = models.CharField(max_length=200)
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
 
     def __str__(self):
