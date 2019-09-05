@@ -1,10 +1,9 @@
+from django.db import transaction
 from psqlextra.query import ConflictAction
 from psqlextra.util import postgres_manager
 
 from flock.models import Device
 from flock.models import Person
-
-Device.objects.all()
 
 
 people_devices = {
@@ -57,3 +56,5 @@ with postgres_manager(Device) as manager:
 
 print(Person.objects.all())
 print(Device.objects.all())
+
+transaction.commit()
