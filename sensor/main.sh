@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 name=$(curl -s google.com)
 found=$?
 

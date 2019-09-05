@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Flock</title>
+    <script src="static/jquery-3.3.1.js"></script>
+</head>
+<body>
+<div id="container">
+</div>
+<script>
+
+    var element = document.createElement("link");
+    element.setAttribute("rel", "stylesheet");
+    element.setAttribute("type", "text/css");
+    element.setAttribute("href", "static/styles.css");
+    document.getElementsByTagName("head")[0].appendChild(element);
+
+    var knownDevices = {};
+    knownDevices["wifi-94:65:2d:c6:c7:f7"] = "Austin-phone";
+    knownDevices["wifi-8c:85:90:3c:22:47"] = "Austin-laptop";
+    knownDevices["wifi-40:4e:36:d1:0e:99"] = "Jason-phone";
+    knownDevices["wifi-38:f9:d3:95:e8:1b"] = "Jason-laptop-work-en0";
+    knownDevices["wifi-38:f9:d3:9b:b0:a4"] = "Jason-laptop-work-bluetooth";
+    knownDevices["wifi-3c:28:6d:2c:37:9f"] = "Ben-phone";
+    knownDevices["wifi-20:c9:d0:48:f6:a9"] = "Jason-laptop-old-MBP";
+    knownDevices["wifi-40:A1:08:38:98:38"] = "Jason-tablet-Android";
+    knownDevices["wifi-08:E6:89:AD:EE:42"] = "Jason-tablet-iPad";
+    
+    var currentMap = {};
+
+    var testData = {
+        "locations": [
+            {
+                "devices": [
+                    {
+                        "device": "Jason B",
+                        "timestamp": "2015-08-15T00:04:25.993Z",
+                        "probability": 0.98,
+                        "randomized": false,
+                        "num_scanners": 22,
+                        "active_mins": 171,
+                        "first_seen": "2015-08-14T23:55:37.334Z"
+                    },
+                    {
+                        "device": "Christina K",
+                        "timestamp": "2015-08-15T00:04:25.993Z",
+                        "probability": 0.98,
+                        "randomized": false,
+                        "num_scanners": 22,
+                        "active_mins": 171,
+                        "first_seen": "2015-08-14T23:55:37.334Z"
+                    }
+                ],
+                "location": "main",
+                "gps": {
+                    "lat": -1,
+                    "lon": -1
+                },
+                "total": 2
+            },
+            {
+                "devices": [
+                    {
+                        "device": "Zain S",
+                        "timestamp": "2015-08-15T00:04:25.993Z",
+                        "probability": 0.98,
+                        "randomized": false,
+                        "num_scanners": 22,
+                        "active_mins": 171,
+                        "first_seen": "2015-08-14T23:55:37.334Z"
+                    }
+                ],
+                "location": "backyard",
+                "gps": {
+                    "lat": -1,
+                    "lon": -1
+                },
+                "total": 2
+            }
+        ],
+        "message": "got locations",
+        "success": true
+    }
+
+    $(document).ready(() => {
+        var request = new XMLHttpRequest()
+        
+        //GET /api/v1/by_location/FAMILY   http://557ac8e4.ngrok.io/api/v1/locations/testdb
+        request.open('GET', 'http://192.168.86.131:8005/api/v1/by_location/archive', true)
+        request.onload = function() {
+            var data = JSON.parse(this.response)
+            window.response = this.response;
+            currentMap = {};
+            if (request.status >= 200 && request.status < 400) {
+                data.locations.forEach(locationObject => {
+                    populateLocation(locationObject)
+                })
+            } else {
+                console.log('errorrrrzzz')
+            }
+            console.log(currentMap);
+            renderLocation();
+        }
+        // request.send()
+
+        //API unavail
+        request.onerror = function() {
+            var data = testData;
+            data.locations.forEach(locationObject => {
+                populateLocation(locationObject)
+            })
+        };
+
+        request.send()
+    })
+
+    function populateLocation(locationObject) {
+        
+        ["main", "backyard", "study", "roof", "workshop"].forEach(room => {
+            if (room in currentMap) {
+                console.log(room)
+            }
+        })
+
+        if (!locationObject.location.includes("hall") && !locationObject.location.includes("room")) {
+            currentMap[`${locationObject.location}`] = [];
+
+            locationObject.devices.forEach(deviceObject => {
+                if(knownDevices[deviceObject.device]) {
+                    currentMap[`${locationObject.location}`].push(knownDevices[deviceObject.device]);
+                    //$(`#loc${locationObject.location}`).append( `<p>${knownDevices[deviceObject.device]}</p>` );
+                }
+            })
+        }
+
+
+    }
+
+    function renderLocation() {
+        console.log(currentMap);
+        for (const [location, devices] of Object.entries(currentMap)) {
+            if (devices.length > 0) {
+                $('#container').append(`
+                    <div id='loc${location}' class='locationPanel'>
+                        <div class='${location}Icon'></div>
+                        <div class="locationHolder">
+                            <p class='locationName'>${location}</p>
+                            <object id="yoursvg" width="24" height="24" data="static/svg/${location}.svg" type="image/svg+xml" ></object>
+                        </div>
+                    </div>
+                `);
+                devices.forEach(device => {
+                    $(`#loc${location}`).append( `<p>${device}</p>` );
+                })
+            }
+        }
+    }
+
+</script>
+
+<script>
+
+    // request.open('GET', 'http://192.168.86.131:8005/api/v1/by_location/archive', true)
+    // request.onload = function() {
+    //     window.data = JSON.parse(this.response)
+    //     renderLocation();
+    // }
+    // request.send()
+    // array.reduce((h, obj) => Object.assign(h, { [obj.key]:( h[obj.key] || [] ).concat(obj) }), {})
+
+</script>
+
+</body>
+</html>
