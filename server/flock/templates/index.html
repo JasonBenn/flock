@@ -1,0 +1,13 @@
+<h1>Flock</h1>
+{% for location, people in people_by_location.items %}
+    <div id='loc{{location}}' class='locationPanel'>
+        <div class='{{location}}Icon'></div>
+        <div class="locationHolder">
+            <p class='locationName'>{{location}}</p>
+            <object id="yoursvg" width="24" height="24" data="../assets/svg/{{location}}.svg" type="image/svg+xml" ></object>
+        </div>
+        {% for person in people %}
+            <p>{{ person }}</p>
+        {% endfor %}
+    </div>
+{% endfor %}

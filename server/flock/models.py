@@ -24,6 +24,10 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.location}"
 
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name[0]}"
+
 
 class Device(models.Model):
     mac = models.CharField(max_length=17, unique=True)  # 00:00:00:00:00:00
