@@ -55,6 +55,11 @@ p {
     font-size: 32px;
 }
 
+.workshopIcon:after {
+    content: "🗜";
+    font-size: 32px;
+}
+
 .locationName {
     font-size: 28px;
     font-weight: 800;
