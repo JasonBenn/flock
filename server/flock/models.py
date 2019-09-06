@@ -30,6 +30,7 @@ class Person(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
+    # updated_at = DateTimeField(null=True)
 
     class Meta:
         unique_together = ("first_name", "last_name")
@@ -58,3 +59,6 @@ class Position(models.Model):
 
     class Meta:
         indexes = [BrinIndex(fields=["created_at"])]
+
+    def __str__(self):
+        return f"{self.created_at}: {self.person_id}, {self.location_id}"
