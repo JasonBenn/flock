@@ -1,13 +1,19 @@
+{% load static %}
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+<title>Flock</title>
+
 <h1>Flock</h1>
-{% for location, people in people_by_location.items %}
-    <div id='loc{{location}}' class='locationPanel'>
-        <div class='{{location}}Icon'></div>
-        <div class="locationHolder">
-            <p class='locationName'>{{location}}</p>
-            <object id="yoursvg" width="24" height="24" data="../assets/svg/{{location}}.svg" type="image/svg+xml" ></object>
+<div class="container">
+    {% for location, people in people_by_location.items %}
+        <div id='loc_{{location.snake_case_name}}' class='locationPanel'>
+            <div class="locationHolder">
+                <p class='locationName'>{{location.name}}</p>
+                <div class='{{location.camel_case_name}}Icon'></div>
+            </div>
+            {% for person in people %}
+                <p>{{ person }}</p>
+            {% endfor %}
         </div>
-        {% for person in people %}
-            <p>{{ person }}</p>
-        {% endfor %}
-    </div>
-{% endfor %}
+    {% endfor %}
+</div>

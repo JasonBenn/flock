@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+html, body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: #F1EFEF;
+    width: 100vw;
+    height: 100vh;
+}
+
+p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 26px;
+    color: #051937;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.locationPanel {
+    width: 200px;
+    height: 360px;
+    padding: 32px;
+    margin: 16px;
+    background-color: #FEF9F9;
+    border-radius: 16px;
+}
+
+.commonRoomIcon:after {
+    content: '🏠';
+    font-size: 32px;
+}
+
+.studyIcon:after {
+    content: '📚';
+    font-size: 32px;
+}
+
+.jasonsRoomIcon:after {
+    content: '🌞';
+    font-size: 32px;
+}
+
+.backyardIcon:after {
+    content: "🌴";
+    font-size: 32px;
+}
+
+.locationName {
+    font-size: 28px;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: #051937;
+}
+
+.locationHolder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(5, 25, 55, .33);
+}
+
+.red {
+    color: #E21010;
+}
+
+.green {
+    color: #12C023;
+}
+
+.blue {
+    color: #2175F4;
+}
+
+.yellow {
+    color: #FFAE12;
+}
+
+.purple {
+    color: #B86AF5;
+}

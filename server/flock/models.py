@@ -1,6 +1,10 @@
+import re
+
 from django.contrib.postgres.indexes import BrinIndex
 from django.db import models
 from django.db.models import DateTimeField
+from stringcase import camelcase
+from stringcase import snakecase
 
 from .utils import now
 
@@ -11,6 +15,15 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean_name(self):
+        return snakecase(re.sub("[^\w ]+", "", self.name).lower())
+
+    def snake_case_name(self):
+        return self.clean_name()
+
+    def camel_case_name(self):
+        return camelcase(self.clean_name())
 
 
 class Person(models.Model):
