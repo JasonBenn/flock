@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 <title>Flock</title>
 
-<h1>Flock</h1>
 <div class="container">
     {% for location, people in people_by_location.items %}
         <div id='loc_{{location.snake_case_name}}' class='locationPanel'>

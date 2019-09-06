@@ -9,8 +9,6 @@ from flock.models import Person
 people_devices = {
     "Ben Mann": {"Pixel": "3C:28:6D:2C:37:9F"},
     "Zain Shah": {},
-    # "Rose Wang": {},
-    # "Jay Graber": {},
     "Jason Benn": {"Pixel": "40:4E:36:BF:9E:16", "iPad": "08:E6:89:AD:EE:43"},
     "Allie Miller": {"iPhone": "40:83:1D:E5:71:C7"},
     "Tina Kim": {},
@@ -27,6 +25,8 @@ people_devices = {
     "Arram Sabeti": {"iPhone": "94:F6:D6:6A:60:00"},
     "Austin Hou": {"Android": "94:65:2D:C6:C7:F6"},
     "Annie Brett": {"phone": "0C:CB:85:56:D2:B1"},
+    # "Rose Wang": {},
+    # "Jay Graber": {},
     # "Bill Brett": {},
     # "Danny Hernandez": {},
     # "Alex Matzner": {},
@@ -34,7 +34,6 @@ people_devices = {
     # "Diane Wu": {},
     # "Anand Sharma": {},
 }
-
 
 persons = [{"first_name": name[0], "last_name": name[1]} for name in [x.split(" ") for x in people_devices.keys()]]
 
