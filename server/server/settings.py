@@ -25,7 +25,7 @@ SECRET_KEY = "d*nm^^af$a-we$u1wg4ot244!jzkp!mx5(0g8fbd5rp17$z9!!"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "flock.archive.house"]
 
 
 # Application definition
