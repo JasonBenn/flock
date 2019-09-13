@@ -48,4 +48,4 @@ wcwidth==0.1.7
 Werkzeug==0.15.2
 ipdb==0.12.2
 requests==2.21.0
--e git+https://github.com/pybluez/pybluez.git
+-e git+https://github.com/pybluez/pybluez.git#egg=pybluez
