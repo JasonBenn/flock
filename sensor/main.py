@@ -1,4 +1,5 @@
 import asyncio
+import re
 import json
 from itertools import cycle
 
@@ -9,15 +10,24 @@ location = sys.argv[1]
 assert location
 
 BASE_URL = "http://flock.archive.house"
+RSSI_REGEX = re.compile("RSSI return value: (-?\d+)")
 
 
 async def ping_mac(mac):
     print(f"  {mac} ping...")
+    # IF Can't create connection
+    # sudo hcitool cmd 0x08 0x000E
     proc = await asyncio.create_subprocess_shell(
-        f"hcitool name {mac}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        f"sudo hcitool cc {mac} && hcitool rssi {mac}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
     stdout, stderr = await proc.communicate()
-    print(f"  {mac} result: {stdout.strip()} {stderr}...")
+    print(stdout)
+    match = RSSI_REGEX.match(str(stdout))
+    if match:
+        rssi = match.group(0)
+        print(f"  {mac} result: {rssi} ({stderr})")
+    else:
+        print(f"  {stdout} ({stderr})")
     return stdout.strip(), stderr
 
 
@@ -30,7 +40,8 @@ async def post_scans(macs):
 async def ping_macs(macs):
     ping_outputs = await asyncio.gather(*[ping_mac(x) for x in macs])
     found_macs = [mac for mac, (stdout, stderr) in zip(macs, ping_outputs) if len(stdout)]
-    response_code = await post_scans(found_macs)
+    # response_code = await post_scans(found_macs)
+    response_code = 0
     print(f"Sent {len(found_macs)} macs, response code {response_code}")
 
 
@@ -42,7 +53,9 @@ def load_macs():
 
 
 async def main():
-    macs = load_macs()
+    # macs = load_macs()
+    macs = ["2C:FD:AB:0F:D3:4C", "40:4E:36:BF:9E:16"]
+
     # Endless windows of 4 macs
     # Pinging than 4 concurrently never found results ¯\_(ツ)_/¯
     slices = []
