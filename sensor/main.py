@@ -15,10 +15,8 @@ RSSI_REGEX = re.compile("RSSI return value: (-?\d+)")
 
 async def ping_mac(mac):
     print(f"  {mac} ping...")
-    # IF Can't create connection
-    # sudo hcitool cmd 0x08 0x000E
     proc = await asyncio.create_subprocess_shell(
-        f"sudo hcitool cc {mac} && hcitool rssi {mac}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
     stdout, stderr = await proc.communicate()
     print(stdout)
@@ -54,7 +52,7 @@ def load_macs():
 
 async def main():
     # macs = load_macs()
-    macs = ["2C:FD:AB:0F:D3:4C", "40:4E:36:BF:9E:16"]
+    macs = ["34:42:62:70:4B:0A"]
 
     # Endless windows of 4 macs
     # Pinging than 4 concurrently never found results ¯\_(ツ)_/¯
