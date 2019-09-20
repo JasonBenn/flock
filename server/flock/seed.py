@@ -7,7 +7,7 @@ from flock.models import Person
 
 
 people_devices = {
-    "Ben Mann": {"Pixel": "3C:28:6D:2C:37:9F"},
+    "Ben Mann": {"Pixel": "3C:28:6D:2C:37:9F", "iPad": "34:42:62:70:4B:0A"},
     "Zain Shah": {},
     "Jason Benn": {"Pixel": "40:4E:36:BF:9E:16", "iPad": "08:E6:89:AD:EE:43"},
     "Allie Miller": {"iPhone": "40:83:1D:E5:71:C7"},
@@ -23,7 +23,7 @@ people_devices = {
     "Laura D'Asaro": {},
     "Tommy Collison": {},
     "Arram Sabeti": {"iPhone": "94:F6:D6:6A:60:00"},
-    "Austin Hou": {"Android": "94:65:2D:C6:C7:F6"},
+    "Austin Hou": {"Android": "94:65:2D:C6:C7:F6", "laptop": "8C:85:90:3C:FB:73"},
     "Annie Brett": {"phone": "0C:CB:85:56:D2:B1"},
     # "Rose Wang": {},
     # "Jay Graber": {},
