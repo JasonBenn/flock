@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-rsync -r ~/code/flock/ ml-box:/home/jason/code/flock
+rsync -r ~/code/flock/ flock:/home/jason/code/flock
