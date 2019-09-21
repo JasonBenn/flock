@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-rsync -r ~/code/flock/ flock:/home/jason/code/flock
+rsync -avhr . flock:/root/code/flock
