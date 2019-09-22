@@ -2,7 +2,7 @@ from django.db import transaction
 from psqlextra.query import ConflictAction
 from psqlextra.util import postgres_manager
 
-from flock.models import Device
+from flock.models import Device, Location
 from flock.models import Person
 
 
@@ -52,6 +52,19 @@ for person_name, devices_map in people_devices.items():
 
 with postgres_manager(Device) as manager:
     manager.on_conflict(["mac"], ConflictAction.UPDATE).bulk_insert(devices)
+
+
+# with postgres_manager(Location) as manager:
+#     manager.on_conflict(["id"], ConflictAction.UPDATE).bulk_insert([
+#         {"name": "Common room", "description": "Right upper corner of mantle"},
+#         {"name": "Jason's room", "description": ""},
+#         {"name": "Middle Kingdom kitchen", "description": ""},
+#         {"name": "Study", "description": ""},
+#         {"name": "Workshop/Arram's room", "description": ""},
+#         {"name": "Backyard", "description": ""},
+#         {"name": "Roof", "description": ""},
+#     ])
+# print(Location.objects.all())
 
 print(Person.objects.all())
 print(Device.objects.all())
