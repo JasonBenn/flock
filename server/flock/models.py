@@ -17,7 +17,7 @@ class Location(models.Model):
         return self.name
 
     def clean_name(self):
-        return snakecase(re.sub("[^\w ]+", "", self.name).lower())
+        return snakecase( re.sub("[^\w ]+", "", self.name.replace("/", " ")).lower())
 
     def snake_case_name(self):
         return self.clean_name()

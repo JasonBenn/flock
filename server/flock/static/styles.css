@@ -15,7 +15,6 @@ p {
 }
 
 .container {
-    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -60,8 +59,22 @@ p {
     font-size: 32px;
 }
 
+.workshopArramsRoomIcon:after {
+    content: "🗜";
+    font-size: 32px;
+}
+
+.roofIcon:after {
+    content: "🌇";
+    font-size: 32px;
+}
+
+.middleKingdomKitchenIcon:after {
+    content: "🥘";
+    font-size: 32px;
+}
+
 .locationName {
-    font-size: 28px;
     font-weight: 800;
     font-size: 18px;
     line-height: 26px;

@@ -9,7 +9,7 @@ from flock.models import Person
 people_devices = {
     "Ben Mann": {"Pixel": "3C:28:6D:2C:37:9F", "iPad": "34:42:62:70:4B:0A"},
     "Zain Shah": {},
-    "Jason Benn": {"Pixel": "40:4E:36:BF:9E:16", "iPad": "08:E6:89:AD:EE:43"},
+    "Jason Benn": {"Pixel": "40:4E:36:BF:9E:16", "iPad": "08:E6:89:AD:EE:43", "MBP": "20:C9:D0:48:F6:AA"},
     "Allie Miller": {"iPhone": "40:83:1D:E5:71:C7"},
     "Tina Kim": {},
     "Taylor Rogalski": {"phone": "E0:33:8E:5F:7C:04"},

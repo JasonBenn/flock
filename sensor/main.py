@@ -1,46 +1,49 @@
+import os
 import asyncio
 import re
 import json
 from itertools import cycle
+from typing import Optional
 
 import requests
-import sys
 
-location = sys.argv[1]
-assert location
+RASPBERRY_PI_LOCATION_DIRPATH = "/home/pi/.config/flock"
+location = os.listdir(RASPBERRY_PI_LOCATION_DIRPATH)[0]
 
 BASE_URL = "https://flock.archive.house"
-RSSI_REGEX = re.compile("RSSI return value: (-?\d+)")
+RSSI_REGEX = re.compile("RSSI return value: (-?\d+)\n")
 
+stdout = b'RSSI return value: -1\n'
 
-async def ping_mac(mac):
+async def ping_mac(mac: str) -> Optional[int]:
     print(f"  {mac} ping...")
     proc = await asyncio.create_subprocess_shell(
         f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
     stdout, stderr = await proc.communicate()
-    print(stdout)
-    match = RSSI_REGEX.match(str(stdout))
+    match = RSSI_REGEX.match(stdout.decode('utf-8'))
+    rssi = None
     if match:
-        rssi = match.group(0)
-        print(f"  found! {mac} result: {rssi}")
+        rssi = int(match.group(1))
+        print(f"    ✅ {mac}: {rssi}")
     else:
-        print(f"  no signal: {stdout} ({stderr})")
-    return stdout.strip(), stderr
+        print(f"    ❌ {mac}: {stdout} ({stderr})")
+    return rssi
 
 
 async def post_scans(macs):
     data = {"location": location, "macs": macs}
+    print(json.dumps(data))
+
     post_request = requests.post(f"{BASE_URL}/scans", data=json.dumps(data))
     return post_request.status_code
 
 
 async def ping_macs(macs):
     ping_outputs = await asyncio.gather(*[ping_mac(x) for x in macs])
-    found_macs = [mac for mac, (stdout, stderr) in zip(macs, ping_outputs) if len(stdout)]
-    # response_code = await post_scans(found_macs)
-    response_code = 0
-    print(f"Sent {len(found_macs)} macs, response code {response_code}")
+    found_macs = {mac: rssi for mac, rssi in zip(macs, ping_outputs) if rssi}
+    response_code = await post_scans(found_macs)
+    print(f"Sent {found_macs}, response code {response_code}")
 
 
 def load_macs():
