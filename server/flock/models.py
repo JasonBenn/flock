@@ -29,8 +29,6 @@ class Location(models.Model):
 class Person(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
-    location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
-    # updated_at = DateTimeField(null=True)
 
     class Meta:
         unique_together = ("first_name", "last_name")

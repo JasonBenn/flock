@@ -4,21 +4,21 @@
 <title>Flock</title>
 
 <div class="container">
-    {% for location, people in people_by_location.items %}
+    {% for location, location_data in people_by_location.items %}
         <div id='loc_{{location.snake_case_name}}' class='locationPanel'>
             <div class="locationHolder">
                 <p class='locationName'>{{location.name}}</p>
                 <div class='{{location.camel_case_name}}Icon'></div>
             </div>
-            {% for person in people %}
-                <p>{{ person }}</p>
+            {% for person, shade in location_data.items %}
+                <p style="color: {{ shade }}">{{ person }}</p>
             {% endfor %}
         </div>
     {% endfor %}
 </div>
 
 <script>
-    setTimeout(function() {
+    var timeout = setTimeout(function() {
         location.reload()
     }, 10000);
 </script>

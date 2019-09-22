@@ -11,15 +11,27 @@ from django.views.decorators.csrf import csrf_exempt
 
 from flock.models import Device
 from flock.models import Location
-from flock.models import Person
 from flock.models import Position
 from flock.utils import now
 
 
+def get_current_positions():
+    return Position.objects.filter(created_at__gt=now() - timedelta(minutes=10)).values("person__first_name", "person__last_name", "location_id").annotate(updated_at=Max("created_at"))
+
+
 def index(request):
-    people_by_location = defaultdict(list)
-    for person in Person.objects.filter(location__isnull=False):
-        people_by_location[person.location].append(person.name)
+    people_by_location = defaultdict(dict)
+    for position in get_current_positions():
+        time = now()
+        if position["updated_at"] > (time - timedelta(minutes=3)):
+            color = "black"
+        elif position["updated_at"] > (time - timedelta(minutes=6)):
+            color = "darkgray"
+        else:
+            color = "lightgray"
+        person_name = position["person__first_name"] + " " + position["person__last_name"][0]
+        location = Location.objects.get(id=position["location_id"])
+        people_by_location[location][person_name] = color
 
     return render(request, "index.html", {"people_by_location": dict(people_by_location)})
 
@@ -40,26 +52,5 @@ def scans(request):
 
     positions = [Position(person=people_by_mac[mac], location=locations_by_id[location]) for mac in data["macs"]]
     Position.objects.bulk_create(positions)
-
-    # Update Person table with current positions
-    people = list(Person.objects.all())
-    existing_location_by_person_id = {x.id: x.location_id for x in people}
-
-    current_positions = (
-        Position.objects.filter(created_at__gt=now() - timedelta(minutes=60))
-        .order_by("created_at")
-        .values("person_id", "location_id")
-        .annotate(Max("created_at"))
-    )
-
-    new_location_by_person_id = {x.id: None for x in people}
-    for x in current_positions:
-        new_location_by_person_id[x["person_id"]] = x["location_id"]
-
-    for person_id, existing_location_id in existing_location_by_person_id.items():
-        new_location_id = new_location_by_person_id[person_id]
-        if new_location_id != existing_location_id:
-            Person.objects.filter(id=person_id).update(location_id=new_location_id)
-            print(f"changed: {existing_location_id} -> {new_location_id}")
 
     return HttpResponse(status=204)
