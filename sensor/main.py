@@ -9,7 +9,7 @@ import sys
 location = sys.argv[1]
 assert location
 
-BASE_URL = "http://flock.archive.house"
+BASE_URL = "https://flock.archive.house"
 RSSI_REGEX = re.compile("RSSI return value: (-?\d+)")
 
 
@@ -23,9 +23,9 @@ async def ping_mac(mac):
     match = RSSI_REGEX.match(str(stdout))
     if match:
         rssi = match.group(0)
-        print(f"  {mac} result: {rssi} ({stderr})")
+        print(f"  found! {mac} result: {rssi}")
     else:
-        print(f"  {stdout} ({stderr})")
+        print(f"  no signal: {stdout} ({stderr})")
     return stdout.strip(), stderr
 
 
@@ -51,8 +51,7 @@ def load_macs():
 
 
 async def main():
-    # macs = load_macs()
-    macs = ["34:42:62:70:4B:0A"]
+    macs = load_macs()
 
     # Endless windows of 4 macs
     # Pinging than 4 concurrently never found results ¯\_(ツ)_/¯

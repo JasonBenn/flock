@@ -35,7 +35,7 @@ pyparsing==2.4.0
 python-dateutil==2.8.0
 pytz==2019.2
 PyX==0.14.1
-scapy==2.4.2
+scapy==2.4.3
 setproctitle==1.1.10
 six==1.12.0
 sqlparse==0.3.0
