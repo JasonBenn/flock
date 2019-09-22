@@ -54,19 +54,18 @@ def load_macs():
 
 
 async def main():
-    macs = load_macs()
+    while True:
+        macs = load_macs()
+        # Pinging than 4 concurrently never found results ¯\_(ツ)_/¯
+        slices = []
+        for x in range(len(macs) // 4 + 1):
+            lower = x * 4
+            upper = min(x * 4 + 4, len(macs))
+            slices.append(slice(lower, upper))
 
-    # Endless windows of 4 macs
-    # Pinging than 4 concurrently never found results ¯\_(ツ)_/¯
-    slices = []
-    for x in range(len(macs) // 4 + 1):
-        lower = x * 4
-        upper = min(x * 4 + 4, len(macs))
-        slices.append(slice(lower, upper))
-
-    for x in cycle(slices):
-        await ping_macs(macs[x])
-        await asyncio.sleep(20)
+        for x in slices:
+            await ping_macs(macs[x])
+            await asyncio.sleep(20)
 
 
 asyncio.run(main())
