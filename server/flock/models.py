@@ -43,7 +43,8 @@ class Person(models.Model):
 
 class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, help_text="<p>Short description of this device (e.g. laptop, phone)</p>")
+    name = models.CharField(max_length=200, help_text="<p>Short description of this device (e.g. laptop, phone)</p>"
+                                                      "<p>Add each device that you might carry with you!</p>")
     mac = models.CharField(max_length=17, unique=True, help_text="<p>Format: <code>AA:BB:CC:DD:00:11</code></p>"
                                                                  "<p>How to find your Bluetooth mac address on various devices:</p>"
                                                                  "<p><strong>iPhone</strong>: Settings -> General -> About -> Bluetooth</p>"
