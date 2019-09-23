@@ -1,4 +1,6 @@
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -130,3 +132,10 @@ LOGIN_URL = '/login/auth0'
 LOGIN_REDIRECT_URL = '/'
 
 
+# Sentry
+
+sentry_sdk.init(
+    dsn="https://c3f1f286f7964d6b8761fee94f1fc73d@sentry.io/1758125",
+    integrations=[DjangoIntegration()],
+    environment=f"server"
+)
