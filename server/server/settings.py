@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,13 +34,15 @@ ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "flock.archive.house"]
 # Application definition
 
 INSTALLED_APPS = [
-    "flock.apps.FlockConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sessions",
     "django.contrib.staticfiles",
+    #"flock.apps.FlockConfig",
+    "flock",
+    "social_django",
 ]
 
 MIDDLEWARE = [
@@ -45,8 +50,8 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    # "django.contrib.auth.middleware.AuthenticationMiddleware",
-    'server.auto_auth.Middleware',
+     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    # 'server.auto_auth.Middleware',
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -119,3 +124,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
+
+# Auth0 stuff
+
+SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
+SOCIAL_AUTH_AUTH0_DOMAIN = 'archive-flock.auth0.com'
+SOCIAL_AUTH_AUTH0_KEY = 'UGu6gdsS56FqhYvAaNdeYgjbe7n9IqNL'
+SOCIAL_AUTH_AUTH0_SECRET = os.getenv("SOCIAL_AUTH_AUTH0_SECRET")
+
+SOCIAL_AUTH_AUTH0_SCOPE = [
+    'openid',
+    'profile',
+    'email'
+]
+
+# webappexample\settings.py
+
+AUTHENTICATION_BACKENDS = {
+    'flock.auth0backend.Auth0',
+    'django.contrib.auth.backends.ModelBackend'
+}
+
+LOGIN_URL = '/login/auth0'
+LOGIN_REDIRECT_URL = '/'

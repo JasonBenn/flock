@@ -1,3 +1,4 @@
+-e git+https://github.com/pybluez/pybluez.git#egg=pybluez
 appdirs==1.4.3
 appnope==0.1.0
 attrs==19.1.0
@@ -8,13 +9,14 @@ Click==7.0
 configobj==5.0.6
 cycler==0.10.0
 decorator==4.4.0
-Django==2.2.5
 django-postgres-extra==1.22
+Django==2.2.5
 Flask==1.0.2
 honcho==1.0.1
 humanize==0.5.1
-ipython==7.4.0
+ipdb==0.12.2
 ipython-genutils==0.2.0
+ipython==7.4.0
 itsdangerous==1.1.0
 jedi==0.13.3
 Jinja2==2.10.1
@@ -33,11 +35,15 @@ ptyprocess==0.6.0
 Pygments==2.3.1
 pyparsing==2.4.0
 python-dateutil==2.8.0
+python-dotenv~=0.9
+python-jose~=3.0
 pytz==2019.2
 PyX==0.14.1
+requests==2.21.0
 scapy==2.4.3
 setproctitle==1.1.10
 six==1.12.0
+social-auth-app-django~=3.1
 sqlparse==0.3.0
 stringcase==1.2.0
 tabulate==0.8.3
@@ -46,6 +52,3 @@ toml==0.10.0
 traitlets==4.3.2
 wcwidth==0.1.7
 Werkzeug==0.15.2
-ipdb==0.12.2
-requests==2.21.0
--e git+https://github.com/pybluez/pybluez.git#egg=pybluez
