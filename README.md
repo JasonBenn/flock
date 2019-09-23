@@ -6,7 +6,9 @@ To run the server:
 `cd ~/flock/server && ./manage.py runserver`
 
 To run a sensor:
-`cd ~/code/flock && python3 main.py`
+Manually: `cd ~/code/flock && python3 main.py >> /var/log/flock.log  #run`
+With systemd: `sudo systemctl start flock.service`
+Systemctl logs (not very useful atm): `sudo journalctl -u flock.service -f`
 
 To use Django admin:
 1. https://flock.archive.house/admin
