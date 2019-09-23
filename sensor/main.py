@@ -2,7 +2,6 @@ import os
 import asyncio
 import re
 import json
-from itertools import cycle
 from typing import Optional
 
 import requests
@@ -33,10 +32,28 @@ async def ping_mac(mac: str) -> Optional[int]:
 
 async def post_scans(macs):
     data = {"location": location, "macs": macs}
-    print(json.dumps(data))
-
-    post_request = requests.post(f"{BASE_URL}/scans", data=json.dumps(data))
-    return post_request.status_code
+    response_code = None
+    try:
+        post_request = requests.post(f"{BASE_URL}/scans", data=json.dumps(data))
+        response_code = post_request.status_code
+    except requests.exceptions.ConnectionError:
+        print("Fail 1...")
+        try:
+            post_request = requests.post(f"{BASE_URL}/scans", data=json.dumps(data))
+            response_code = post_request.status_code
+        except requests.exceptions.ConnectionError:
+            print("Fail 2...")
+            try:
+                post_request = requests.post(f"{BASE_URL}/scans", data=json.dumps(data))
+                response_code = post_request.status_code
+            except requests.exceptions.ConnectionError:
+                print("Fail 3...")
+                try:
+                    post_request = requests.post(f"{BASE_URL}/scans", data=json.dumps(data))
+                    response_code = post_request.status_code
+                except requests.exceptions.ConnectionError:
+                    print("🙄 Giving up!")
+    return response_code
 
 
 async def ping_macs(macs):
