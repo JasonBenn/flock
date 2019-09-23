@@ -63,7 +63,7 @@ def login(request):
 
 
 def macs(request):
-    return JsonResponse({"macs": [x.mac for x in Device.objects.all()]})
+    return JsonResponse({x['mac']: x['person__first_name'] + ' ' + x['person__last_name'][0] for x in Device.objects.values('mac', 'person__first_name', 'person__last_name')})
 
 
 @csrf_exempt

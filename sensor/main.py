@@ -2,7 +2,7 @@ import asyncio
 import re
 import json
 import os
-from typing import Optional
+from typing import Optional, Tuple
 
 import requests
 import sentry_sdk
@@ -17,7 +17,12 @@ RSSI_REGEX = re.compile("RSSI return value: (-?\d+)\n")
 stdout = b'RSSI return value: -1\n'
 
 
-async def ping_mac(mac: str) -> Optional[int]:
+MacAddress = str
+PersonName = str
+
+
+async def ping_mac(mac_tup: Tuple[MacAddress, PersonName]) -> Optional[int]:
+    mac, name = mac_tup
     print(f"  {mac} ping...")
     proc = await asyncio.create_subprocess_shell(
         f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -27,9 +32,9 @@ async def ping_mac(mac: str) -> Optional[int]:
     rssi = None
     if match:
         rssi = int(match.group(1))
-        print(f"    ✅ {mac}: {rssi}")
+        print(f"    ✅ {mac} ({name}): {rssi}")
     else:
-        print(f"    ❌ {mac}: {stdout} ({stderr})")
+        print(f"    ❌ {mac} ({name}): {stdout} ({stderr})")
     return rssi
 
 
@@ -59,7 +64,8 @@ async def post_scans(macs):
     return response_code
 
 
-async def ping_macs(macs):
+async def ping_macs(mac_tups):
+    macs = [x[0] for x in mac_tups]
     ping_outputs = await asyncio.gather(*[ping_mac(x) for x in macs])
     found_macs = {mac: rssi for mac, rssi in zip(macs, ping_outputs) if rssi}
     response_code = await post_scans(found_macs)
@@ -68,7 +74,7 @@ async def ping_macs(macs):
 
 def load_macs():
     mac_request = requests.get(f"{BASE_URL}/macs")
-    macs = json.loads(mac_request.text)["macs"]
+    macs = json.loads(mac_request.text)
     print(f"GET {len(macs)} macs total")
     return macs
 
@@ -84,7 +90,7 @@ async def main():
             slices.append(slice(lower, upper))
 
         for x in slices:
-            await ping_macs(macs[x])
+            await ping_macs(list(macs.items())[x])
             await asyncio.sleep(20)
 
 
