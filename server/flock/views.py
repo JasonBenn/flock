@@ -1,6 +1,7 @@
 import json
 from collections import defaultdict
 from datetime import timedelta
+from typing import List
 
 from django.db import transaction
 from django.db.models import Max
@@ -9,23 +10,30 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from flock.models import Device
+from flock.models import Device, Person
 from flock.models import Location
 from flock.models import Position
 from flock.utils import now
 
 
 def get_current_positions():
-    return Position.objects.filter(created_at__gt=now() - timedelta(minutes=10)).values("person__first_name", "person__last_name", "location_id").annotate(updated_at=Max("created_at"))
+    return Position.objects.filter(created_at__gt=now() - timedelta(minutes=15)).values("person__first_name", "person__last_name", "location_id").annotate(updated_at=Max("created_at"))
+
+
+def never_detected() -> str:
+    detected = set(Position.objects.values_list('person_id', flat=True).distinct())
+    people = set(Person.objects.values_list('id', flat=True).distinct())
+    never_detected = people - detected
+    return ', '.join(sorted([x.name for x in Person.objects.filter(id__in=never_detected)]))
 
 
 def index(request):
     people_by_location = defaultdict(dict)
     for position in get_current_positions():
         time = now()
-        if position["updated_at"] > (time - timedelta(minutes=3)):
+        if position["updated_at"] > (time - timedelta(minutes=9)):
             color = "black"
-        elif position["updated_at"] > (time - timedelta(minutes=6)):
+        elif position["updated_at"] > (time - timedelta(minutes=12)):
             color = "darkgray"
         else:
             color = "lightgray"
@@ -33,7 +41,7 @@ def index(request):
         location = Location.objects.get(id=position["location_id"])
         people_by_location[location][person_name] = color
 
-    return render(request, "index.html", {"people_by_location": dict(people_by_location)})
+    return render(request, "index.html", {"people_by_location": dict(people_by_location), "never_detected": never_detected()})
 
 
 def macs(request):
