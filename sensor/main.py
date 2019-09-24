@@ -65,8 +65,8 @@ async def post_scans(macs):
 
 
 async def ping_macs(mac_tups):
+    ping_outputs = await asyncio.gather(*[ping_mac(x) for x in macs_tups])
     macs = [x[0] for x in mac_tups]
-    ping_outputs = await asyncio.gather(*[ping_mac(x) for x in macs])
     found_macs = {mac: rssi for mac, rssi in zip(macs, ping_outputs) if rssi}
     response_code = await post_scans(found_macs)
     print(f"Sent {found_macs}, response code {response_code}")
