@@ -1,4 +1,6 @@
 from urllib import request
+
+from django.conf import settings
 from jose import jwt
 from social_core.backends.oauth import BaseOAuth2
 
@@ -32,13 +34,14 @@ class Auth0(BaseOAuth2):
             id_token, jwks.read(), algorithms=["RS256"], audience=audience, issuer=issuer
         )
 
+        whitelisted = payload["email"] in settings.EMAIL_WHITELIST
+
         return {
             "username": payload["nickname"],
             "first_name": payload["name"],
             "picture": payload["picture"],
             "user_id": payload["sub"],
             "email": payload["email"],
-            "is_staff": True,
-            "is_superuser": True,
+            "is_staff": whitelisted,
+            "is_superuser": whitelisted,
         }
-

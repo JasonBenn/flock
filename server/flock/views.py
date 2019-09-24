@@ -36,7 +36,7 @@ def never_detected() -> str:
 @login_required
 def index(request):
     user = request.user
-    if user.username == "flock" or not user.is_authenticated:
+    if not user.is_authenticated or not user.is_staff:
         return redirect(login)
     people_by_location = defaultdict(dict)
     for position in get_current_positions():
