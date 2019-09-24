@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-scp ops/flock-nginx.conf flock:/etc/nginx/sites-enabled/flock.conf
-ssh flock "nginx -s reload"
+scp ops/flock-nginx.conf root@flock:/etc/nginx/sites-enabled/flock.conf
+ssh root@flock "nginx -s reload"
