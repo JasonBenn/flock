@@ -1,7 +1,7 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 
-# Register your models here.
-from flock.models import Location, Person, Device, Position
+from flock.models import Device, Location, Person, Position
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -24,3 +24,5 @@ class DeviceAdmin(admin.ModelAdmin):
 
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(Position)
+
+admin.site.unregister(Group)

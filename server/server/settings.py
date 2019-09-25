@@ -14,7 +14,7 @@ SECRET_KEY = "d*nm^^af$a-we$u1wg4ot244!jzkp!mx5(0g8fbd5rp17$z9!!"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "flock.archive.house", "village.archive.house", "157.245.238.241"]
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "flock.archive.house", "157.245.238.241", "archive-flock.auth0.com", "village.archive.house"]
 
 
 # Application definition
