@@ -5,15 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('flock', '0002_auto_20190905_0247'),
-    ]
+    dependencies = [("flock", "0002_auto_20190905_0247")]
 
     operations = [
         migrations.AddField(
-            model_name='device',
-            name='name',
+            model_name="device",
+            name="name",
             field=models.CharField(default=None, max_length=200, unique=True),
             preserve_default=False,
-        ),
+        )
     ]

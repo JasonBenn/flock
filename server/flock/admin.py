@@ -5,21 +5,21 @@ from flock.models import Device, Location, Person, Position
 
 
 class LocationAdmin(admin.ModelAdmin):
-    ordering = ('name',)
+    ordering = ("name",)
 
 
 admin.site.register(Location, LocationAdmin)
 
 
 class PersonAdmin(admin.ModelAdmin):
-    ordering = ('first_name',)
+    ordering = ("first_name",)
 
 
 admin.site.register(Person, PersonAdmin)
 
 
 class DeviceAdmin(admin.ModelAdmin):
-    ordering = ('person__first_name',)
+    ordering = ("person__first_name",)
 
 
 admin.site.register(Device, DeviceAdmin)

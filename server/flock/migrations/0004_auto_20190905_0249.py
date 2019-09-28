@@ -5,14 +5,6 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('flock', '0003_device_name'),
-    ]
+    dependencies = [("flock", "0003_device_name")]
 
-    operations = [
-        migrations.AlterField(
-            model_name='device',
-            name='name',
-            field=models.CharField(max_length=200),
-        ),
-    ]
+    operations = [migrations.AlterField(model_name="device", name="name", field=models.CharField(max_length=200))]

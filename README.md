@@ -18,5 +18,14 @@ To use Django shell:
 `cd ~/flock/server && ./manage.py shell`
 
 Deploying:
-* Server: bash ops/sync_server.sh
-* Sensors: bash ops/sync_sensors.sh
+* Server: `bash ops/sync_server.sh`
+* Sensors: `bash ops/sync_sensors.sh`
+
+Tests:
+`./manage.py test --debug-sql`
+
+.env:
+Create a `.env` file at the root of this directory, put env variables in it (see `settings.py`)
+
+Formatting:
+`black --line-length 119 --target-version py36 .  #black`

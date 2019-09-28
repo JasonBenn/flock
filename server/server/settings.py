@@ -1,4 +1,5 @@
 import os
+
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from dotenv import load_dotenv
@@ -14,7 +15,15 @@ SECRET_KEY = "d*nm^^af$a-we$u1wg4ot244!jzkp!mx5(0g8fbd5rp17$z9!!"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "flock.archive.house", "157.245.238.241", "archive-flock.auth0.com", "village.archive.house"]
+ALLOWED_HOSTS = [
+    "0.0.0.0",
+    "127.0.0.1",
+    "localhost",
+    "flock.archive.house",
+    "157.245.238.241",
+    "archive-flock.auth0.com",
+    "village.archive.house",
+]
 
 
 # Application definition
@@ -40,9 +49,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-SILENCED_SYSTEM_CHECKS = [
-    'admin.E408',
-]
+SILENCED_SYSTEM_CHECKS = ["admin.E408"]
 
 ROOT_URLCONF = "server.urls"
 
@@ -113,25 +120,18 @@ STATIC_URL = "/static/"
 # Auth0 stuff
 
 SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
-SOCIAL_AUTH_AUTH0_DOMAIN = 'archive-flock.auth0.com'
-SOCIAL_AUTH_AUTH0_KEY = 'UGu6gdsS56FqhYvAaNdeYgjbe7n9IqNL'
+SOCIAL_AUTH_AUTH0_DOMAIN = "archive-flock.auth0.com"
+SOCIAL_AUTH_AUTH0_KEY = "UGu6gdsS56FqhYvAaNdeYgjbe7n9IqNL"
 SOCIAL_AUTH_AUTH0_SECRET = os.getenv("SOCIAL_AUTH_AUTH0_SECRET")
 
 EMAIL_WHITELIST = set(os.getenv("EMAIL_WHITELIST").split(","))
 
-SOCIAL_AUTH_AUTH0_SCOPE = [
-    'openid',
-    'profile',
-    'email'
-]
+SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
 
-AUTHENTICATION_BACKENDS = {
-    'flock.auth0backend.Auth0',
-    'django.contrib.auth.backends.ModelBackend'
-}
+AUTHENTICATION_BACKENDS = {"flock.auth0backend.Auth0", "django.contrib.auth.backends.ModelBackend"}
 
-LOGIN_URL = '/login/auth0'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = "/login/auth0"
+LOGIN_REDIRECT_URL = "/"
 
 
 # Sentry

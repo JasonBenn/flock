@@ -10,46 +10,50 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Location',
+            name="Location",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('description', models.CharField(max_length=200)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("name", models.CharField(max_length=200)),
+                ("description", models.CharField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='Person',
+            name="Person",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=200)),
-                ('last_name', models.CharField(max_length=200)),
-                ('location', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='flock.Location')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("first_name", models.CharField(max_length=200)),
+                ("last_name", models.CharField(max_length=200)),
+                (
+                    "location",
+                    models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to="flock.Location"),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Position',
+            name="Position",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(default=flock.utils.now)),
-                ('location', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='flock.Location')),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='flock.Person')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("created_at", models.DateTimeField(default=flock.utils.now)),
+                ("location", models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to="flock.Location")),
+                ("person", models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to="flock.Person")),
             ],
         ),
         migrations.CreateModel(
-            name='Device',
+            name="Device",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mac', models.CharField(max_length=17)),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='flock.Person')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("mac", models.CharField(max_length=17)),
+                ("person", models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="flock.Person")),
             ],
         ),
         migrations.AddIndex(
-            model_name='position',
-            index=django.contrib.postgres.indexes.BrinIndex(fields=['created_at'], name='flock_posit_created_4d3d5d_brin'),
+            model_name="position",
+            index=django.contrib.postgres.indexes.BrinIndex(
+                fields=["created_at"], name="flock_posit_created_4d3d5d_brin"
+            ),
         ),
     ]

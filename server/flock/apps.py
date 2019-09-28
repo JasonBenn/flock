@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class FlockConfig(AppConfig):
-    name = 'flock'
+    name = "flock"

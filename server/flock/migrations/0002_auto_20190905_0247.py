@@ -5,18 +5,9 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('flock', '0001_initial'),
-    ]
+    dependencies = [("flock", "0001_initial")]
 
     operations = [
-        migrations.AlterField(
-            model_name='device',
-            name='mac',
-            field=models.CharField(max_length=17, unique=True),
-        ),
-        migrations.AlterUniqueTogether(
-            name='person',
-            unique_together={('first_name', 'last_name')},
-        ),
+        migrations.AlterField(model_name="device", name="mac", field=models.CharField(max_length=17, unique=True)),
+        migrations.AlterUniqueTogether(name="person", unique_together={("first_name", "last_name")}),
     ]

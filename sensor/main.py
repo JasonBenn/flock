@@ -14,7 +14,7 @@ sentry_sdk.init("https://c3f1f286f7964d6b8761fee94f1fc73d@sentry.io/1758125", en
 
 BASE_URL = "https://flock.archive.house"
 RSSI_REGEX = re.compile("RSSI return value: (-?\d+)\n")
-stdout = b'RSSI return value: -1\n'
+stdout = b"RSSI return value: -1\n"
 
 session = requests.Session()
 
@@ -27,10 +27,12 @@ async def ping_mac(mac_tup: Tuple[MacAddress, PersonName]) -> Optional[int]:
     mac, name = mac_tup
     print(f"  {mac} ping...", flush=True)
     proc = await asyncio.create_subprocess_shell(
-        f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+        f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
     )
     stdout, stderr = await proc.communicate()
-    match = RSSI_REGEX.match(stdout.decode('utf-8'))
+    match = RSSI_REGEX.match(stdout.decode("utf-8"))
     rssi = None
     if match:
         rssi = int(match.group(1))
@@ -95,5 +97,6 @@ async def main():
         for x in mac_tups:
             await ping_macs([x])
             await asyncio.sleep(2)
+
 
 asyncio.run(main())
