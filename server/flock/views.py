@@ -156,7 +156,7 @@ def macs(request):
 @login_required
 def debug_person(request, person_id):
     person = Person.objects.get(id=person_id)
-    readings = SensorReading.objects.filter(device__person=person)
+    readings = SensorReading.objects.filter(device__person=person, created_at__gt=now() - timedelta(minutes=60))
     custom_thresholds = CustomThreshold.objects.filter(Q(person=person) | Q(device__person=person))
     current_readings_unhidden = get_current_readings_unhidden()
     overrides = get_matching_override_rules(current_readings_unhidden)

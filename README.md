@@ -8,7 +8,7 @@ To run the server:
 To run a sensor:
 Manually: `cd ~/code/flock && python3 main.py >> /var/log/flock.log  #run`
 With systemd: `sudo systemctl start flock.service`
-Systemctl logs (not very useful atm): `sudo journalctl -u flock.service -f`
+Systemctl logs: `sudo journalctl -u flock.service -f`
 
 To use Django admin:
 1. https://flock.archive.house/admin
@@ -38,5 +38,5 @@ Database:
 Backup: `pg_dump $DB_URL -a -t flock_* > backup.sql`
 Restore: `psql $DB_URL < backup.sql`
 
-SSH to all sensors (requires Cluster SSH or Cluster SSHX):
-`csshx pi_backyard pi_study pi_middle_kingdom_kitchen pi_common_room pi_workshop pi_roof pi_jasons_room`
+SSH to all sensors (requires Cluster SSH or [Cluster SSHX](https://github.com/brockgr/csshx/issues/94)):
+`csshX pi_backyard pi_study pi_middle_kingdom_kitchen pi_common_room pi_workshop pi_roof pi_jasons_room`
