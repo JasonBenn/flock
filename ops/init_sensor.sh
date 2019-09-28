@@ -13,8 +13,11 @@ ssh pi_$1 sudo systemctl enable flock.service
 ssh pi_$1 mkdir -p /home/pi/code/flock
 rsync -avhr ~/code/flock/sensor/* pi_$1:/home/pi/code/flock/
 ssh pi_$1 sudo apt-get install libbluetooth-dev
-ssh pi_$1 pip install -r code/flock/requirements.txt
+ssh pi_$1 pip3 install -r code/flock/requirements.txt
 
 # Install the only environment variable
 ssh pi_$1 mkdir -p /home/pi/.config/flock
 ssh pi_$1 touch /home/pi/.config/flock/$1
+
+# Misc
+sudo chown -R pi /var/log
