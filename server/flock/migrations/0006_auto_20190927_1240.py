@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
                 (
-                    "custom_threshold",
+                    "threshold",
                     models.IntegerField(
                         default=-5,
                         help_text="Enter a threshold that must be exceeded for detection. If you never want a person/location/device combination to be detected, enter 100.",
@@ -34,10 +34,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddField(
-            model_name="device",
-            name="device_type",
-            field=models.IntegerField(default=1),
-            preserve_default=False,
+            model_name="device", name="device_type", field=models.IntegerField(default=1), preserve_default=False
         ),
         migrations.AddField(model_name="location", name="threshold", field=models.IntegerField(default=-10)),
         migrations.AlterField(

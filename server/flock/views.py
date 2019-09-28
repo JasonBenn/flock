@@ -16,7 +16,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from flock.models import Device
 from flock.models import Location
-from flock.models import OverrideRule
+from flock.models import CustomThreshold
 from flock.models import Person
 from flock.models import SensorReading
 from flock.utils import now
@@ -43,7 +43,7 @@ def get_matching_override_rules(person_readings: PersonToReading) -> PersonToRea
     Given a list of PersonToReading, return a subset that maps those people to None.
     """
     locations = [reading.location for person, reading in person_readings.items() if reading]
-    override_rules = OverrideRule.objects.filter(
+    override_rules = CustomThreshold.objects.filter(
         person__in=person_readings.keys(), location__in=locations
     ).select_related("device")
 
@@ -73,8 +73,8 @@ def get_current_readings_unhidden() -> PersonToReading:
 
     people = {x.device.person for x in recent_readings}
     locations = {x.location for x in recent_readings}
-    rules = OverrideRule.objects.filter(
-        Q(Q(person__in=people) | Q(device__person__in=people)), location__in=locations, custom_threshold__isnull=False
+    rules = CustomThreshold.objects.filter(
+        Q(Q(person__in=people) | Q(device__person__in=people)), location__in=locations, threshold__isnull=False
     ).select_related("device", "location", "device__person")
     custom_device_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.device], key=lambda x: x.device)}
     custom_person_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.person], key=lambda x: x.person)}
@@ -86,8 +86,8 @@ def get_current_readings_unhidden() -> PersonToReading:
             reading.device, []
         )
         for rule in override_rules:
-            if rule.location == reading.location and rule.custom_threshold >= reading.rssi:
-                threshold = rule.custom_threshold
+            if rule.location == reading.location and rule.threshold >= reading.rssi:
+                threshold = rule.threshold
 
         if reading.rssi >= threshold:
             over_threshold_readings.add(reading)

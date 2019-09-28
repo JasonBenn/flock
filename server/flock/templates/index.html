@@ -19,9 +19,10 @@
     {% endfor %}
 
     <div class="bottom">
+        <p><a class="gray" target="blank" href="/admin/flock/device/">Add your device</a> and make sure its Bluetooth is on.</p>
+        <p>Optionally, set a <a class="gray" target="blank" href="/admin/flock/customthreshold/">custom threshold</a> or hide a device or person from a location.</p>
         {% if never_detected %}
-                <p>Make sure you've <a class="gray" target="blank" href="https://flock.archive.house/admin/flock/device/">added your device</a> and that your Bluetooth is on.</p>
-                <p>lookin at you 👀 {{ never_detected }}</p>
+                <p>lookin at you 👀 {{ never_detected }} (never detected)</p>
         {% endif %}
     </div>
 

@@ -7,16 +7,12 @@ import flock.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('flock', '0007_auto_20190928_0953'),
-    ]
+    dependencies = [("flock", "0007_auto_20190928_0953")]
 
     operations = [
         migrations.AlterField(
-            model_name='device',
-            name='device_type',
+            model_name="device",
+            name="device_type",
             field=django_enumfield.db.fields.EnumField(default=1, enum=flock.models.DeviceType),
-        ),
+        )
     ]
-
-

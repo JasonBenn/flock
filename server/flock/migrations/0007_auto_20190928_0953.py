@@ -5,14 +5,17 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('flock', '0006_auto_20190927_1240'),
-    ]
+    dependencies = [("flock", "0006_auto_20190927_1240")]
 
     operations = [
         migrations.AlterField(
-            model_name='device',
-            name='name',
-            field=models.CharField(blank=True, help_text='<p>Short description of this device (e.g. laptop, phone)</p><p>Add each device that you might carry with you!</p>', max_length=200, null=True),
-        ),
+            model_name="device",
+            name="name",
+            field=models.CharField(
+                blank=True,
+                help_text="<p>Short description of this device (e.g. laptop, phone)</p><p>Add each device that you might carry with you!</p>",
+                max_length=200,
+                null=True,
+            ),
+        )
     ]

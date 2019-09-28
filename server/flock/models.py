@@ -4,6 +4,7 @@ from django.contrib.postgres.indexes import BrinIndex
 from django.db import models
 from django.db.models import DateTimeField
 from django.db.models import ForeignKey
+from django.db.models import TextField
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
 
@@ -77,24 +78,39 @@ class SensorReading(models.Model):
         return f"{self.rssi}: {self.device.person.first_name}'s' {DeviceType.get(self.device.device_type)} @ {self.location.name}, {self.created_at.strftime('%X %p')}"
 
 
-class OverrideRule(models.Model):
-    person = ForeignKey(Person, null=True, on_delete=models.SET_NULL, help_text="Optional.")
-    location = ForeignKey(Location, null=True, on_delete=models.SET_NULL, help_text="Optional.")
-    device = ForeignKey(Device, null=True, on_delete=models.SET_NULL, help_text="Optional.")
-    custom_threshold = models.IntegerField(
-        default=-5,
+class CustomThreshold(models.Model):
+    person = ForeignKey(
+        Person,
         null=True,
-        help_text="Enter a threshold that must be exceeded for detection. If you never want a person/location/device "
-        "combination to be detected, enter 100.",
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text="Optional. Set a custom threshold for all this person's devices at Location. Don't fill this in if you set Device, which is more specific.",
     )
+    device = ForeignKey(
+        Device,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        help_text="Optional. Set a custom threshold for this Device at Location. Don't fill in if you set a Person.",
+    )
+    location = ForeignKey(Location, null=True, blank=True, on_delete=models.SET_NULL, help_text="Optional.")
+    threshold = models.IntegerField(
+        default=-5,
+        help_text="<p>Enter a threshold that must be exceeded for detection.</p>"
+        "<p>The quietest/most distant reading I've ever seen is -35 dB.</p>"
+        "<p>Devices in the same room range from -10 (the default threshold) to 0.</p>"
+        "<p>The loudest/closest reading I've ever seen is 5 dB.</p>"
+        "<p><strong>To require a device/person be really close to a location</strong>: enter -5.</p>"
+        "<p><strong>To hide a device/person from a location</strong>: enter 100.</p>",
+    )
+    reason = TextField(null=True, blank=True)
 
     def __str__(self):
-        # return f"person {self.device_id} @ location {self.location_id}, {self.created_at.strftime('%X %p')}"
-        components = [str(self.custom_threshold)]
+        components = [str(self.threshold)]
         if self.person:
             components.append(self.person.first_name)
         if self.location:
             components.append(self.location.name)
         if self.device:
-            components.append(DeviceType.get(self.device.device_type))
+            components.append(DeviceType.get(self.device.device_type).name)
         return ", ".join([x for x in components if x])

@@ -6,9 +6,11 @@ from psqlextra.util import postgres_manager
 from flock.models import Device
 from flock.models import DeviceType
 from flock.models import Location
+from flock.models import CustomThreshold
 from flock.models import Person
 from flock.models import SensorReading
 from flock.utils import now
+from flock.views import MAX_THRESHOLD
 
 people_devices = {
     "Ben Mann": {DeviceType.PHONE: "3C:28:6D:2C:37:9F", DeviceType.TABLET: "34:42:62:70:4B:0A"},
@@ -23,7 +25,7 @@ people_devices = {
     "Taylor Rogalski": {DeviceType.PHONE: "E0:33:8E:5F:7C:04"},
     "Josh Albrecht": {},
     "Kanjun Qiu": {},
-    "Michael Lai": {},
+    "Michael Lai": {DeviceType.PHONE: "AA:AA:AA:AA:AA:AA"},
     "Danielle Forward": {},
     "Beth Barnes": {DeviceType.PHONE: "08:D4:6A:18:81:45"},
     "Chris Varenhorst": {},
@@ -89,6 +91,33 @@ class Command(BaseCommand):
                     {"id": 5, "device_id": 5, "rssi": 0, "location_id": 3, "created_at": now()},
                     {"id": 6, "device_id": 6, "rssi": -5, "location_id": 3, "created_at": now()},
                     {"id": 7, "device_id": 7, "rssi": 0, "location_id": 3, "created_at": now()},
+                ]
+            )
+
+        with postgres_manager(CustomThreshold) as manager:
+            manager.on_conflict(["id"], ConflictAction.UPDATE).bulk_insert(
+                [
+                    {
+                        "id": 1,
+                        "device": Device.objects.get(person__first_name="Michael", device_type=DeviceType.PHONE),
+                        "threshold": MAX_THRESHOLD,
+                        "location": Location.objects.get(name="Common room"),
+                        "reason": "Michael usually charges his phone in the common room, so ignore it.",
+                    },
+                    {
+                        "id": 2,
+                        "person": Person.objects.get(first_name="Allie"),
+                        "threshold": MAX_THRESHOLD,
+                        "location": Location.objects.get(name="Jason's room"),
+                        "reason": "Ignore when Allie's devices are in Jason's room.",
+                    },
+                    {
+                        "id": 3,
+                        "person": Person.objects.get(first_name="Jason"),
+                        "threshold": MAX_THRESHOLD,
+                        "location": Location.objects.get(name="Jason's room"),
+                        "reason": "Ignore when Jason's devices are in Jason's room.",
+                    },
                 ]
             )
 

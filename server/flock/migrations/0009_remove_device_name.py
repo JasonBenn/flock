@@ -5,13 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('flock', '0008_auto_20190928_1052'),
-    ]
+    dependencies = [("flock", "0008_auto_20190928_1052")]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='device',
-            name='name',
-        ),
-    ]
+    operations = [migrations.RemoveField(model_name="device", name="name")]
