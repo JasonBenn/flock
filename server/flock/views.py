@@ -181,10 +181,13 @@ def scans(request):
     location = data["location"]
 
     # Append scans to Positions table
-    devices_by_mac = {x.mac: x.id for x in Device.objects.all()}
+    device_ids_by_mac = {x.mac: x.id for x in Device.objects.all()}
     locations_by_id = {x.clean_name(): x for x in Location.objects.all()}
 
-    positions = [SensorReading(device=devices_by_mac[mac], location=locations_by_id[location]) for mac in data["macs"]]
+    positions = [
+        SensorReading(device_id=device_ids_by_mac[mac], location=locations_by_id[location], rssi=rssi)
+        for mac, rssi in data["macs"].items()
+    ]
     SensorReading.objects.bulk_create(positions)
 
     return HttpResponse(status=204)
