@@ -87,7 +87,9 @@ class SensorReading(models.Model):
 
 def custom_threshold_validator(threshold):
     if threshold > 5 and not threshold == 100:
-        raise ValidationError("If you're going to set the threshold so high as to avoid detection altogether, it must be exactly 100.")
+        raise ValidationError(
+            "If you're going to set the threshold so high as to avoid detection altogether, it must be exactly 100."
+        )
 
 
 class CustomThreshold(models.Model):
