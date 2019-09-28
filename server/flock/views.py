@@ -43,19 +43,19 @@ def get_matching_override_rules(person_readings: PersonToReading) -> PersonToRea
     Given a list of PersonToReading, return a subset that maps those people to None.
     """
     locations = [reading.location for person, reading in person_readings.items() if reading]
-    override_rules = CustomThreshold.objects.filter(
-        person__in=person_readings.keys(), location__in=locations
-    ).select_related("device")
+    custom_thresholds = CustomThreshold.objects.filter(
+        Q(Q(person__in=person_readings.keys()) | Q(device__person__in=person_readings.keys())), location__in=locations
+    ).select_related("device", "device__person")
 
     hidden_people = {}
-    for rule in override_rules:
+    for rule in custom_thresholds:
         person = rule.person or (rule.device and rule.device.person)
         reading = person_readings.get(person)
         if not reading:
             continue
         about_them = (rule.device_id == reading.device_id) or (rule.person_id == reading.device.person_id)
         about_location = rule.location_id == reading.location_id
-        if about_them and about_location:
+        if about_them and about_location and reading.rssi < rule.threshold:
             hidden_people[person] = None
 
     return hidden_people
@@ -73,19 +73,23 @@ def get_current_readings_unhidden() -> PersonToReading:
 
     people = {x.device.person for x in recent_readings}
     locations = {x.location for x in recent_readings}
-    rules = CustomThreshold.objects.filter(
-        Q(Q(person__in=people) | Q(device__person__in=people)), location__in=locations, threshold__isnull=False
-    ).select_related("device", "location", "device__person")
+    rules = (
+        CustomThreshold.objects.filter(
+            Q(Q(person__in=people) | Q(device__person__in=people)), location__in=locations, threshold__isnull=False
+        )
+        .exclude(threshold=100)
+        .select_related("device", "location", "device__person")
+    )
     custom_device_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.device], key=lambda x: x.device)}
     custom_person_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.person], key=lambda x: x.person)}
 
     over_threshold_readings = set()
     for reading in recent_readings:
         threshold = reading.location.threshold
-        override_rules = custom_person_thresholds.get(reading.device.person, []) or custom_device_thresholds.get(
+        custom_thresholds = custom_person_thresholds.get(reading.device.person, []) or custom_device_thresholds.get(
             reading.device, []
         )
-        for rule in override_rules:
+        for rule in custom_thresholds:
             if rule.location == reading.location and rule.threshold >= reading.rssi:
                 threshold = rule.threshold
 
@@ -127,7 +131,9 @@ def index(request):
 
     location_to_readings = {
         location: list(readings)
-        for location, readings in groupby(get_current_readings().values(), key=lambda reading: reading.location)
+        for location, readings in groupby(
+            [x for x in get_current_readings().values() if x], key=lambda reading: reading.location
+        )
     }
     return render(
         request, "index.html", {"location_to_readings": location_to_readings, "never_detected": get_never_detected()}
@@ -144,6 +150,26 @@ def macs(request):
             x["mac"]: x["person__first_name"] + " " + x["person__last_name"][0]
             for x in Device.objects.values("mac", "person__first_name", "person__last_name")
         }
+    )
+
+
+@login_required
+def debug_person(request, person_id):
+    person = Person.objects.get(id=person_id)
+    readings = SensorReading.objects.filter(device__person=person)
+    custom_thresholds = CustomThreshold.objects.filter(Q(person=person) | Q(device__person=person))
+    current_readings_unhidden = get_current_readings_unhidden()
+    overrides = get_matching_override_rules(current_readings_unhidden)
+    return render(
+        request,
+        "debug_person.html",
+        {
+            "person": person,
+            "readings": readings,
+            "custom_thresholds": custom_thresholds,
+            "current_readings_unhidden": current_readings_unhidden,
+            "overrides": overrides,
+        },
     )
 
 

@@ -67,16 +67,23 @@ class LocationEstimationTests(TestCase):
         locations = get_current_readings()
         self.assertEqual(locations, {self.ben: None})
 
+    def test_threshold_override(self):
+        """Ben in common room with override"""
+        reading = SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-3)
+        CustomThreshold.objects.create(person=self.ben, location=self.common_room, threshold=-5)
+        locations = get_current_readings()
+        self.assertEqual(locations, {self.ben: reading})
+
     def test_hidden_person_location(self):
         """Allie in Jason's room, ignore"""
         SensorReading.objects.create(device=self.allie_phone, location=self.jasons_room, rssi=0)
-        CustomThreshold.objects.create(person=self.allie, location=self.jasons_room)
+        CustomThreshold.objects.create(person=self.allie, location=self.jasons_room, threshold=MAX_THRESHOLD)
         locations = get_current_readings()
         self.assertEqual(locations, {self.allie: None})
 
     def test_hidden_person_location_with_another_devices_in_another_location(self):
         """Allie really in Jason's room, but laptop in common room"""
-        CustomThreshold.objects.create(person=self.allie, location=self.jasons_room)
+        CustomThreshold.objects.create(person=self.allie, location=self.jasons_room, threshold=MAX_THRESHOLD)
         SensorReading.objects.create(device=self.allie_phone, location=self.jasons_room, rssi=0)
         SensorReading.objects.create(device=self.allie_laptop, location=self.common_room, rssi=0)
         locations = get_current_readings()
