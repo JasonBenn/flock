@@ -100,12 +100,14 @@ class Command(BaseCommand):
                     {
                         "id": 1,
                         "device": Device.objects.get(person__first_name="Michael", device_type=DeviceType.PHONE),
+                        "person": None,
                         "threshold": MAX_THRESHOLD,
                         "location": Location.objects.get(name="Common room"),
                         "reason": "Michael usually charges his phone in the common room, so ignore it.",
                     },
                     {
                         "id": 2,
+                        "device": None,
                         "person": Person.objects.get(first_name="Allie"),
                         "threshold": MAX_THRESHOLD,
                         "location": Location.objects.get(name="Jason's room"),
@@ -113,10 +115,19 @@ class Command(BaseCommand):
                     },
                     {
                         "id": 3,
+                        "device": None,
                         "person": Person.objects.get(first_name="Jason"),
                         "threshold": MAX_THRESHOLD,
                         "location": Location.objects.get(name="Jason's room"),
                         "reason": "Ignore when Jason's devices are in Jason's room.",
+                    },
+                    {
+                        "id": 4,
+                        "device": None,
+                        "person": Person.objects.get(first_name="Ben"),
+                        "threshold": -5,
+                        "location": Location.objects.get(name="Common room"),
+                        "reason": "Ben is right underneath common room.",
                     },
                 ]
             )
