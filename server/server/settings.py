@@ -136,7 +136,7 @@ LOGIN_REDIRECT_URL = "/"
 
 # Sentry
 
-if os.getenv("PRODUCTION") == 1:
+if os.getenv("PRODUCTION") and int(os.getenv("PRODUCTION")):
     sentry_sdk.init(
         dsn="https://c3f1f286f7964d6b8761fee94f1fc73d@sentry.io/1758125",
         integrations=[DjangoIntegration()],
