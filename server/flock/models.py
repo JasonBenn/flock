@@ -48,13 +48,6 @@ class DeviceType(Enum):
 
 class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    name = models.CharField(
-        max_length=200,
-        help_text="<p>Short description of this device (e.g. laptop, phone)</p>"
-        "<p>Add each device that you might carry with you!</p>",
-        null=True,
-        blank=True,
-    )
     device_type = EnumField(DeviceType)
     mac = models.CharField(
         max_length=17,
