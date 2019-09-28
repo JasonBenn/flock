@@ -33,3 +33,7 @@ Create a `.env` file at the root of this directory, put env variables in it (see
 
 Formatting:
 `black --line-length 119 --target-version py36 .  #black`
+
+Database:
+Backup: `pg_dump $DB_URL -a -t flock_* > backup.sql`
+Restore: `psql $DB_URL < backup.sql`
