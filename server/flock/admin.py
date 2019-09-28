@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 
-from flock.models import Device, Location, Person, Position
+from flock.models import Device, Location, Person, SensorReading
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -23,6 +23,6 @@ class DeviceAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Device, DeviceAdmin)
-admin.site.register(Position)
+admin.site.register(SensorReading)
 
 admin.site.unregister(Group)
