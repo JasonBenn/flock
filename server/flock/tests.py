@@ -84,7 +84,9 @@ class LocationEstimationTests(TestCase):
 
     def test_hidden_device_in_location(self):
         """Michaels phone always charges in common room, ignore"""
-        OverrideRule.objects.create(device=self.michael_phone, location=self.common_room, custom_threshold=MAX_THRESHOLD)
+        OverrideRule.objects.create(
+            device=self.michael_phone, location=self.common_room, custom_threshold=MAX_THRESHOLD
+        )
         SensorReading.objects.create(device=self.michael_phone, location=self.common_room, rssi=0)
         locations = get_current_readings()
-        self.assertEqual(locations, {self.allie: None})
+        self.assertEqual(locations, {self.michael: None})

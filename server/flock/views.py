@@ -7,6 +7,7 @@ from typing import Optional
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Max
+from django.db.models import Q
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import redirect
@@ -72,18 +73,18 @@ def get_current_readings_unhidden() -> PersonToReading:
 
     people = {x.device.person for x in recent_readings}
     locations = {x.location for x in recent_readings}
-    custom_person_thresholds = {
-        k: list(v)
-        for k, v in groupby(
-            OverrideRule.objects.filter(person__in=people, location__in=locations, custom_threshold__isnull=False),
-            key=lambda x: x.person,
-        )
-    }
+    rules = OverrideRule.objects.filter(
+        Q(Q(person__in=people) | Q(device__person__in=people)), location__in=locations, custom_threshold__isnull=False
+    ).select_related("device", "location", "device__person")
+    custom_device_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.device], key=lambda x: x.device)}
+    custom_person_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.person], key=lambda x: x.person)}
 
     over_threshold_readings = set()
     for reading in recent_readings:
         threshold = reading.location.threshold
-        override_rules = custom_person_thresholds.get(reading.device.person, [])
+        override_rules = custom_person_thresholds.get(reading.device.person, []) or custom_device_thresholds.get(
+            reading.device, []
+        )
         for rule in override_rules:
             if rule.location == reading.location and rule.custom_threshold >= reading.rssi:
                 threshold = rule.custom_threshold
