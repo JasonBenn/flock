@@ -169,6 +169,7 @@ def debug_person(request, person_id):
             "custom_thresholds": custom_thresholds,
             "current_readings_unhidden": current_readings_unhidden,
             "overrides": overrides,
+            "people": Person.objects.all(),
         },
     )
 

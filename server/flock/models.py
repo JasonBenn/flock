@@ -1,6 +1,7 @@
 import re
 
 from django.contrib.postgres.indexes import BrinIndex
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import DateTimeField
 from django.db.models import ForeignKey
@@ -47,12 +48,18 @@ class DeviceType(Enum):
     OTHER = 6
 
 
+def mac_validator(mac):
+    if not re.search(r"[A-Z0-9]{2}:[A-Z0-9]{2}:[A-Z0-9]{2}:[A-Z0-9]{2}:[A-Z0-9]{2}:[A-Z0-9]{2}", mac):
+        raise ValidationError("MAC address should be formatted AA:BB:CC:DD:00:11")
+
+
 class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     device_type = EnumField(DeviceType)
     mac = models.CharField(
         max_length=17,
         unique=True,
+        validators=[mac_validator],
         help_text="<p>Format: <code>AA:BB:CC:DD:00:11</code></p>"
         "<p>How to find your Bluetooth mac address on various devices:</p>"
         "<p><strong>iPhone</strong>: Settings -> General -> About -> Bluetooth</p>"
@@ -78,6 +85,11 @@ class SensorReading(models.Model):
         return f"{self.rssi}: {self.device.person.first_name}'s' {DeviceType.get(self.device.device_type)} @ {self.location.name}, {self.created_at.strftime('%X %p')}"
 
 
+def custom_threshold_validator(threshold):
+    if threshold > 5 and not threshold == 100:
+        raise ValidationError("If you're going to set the threshold so high as to avoid detection altogether, it must be exactly 100.")
+
+
 class CustomThreshold(models.Model):
     person = ForeignKey(
         Person,
@@ -96,6 +108,7 @@ class CustomThreshold(models.Model):
     location = ForeignKey(Location, null=True, blank=True, on_delete=models.SET_NULL, help_text="Optional.")
     threshold = models.IntegerField(
         default=-5,
+        validators=[custom_threshold_validator],
         help_text="<p>Enter a threshold that must be exceeded for detection.</p>"
         "<p>The quietest/most distant reading I've ever seen is -35 dB.</p>"
         "<p>Devices in the same room range from -10 (the default threshold) to 0.</p>"

@@ -18,4 +18,10 @@
             <li>{{ reading }}</li>
         {% endfor %}
     </ul>
+    <h3>All person_ids</h3>
+    <ul>
+        {% for person in people %}
+            <li>{{ person.id }}: {{ person.name }}</li>
+        {% endfor %}
+    </ul>
 </div>
