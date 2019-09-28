@@ -22,7 +22,11 @@ Deploying:
 * Sensors: `bash ops/sync_sensors.sh`
 
 Tests:
-`./manage.py test --debug-sql`
+`server/manage.py test flock --debug-sql  #tests`
+`server/manage.py test flock.tests.LocationEstimationTests.test_hidden_person_location --debug-sql`
+
+Seed a development database:
+`server/manage.py seed`
 
 .env:
 Create a `.env` file at the root of this directory, put env variables in it (see `settings.py`)

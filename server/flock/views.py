@@ -1,5 +1,4 @@
 import json
-from collections import defaultdict
 from datetime import timedelta
 from itertools import groupby
 from typing import Dict
@@ -49,7 +48,7 @@ def get_matching_override_rules(person_readings: PersonToReading) -> PersonToRea
 
     hidden_people = {}
     for rule in override_rules:
-        person = rule.person_id or rule.device.person
+        person = rule.person or (rule.device and rule.device.person)
         reading = person_readings.get(person)
         if not reading:
             continue
