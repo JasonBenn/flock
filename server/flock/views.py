@@ -28,7 +28,7 @@ PersonToReading = Dict[Person, Optional[SensorReading]]
 
 
 def get_most_mobile_device(devices):
-    return sorted(devices, key=lambda x: x.device_type.value)[0]
+    return sorted(devices, key=lambda x: x.device_type)[0]
 
 
 def get_current_readings() -> PersonToReading:

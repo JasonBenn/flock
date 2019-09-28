@@ -4,7 +4,6 @@ import django.contrib.postgres.indexes
 from django.db import migrations, models
 import django.db.models.deletion
 import flock.models
-import flock.utils
 
 
 class Migration(migrations.Migration):
@@ -37,18 +36,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="device",
             name="device_type",
-            field=flock.utils.IntegerEnumField(
-                choices=[
-                    ("WEARABLE", 1),
-                    ("PHONE", 2),
-                    ("LAPTOP", 3),
-                    ("WORK_LAPTOP", 4),
-                    ("TABLET", 5),
-                    ("OTHER", 6),
-                ],
-                default=1,
-                enum_type=flock.models.DeviceType,
-            ),
+            field=models.IntegerField(default=1),
             preserve_default=False,
         ),
         migrations.AddField(model_name="location", name="threshold", field=models.IntegerField(default=-10)),

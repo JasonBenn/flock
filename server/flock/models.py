@@ -4,9 +4,9 @@ from django.contrib.postgres.indexes import BrinIndex
 from django.db import models
 from django.db.models import DateTimeField
 from django.db.models import ForeignKey
+from django_enumfield.db.fields import EnumField
+from django_enumfield.enum import Enum
 
-from flock.utils import DjangoChoicesConstant
-from flock.utils import IntegerEnumField
 from .utils import now
 
 
@@ -37,7 +37,7 @@ class Person(models.Model):
         return f"{self.first_name} {self.last_name[0]}"
 
 
-class DeviceType(DjangoChoicesConstant):
+class DeviceType(Enum):
     WEARABLE = 1
     PHONE = 2
     LAPTOP = 3
@@ -53,8 +53,9 @@ class Device(models.Model):
         help_text="<p>Short description of this device (e.g. laptop, phone)</p>"
         "<p>Add each device that you might carry with you!</p>",
         null=True,
+        blank=True,
     )
-    device_type = IntegerEnumField(enum_type=DeviceType)
+    device_type = EnumField(DeviceType)
     mac = models.CharField(
         max_length=17,
         unique=True,
@@ -66,7 +67,7 @@ class Device(models.Model):
     )
 
     def __str__(self):
-        return f"{self.person}'s {self.device_type.name} ({self.mac})"
+        return f"{self.person}'s {DeviceType.get(self.device_type)} ({self.mac})"
 
 
 class SensorReading(models.Model):
@@ -80,7 +81,7 @@ class SensorReading(models.Model):
 
     def __str__(self):
         # return f"person {self.device_id} @ location {self.location_id}, {self.created_at.strftime('%X %p')}"
-        return f"{self.rssi}: {self.device.person.first_name}'s' {self.device.device_type.name} @ {self.location.name}, {self.created_at.strftime('%X %p')}"
+        return f"{self.rssi}: {self.device.person.first_name}'s' {DeviceType.get(self.device.device_type)} @ {self.location.name}, {self.created_at.strftime('%X %p')}"
 
 
 class OverrideRule(models.Model):
@@ -102,5 +103,5 @@ class OverrideRule(models.Model):
         if self.location:
             components.append(self.location.name)
         if self.device:
-            components.append(self.device.device_type.name)
+            components.append(DeviceType.get(self.device.device_type))
         return ", ".join([x for x in components if x])
