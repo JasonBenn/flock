@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+from typing import Optional
 
 from django import template
 from stringcase import camelcase
@@ -10,11 +11,12 @@ from flock.utils import now
 register = template.Library()
 
 
-def created_at_color(created_at: datetime):
-    time = now()
-    if created_at > (time - timedelta(minutes=9)):
+def created_at_color(created_at: datetime, current_time: Optional[datetime] = None):
+    if current_time is None:
+        current_time = now()
+    if created_at > (current_time - timedelta(minutes=9)):
         color = "black"
-    elif created_at > (time - timedelta(minutes=12)):
+    elif created_at > (current_time - timedelta(minutes=12)):
         color = "darkgray"
     else:
         color = "lightgray"

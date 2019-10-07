@@ -1,7 +1,11 @@
 import json
+from collections import defaultdict
+from datetime import datetime
 from datetime import timedelta
 from itertools import groupby
 from typing import Dict
+from typing import List
+from typing import List
 from typing import Optional
 
 from django.contrib.auth.decorators import login_required
@@ -61,14 +65,16 @@ def get_matching_override_rules(person_readings: PersonToReading) -> PersonToRea
     return hidden_people
 
 
-def get_current_readings_unhidden() -> PersonToReading:
+def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> PersonToReading:
     """
     Estimate a person's most mobile active device and its location by choosing one of several possible SensorReadings.
     """
-    recent_readings = set(
+    if at_time is None:
+        at_time = now()
+    recent_readings = list(
         SensorReading.objects.select_related("device", "device__person", "location")
-        .filter(created_at__gt=now() - timedelta(minutes=15))
-        .order_by("created_at")
+        .filter(created_at__gt=at_time - timedelta(minutes=15), created_at__lte=at_time)
+        .order_by("-created_at")
     )
 
     people = {x.device.person for x in recent_readings}
@@ -82,7 +88,6 @@ def get_current_readings_unhidden() -> PersonToReading:
     )
     custom_device_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.device], key=lambda x: x.device)}
     custom_person_thresholds = {k: list(v) for k, v in groupby([x for x in rules if x.person], key=lambda x: x.person)}
-
     over_threshold_readings = set()
     for reading in recent_readings:
         threshold = reading.location.threshold
@@ -95,16 +100,13 @@ def get_current_readings_unhidden() -> PersonToReading:
 
         if reading.rssi >= threshold:
             over_threshold_readings.add(reading)
-
     latest_device_readings = {x.device: x for x in over_threshold_readings}
-
     current_readings = {x: None for x in people}
     for person, readings in groupby(latest_device_readings.values(), key=lambda reading: reading.device.person):
         device_to_readings = {x.device: x for x in readings}
         best_device = get_most_mobile_device(device_to_readings.keys())
         best_reading = device_to_readings[best_device]
         current_readings[best_reading.device.person] = best_reading
-
     return current_readings
 
 
@@ -116,11 +118,18 @@ def get_current_positions():
     )
 
 
-def get_never_detected() -> str:
+def get_never_detected_people() -> List[Person]:
     detected = set(SensorReading.objects.values_list("device__person_id", flat=True).distinct())
     people = set(Person.objects.values_list("id", flat=True).distinct())
     never_detected = people - detected
-    return ", ".join(sorted([x.name for x in Person.objects.filter(id__in=never_detected)]))
+    return Person.objects.filter(id__in=never_detected)
+
+
+def get_never_detected_devices() -> List[Device]:
+    detected = set(SensorReading.objects.values_list("device", flat=True).distinct())
+    devices = set(Device.objects.values_list("id", flat=True).distinct())
+    never_detected = devices - detected
+    return Device.objects.filter(id__in=never_detected)
 
 
 @login_required
@@ -129,14 +138,18 @@ def index(request):
     if not user.is_authenticated or not user.is_staff:
         return redirect(login)
 
-    location_to_readings = {
-        location: list(readings)
-        for location, readings in groupby(
-            [x for x in get_current_readings().values() if x], key=lambda reading: reading.location
-        )
-    }
+    location_to_readings = defaultdict(list)
+    for reading in get_current_readings().values():
+        location_to_readings[reading.location].append(reading)
+    print(location_to_readings)
+
     return render(
-        request, "index.html", {"location_to_readings": location_to_readings, "never_detected": get_never_detected()}
+        request,
+        "index.html",
+        {
+            "location_to_readings": dict(location_to_readings),
+            "never_detected": ", ".join(sorted([x.name for x in get_never_detected_people()])),
+        },
     )
 
 
@@ -154,9 +167,13 @@ def macs(request):
 
 
 @login_required
-def debug_person(request, person_id):
-    person = Person.objects.get(id=person_id)
-    readings = SensorReading.objects.filter(device__person=person, created_at__gt=now() - timedelta(minutes=60))
+def debug(request):
+    person_id = request.GET.get("person_id")
+    context = {"readings": []}
+    if person_id:
+        person = Person.objects.get(id=person_id)
+        readings = SensorReading.objects.filter(device__person=person, created_at__gt=now() - timedelta(minutes=60))
+
     custom_thresholds = CustomThreshold.objects.filter(Q(person=person) | Q(device__person=person))
     current_readings_unhidden = get_current_readings_unhidden()
     overrides = get_matching_override_rules(current_readings_unhidden)

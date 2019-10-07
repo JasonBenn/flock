@@ -95,3 +95,10 @@ class LocationEstimationTests(TestCase):
         SensorReading.objects.create(device=self.michael_phone, location=self.common_room, rssi=0)
         locations = get_current_readings()
         self.assertEqual(locations, {self.michael: None})
+
+    def test_multiple_people_in_location(self):
+        """Allie and Michael hanging out in the common room"""
+        reading_a = SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
+        reading_b = SensorReading.objects.create(device=self.michael_phone, location=self.common_room, rssi=0)
+        locations = get_current_readings()
+        self.assertEqual(locations, {self.allie: reading_a, self.michael: reading_b})
