@@ -140,8 +140,8 @@ def index(request):
 
     location_to_readings = defaultdict(list)
     for reading in get_current_readings().values():
-        location_to_readings[reading.location].append(reading)
-    print(location_to_readings)
+        if reading:
+            location_to_readings[reading.location].append(reading)
 
     return render(
         request,
