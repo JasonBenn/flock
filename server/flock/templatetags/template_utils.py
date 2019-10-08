@@ -6,14 +6,14 @@ from django import template
 from stringcase import camelcase
 from stringcase import snakecase
 
-from flock.utils import now
+from django.utils.timezone import localtime
 
 register = template.Library()
 
 
 def created_at_color(created_at: datetime, current_time: Optional[datetime] = None):
     if current_time is None:
-        current_time = now()
+        current_time = localtime()
     if created_at > (current_time - timedelta(minutes=9)):
         color = "black"
     elif created_at > (current_time - timedelta(minutes=12)):

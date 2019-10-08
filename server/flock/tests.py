@@ -1,14 +1,14 @@
 from datetime import timedelta
 
 from django.test import TestCase
+from django.utils.timezone import localtime
 
+from flock.models import CustomThreshold
 from flock.models import Device
 from flock.models import DeviceType
 from flock.models import Location
-from flock.models import CustomThreshold
 from flock.models import Person
 from flock.models import SensorReading
-from flock.utils import now
 from flock.views import MAX_THRESHOLD
 from flock.views import get_current_readings
 
@@ -38,7 +38,7 @@ class LocationEstimationTests(TestCase):
     def test_moved_to_another_room(self):
         """Ben went to hang in Jason's room"""
         SensorReading.objects.create(
-            device=self.ben_phone, location=self.common_room, rssi=0, created_at=now() - timedelta(minutes=5)
+            device=self.ben_phone, location=self.common_room, rssi=0, created_at=localtime() - timedelta(minutes=5)
         )
         reading = SensorReading.objects.create(device=self.ben_phone, location=self.jasons_room, rssi=0)
         locations = get_current_readings()
@@ -47,7 +47,7 @@ class LocationEstimationTests(TestCase):
     def test_devices_in_multiple_locations(self):
         """Allie has two devices in different locations - prefer the one with the phone"""
         reading = SensorReading.objects.create(
-            device=self.allie_phone, location=self.common_room, rssi=0, created_at=now() - timedelta(minutes=1)
+            device=self.allie_phone, location=self.common_room, rssi=0, created_at=localtime() - timedelta(minutes=1)
         )
         SensorReading.objects.create(device=self.allie_laptop, location=self.jasons_room, rssi=0)
         SensorReading.objects.create(device=self.allie_work_laptop, location=self.jasons_room, rssi=0)
@@ -60,14 +60,14 @@ class LocationEstimationTests(TestCase):
         locations = get_current_readings()
         self.assertEqual(locations, {self.ben: None})
 
-    def test_threshold_override(self):
+    def test_under_threshold_override(self):
         """Ben in his own room, but common room still sees device (weakly)"""
         SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-7)
         CustomThreshold.objects.create(person=self.ben, location=self.common_room, threshold=-5)
         locations = get_current_readings()
         self.assertEqual(locations, {self.ben: None})
 
-    def test_threshold_override(self):
+    def test_over_threshold_override(self):
         """Ben in common room with override"""
         reading = SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-3)
         CustomThreshold.objects.create(person=self.ben, location=self.common_room, threshold=-5)

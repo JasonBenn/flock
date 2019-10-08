@@ -1,5 +1,6 @@
 from django.core.management import BaseCommand
 from django.db import transaction
+from django.utils.timezone import localtime
 from psqlextra.query import ConflictAction
 from psqlextra.util import postgres_manager
 
@@ -9,7 +10,6 @@ from flock.models import Location
 from flock.models import CustomThreshold
 from flock.models import Person
 from flock.models import SensorReading
-from flock.utils import now
 from flock.views import MAX_THRESHOLD
 
 people_devices = {
@@ -84,13 +84,13 @@ class Command(BaseCommand):
         with postgres_manager(SensorReading) as manager:
             manager.on_conflict(["id"], ConflictAction.UPDATE).bulk_insert(
                 [
-                    {"id": 1, "device_id": 1, "rssi": 0, "location_id": 1, "created_at": now()},
-                    {"id": 2, "device_id": 2, "rssi": 0, "location_id": 1, "created_at": now()},
-                    {"id": 3, "device_id": 3, "rssi": 0, "location_id": 2, "created_at": now()},
-                    {"id": 4, "device_id": 4, "rssi": 0, "location_id": 2, "created_at": now()},
-                    {"id": 5, "device_id": 5, "rssi": 0, "location_id": 3, "created_at": now()},
-                    {"id": 6, "device_id": 6, "rssi": -5, "location_id": 3, "created_at": now()},
-                    {"id": 7, "device_id": 7, "rssi": 0, "location_id": 3, "created_at": now()},
+                    {"id": 1, "device_id": 1, "rssi": 0, "location_id": 1, "created_at": localtime()},
+                    {"id": 2, "device_id": 2, "rssi": 0, "location_id": 1, "created_at": localtime()},
+                    {"id": 3, "device_id": 3, "rssi": 0, "location_id": 2, "created_at": localtime()},
+                    {"id": 4, "device_id": 4, "rssi": 0, "location_id": 2, "created_at": localtime()},
+                    {"id": 5, "device_id": 5, "rssi": 0, "location_id": 3, "created_at": localtime()},
+                    {"id": 6, "device_id": 6, "rssi": -5, "location_id": 3, "created_at": localtime()},
+                    {"id": 7, "device_id": 7, "rssi": 0, "location_id": 3, "created_at": localtime()},
                 ]
             )
 

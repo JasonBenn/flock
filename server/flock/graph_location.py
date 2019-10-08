@@ -6,8 +6,6 @@ from flock.models import Device
 from flock.models import DeviceType
 from flock.models import Location
 from flock.models import SensorReading
-from flock.utils import now
-from flock.views import get_never_detected_devices
 
 max_created_at = SensorReading.objects.values("created_at").aggregate(Max("created_at"))["created_at__max"]
 for location in (

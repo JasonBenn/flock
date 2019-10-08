@@ -5,7 +5,6 @@ from datetime import timedelta
 from itertools import groupby
 from typing import Dict
 from typing import List
-from typing import List
 from typing import Optional
 
 from django.contrib.auth.decorators import login_required
@@ -16,14 +15,14 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils.timezone import localtime
 from django.views.decorators.csrf import csrf_exempt
 
+from flock.models import CustomThreshold
 from flock.models import Device
 from flock.models import Location
-from flock.models import CustomThreshold
 from flock.models import Person
 from flock.models import SensorReading
-from flock.utils import now
 
 MAX_THRESHOLD = 100
 
@@ -70,7 +69,7 @@ def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> PersonT
     Estimate a person's most mobile active device and its location by choosing one of several possible SensorReadings.
     """
     if at_time is None:
-        at_time = now()
+        at_time = localtime()
     recent_readings = list(
         SensorReading.objects.select_related("device", "device__person", "location")
         .filter(created_at__gt=at_time - timedelta(minutes=15), created_at__lte=at_time)
@@ -112,7 +111,7 @@ def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> PersonT
 
 def get_current_positions():
     return (
-        SensorReading.objects.filter(created_at__gt=now() - timedelta(minutes=15))
+        SensorReading.objects.filter(created_at__gt=localtime() - timedelta(minutes=15))
         .values("device__person__first_name", "device__person__last_name", "location_id")
         .annotate(updated_at=Max("created_at"))
     )
@@ -172,7 +171,7 @@ def debug(request):
     context = {"readings": []}
     if person_id:
         person = Person.objects.get(id=person_id)
-        readings = SensorReading.objects.filter(device__person=person, created_at__gt=now() - timedelta(minutes=60))
+        readings = SensorReading.objects.filter(device__person=person, created_at__gt=localtime() - timedelta(minutes=60))
 
     custom_thresholds = CustomThreshold.objects.filter(Q(person=person) | Q(device__person=person))
     current_readings_unhidden = get_current_readings_unhidden()

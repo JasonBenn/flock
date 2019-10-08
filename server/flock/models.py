@@ -6,10 +6,9 @@ from django.db import models
 from django.db.models import DateTimeField
 from django.db.models import ForeignKey
 from django.db.models import TextField
+from django.utils.timezone import localtime
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
-
-from .utils import now
 
 
 class Location(models.Model):
@@ -75,7 +74,7 @@ class SensorReading(models.Model):
     device = models.ForeignKey(Device, on_delete=models.DO_NOTHING)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     rssi = models.IntegerField()
-    created_at = DateTimeField(default=now)
+    created_at = DateTimeField(default=localtime)
 
     class Meta:
         indexes = [BrinIndex(fields=["created_at"])]

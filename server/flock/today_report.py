@@ -4,11 +4,9 @@ from datetime import time
 from datetime import timedelta
 
 from django.utils.timezone import localtime
-
-from flock.utils import now
 from flock.views import get_current_readings
 
-day = (now() - timedelta(days=3)).date()
+day = (localtime() - timedelta(days=3)).date()
 start_day = datetime.combine(day, time(hour=5), tzinfo=localtime().tzinfo)
 end_day = datetime.combine(day + timedelta(days=1), time(hour=5), tzinfo=localtime().tzinfo)
 current_dt = start_day
