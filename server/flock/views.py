@@ -171,7 +171,9 @@ def debug(request):
     context = {"readings": []}
     if person_id:
         person = Person.objects.get(id=person_id)
-        readings = SensorReading.objects.filter(device__person=person, created_at__gt=localtime() - timedelta(minutes=60))
+        readings = SensorReading.objects.filter(
+            device__person=person, created_at__gt=localtime() - timedelta(minutes=60)
+        )
 
     custom_thresholds = CustomThreshold.objects.filter(Q(person=person) | Q(device__person=person))
     current_readings_unhidden = get_current_readings_unhidden()
