@@ -35,8 +35,8 @@ def get_most_mobile_device(devices):
     return sorted(devices, key=lambda x: x.device_type)[0]
 
 
-def get_current_readings() -> PersonToReading:
-    current_readings_unhidden = get_current_readings_unhidden()
+def get_current_readings(at_time: Optional[datetime] = None) -> PersonToReading:
+    current_readings_unhidden = get_current_readings_unhidden(at_time)
     overrides = get_matching_override_rules(current_readings_unhidden)
     return {**current_readings_unhidden, **overrides}
 
