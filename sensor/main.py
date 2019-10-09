@@ -2,6 +2,7 @@ import asyncio
 import re
 import json
 import os
+from random import shuffle
 from typing import Optional, Tuple, List
 
 import requests
@@ -85,14 +86,8 @@ def load_macs():
 async def main():
     while True:
         macs = load_macs()
-        # Pinging than 4 concurrently never found results ¯\_(ツ)_/¯
-        slices = []
-        # for x in range(len(macs) // 4 + 1):
-        #     lower = x * 4
-        #     upper = min(x * 4 + 4, len(macs))
-        #     slices.append(slice(lower, upper))
-
         mac_tups = list(macs.items())
+        shuffle(mac_tups)
         for x in mac_tups:
             await ping_macs([x])
             await asyncio.sleep(2)
