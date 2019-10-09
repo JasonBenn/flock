@@ -11,7 +11,6 @@ import sentry_sdk
 RASPBERRY_PI_LOCATION_DIRPATH = "/home/pi/.config/flock"
 location = os.listdir(RASPBERRY_PI_LOCATION_DIRPATH)[0]
 sentry_sdk.init("https://c3f1f286f7964d6b8761fee94f1fc73d@sentry.io/1758125", environment=f"sensor_{location}")
-
 BASE_URL = "https://flock.archive.house"
 RSSI_REGEX = re.compile("RSSI return value: (-?\d+)\n")
 stdout = b"RSSI return value: -1\n"
