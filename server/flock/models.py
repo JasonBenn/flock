@@ -81,7 +81,7 @@ class SensorReading(models.Model):
 
     def __str__(self):
         # return f"person {self.device_id} @ location {self.location_id}, {self.created_at.strftime('%X %p')}"
-        return f"{self.rssi}: {self.device.person.first_name}'s' {DeviceType.get(self.device.device_type)} @ {self.location.name}, {self.created_at.strftime('%X %p')}"
+        return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.rssi:>3} @ {self.location.name[:10]:<11} {self.device.person.name}'s {DeviceType.get(self.device.device_type)}"
 
 
 def custom_threshold_validator(threshold):
