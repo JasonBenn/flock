@@ -38,7 +38,7 @@ admin.site.register(SensorReading)
 
 
 class GroundTruthAdmin(admin.ModelAdmin):
-    ordering = ("created_at",)
+    ordering = ("-created_at",)
     list_display = ["person", "location", "present", "created_at"]
 
 
