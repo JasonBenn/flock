@@ -65,7 +65,8 @@ class Device(models.Model):
         "<p>How to find your Bluetooth mac address on various devices:</p>"
         "<p><strong>iPhone</strong>: Settings -> General -> About -> Bluetooth</p>"
         "<p><strong>Android</strong>: varies. Sometimes in the Bluetooth pairing menu, sometimes in About Phone</p>"
-        "<p><strong>Mac</strong> (heh): Preferences -> Bluetooth -> Show Bluetooth in menu bar; then option-click on the Bluetooth icon -> Address</p>",
+        "<p><strong>Mac</strong>: Preferences -> Bluetooth -> Show Bluetooth in menu bar; then option-click on the Bluetooth icon -> Address</p>"
+        "<p><strong>Windows</strong>: Command Prompt -> enter <code>ipconfig /all</code> -> Physical address (MAC)</p>",
     )
 
     def __str__(self):
