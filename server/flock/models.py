@@ -56,7 +56,7 @@ def mac_validator(mac):
 class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     device_type = EnumField(DeviceType)
-    created_at = DateTimeField(default=localtime)
+    created_at = DateTimeField(default=localtime, editable=False)
     mac = models.CharField(
         max_length=17,
         unique=True,
