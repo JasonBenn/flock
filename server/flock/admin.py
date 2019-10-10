@@ -1,8 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 
-from flock.models import Device, Location, Person, SensorReading
 from flock.models import CustomThreshold
+from flock.models import Device
+from flock.models import GroundTruth
+from flock.models import Location
+from flock.models import Person
+from flock.models import SensorReading
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -23,18 +27,21 @@ class DeviceAdmin(admin.ModelAdmin):
     ordering = ("person__first_name",)
 
 
-class CustomThresholdsAdmin(admin.ModelAdmin):
-    """
-    Add your other customizations
-    like actions, list_display, list filter, etc
-    """
-
+class CustomThresholdAdmin(admin.ModelAdmin):
     ordering = ("person__first_name",)
     list_display = ["person", "location", "device", "threshold", "reason"]
 
 
 admin.site.register(Device, DeviceAdmin)
-admin.site.register(CustomThreshold, CustomThresholdsAdmin)
+admin.site.register(CustomThreshold, CustomThresholdAdmin)
 admin.site.register(SensorReading)
+
+
+class GroundTruthAdmin(admin.ModelAdmin):
+    ordering = ("created_at",)
+    list_display = ["person", "location", "present", "created_at"]
+
+
+admin.site.register(GroundTruth, GroundTruthAdmin)
 
 admin.site.unregister(Group)

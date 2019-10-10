@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import DateTimeField
 from django.db.models import ForeignKey
 from django.db.models import TextField
+from django.db.models import BooleanField
 from django.utils.timezone import localtime
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
@@ -55,6 +56,7 @@ def mac_validator(mac):
 class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     device_type = EnumField(DeviceType)
+    created_at = DateTimeField(default=localtime)
     mac = models.CharField(
         max_length=17,
         unique=True,
@@ -80,7 +82,6 @@ class SensorReading(models.Model):
         indexes = [BrinIndex(fields=["created_at"])]
 
     def __str__(self):
-        # return f"person {self.device_id} @ location {self.location_id}, {self.created_at.strftime('%X %p')}"
         return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.rssi:>3} @ {self.location.name[:10]:<11} {self.device.person.name}'s {DeviceType.get(self.device.device_type)}"
 
 
@@ -128,3 +129,15 @@ class CustomThreshold(models.Model):
         if self.device:
             components.append(DeviceType.get(self.device.device_type).name)
         return ", ".join([x for x in components if x])
+
+
+class GroundTruth(models.Model):
+    present = BooleanField(default=False)
+    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
+    created_at = DateTimeField(default=localtime)
+    device = models.ForeignKey(Device, on_delete=models.DO_NOTHING, null=True, blank=True, help_text="Helpful, but optional.")
+
+    def __str__(self):
+        present_str = "@" if self.present else "!@"
+        return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.person.name} {present_str} {self.location.name}"
