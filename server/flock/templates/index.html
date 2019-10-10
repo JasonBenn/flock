@@ -4,33 +4,18 @@
 <title>Flock</title>
 <meta name="mobile-web-app-capable" content="yes">
 
+
 {% load template_utils %}
 
 <div class="container">
-    {% for location, readings in location_to_readings.items %}
-        <div id='loc_{{location.clean_name|snake_case}}' class='locationPanel'>
-            <div class="locationHolder">
-                <p class='locationName'>{{location.name}}</p>
-                <div class='{{location.clean_name|camel_case}}Icon'></div>
-            </div>
-            {% for reading in readings %}
-                <p style="color: {{ reading.created_at|created_at_color }}">{{ reading.device.person.name }}</p>
-            {% endfor %}
-        </div>
-    {% endfor %}
-
-    <div class="bottom">
-        <p><a class="gray" href="/admin/flock/device/add/">Add your device</a> and make sure its Bluetooth is on.</p>
-        <p>Optionally, <a class="gray" href="/admin/flock/customthreshold/">set a custom threshold</a> for a person-location pair (or device-location).</p>
-        {% if never_detected %}
-                <p>lookin at you 👀 {{ never_detected }} (never detected)</p>
-        {% endif %}
-    </div>
-
+    {% include "contents.html" %}
 </div>
 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script>
-    var timeout = setTimeout(function() {
-        location.reload()
+    window.interval = setInterval(function() {
+        $.get("/get_contents")
+            .done(data => $('.container').html((data)))
+            .fail(() => $('.container').html("<div style='text-align: center'><div>WHAT THE FLOCK!!</div><div>server (temporarily) down</div></div>"))
     }, 10000);
 </script>

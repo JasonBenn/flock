@@ -137,19 +137,38 @@ def index(request):
     if not user.is_authenticated or not user.is_staff:
         return redirect(login)
 
+    context = _get_main_contents_context()
+    return render(
+        request,
+        "index.html",
+        context,
+    )
+
+
+@login_required
+def get_contents(request):
+    user = request.user
+    if not user.is_authenticated or not user.is_staff:
+        return redirect(login)
+
+    context = _get_main_contents_context()
+    return render(
+        request,
+        "contents.html",
+        context,
+    )
+
+
+def _get_main_contents_context():
     location_to_readings = defaultdict(list)
     for reading in get_current_readings().values():
         if reading:
             location_to_readings[reading.location].append(reading)
-
-    return render(
-        request,
-        "index.html",
-        {
-            "location_to_readings": dict(location_to_readings),
-            "never_detected": ", ".join(sorted([x.name for x in get_never_detected_people()])),
-        },
-    )
+    context = {
+        "location_to_readings": dict(location_to_readings),
+        "never_detected": ", ".join(sorted([x.name for x in get_never_detected_people()])),
+    }
+    return context
 
 
 def login(request):

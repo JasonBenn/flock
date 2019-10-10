@@ -1,0 +1,27 @@
+{% load template_utils %}
+{% if location_to_readings %}
+{% else %}
+    <div>
+        <p>no one's here, come hang!</p>
+        <p>(click <a href="">here</a> that's wrong)</p>
+    </div>
+{% endif %}
+{% for location, readings in location_to_readings.items %}
+    <div id='loc_{{location.clean_name|snake_case}}' class='locationPanel'>
+        <div class="locationHolder">
+            <p class='locationName'>{{location.name}}</p>
+            <div class='{{location.clean_name|camel_case}}Icon'></div>
+        </div>
+        {% for reading in readings %}
+            <p style="color: {{ reading.created_at|created_at_color }}">{{ reading.device.person.name }}</p>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+<div class="bottom">
+    <p><a class="gray" href="/admin/flock/device/add/">Add your device</a> and make sure its Bluetooth is on.</p>
+    <p>Optionally, <a class="gray" href="/admin/flock/customthreshold/">set a custom threshold</a> for a person-location pair (or device-location).</p>
+    {% if never_detected %}
+            <p>lookin at you 👀 {{ never_detected }} (never detected)</p>
+    {% endif %}
+</div>
