@@ -19,9 +19,7 @@
 {% endfor %}
 
 <div class="bottom">
-    <p><a class="gray" href="/admin/flock/device/add/">Add your device</a> and make sure its Bluetooth is on.</p>
-    <p>Optionally, <a class="gray" href="/admin/flock/customthreshold/">set a custom threshold</a> for a person-location pair (or device-location).</p>
-    {% if never_detected %}
-            <p>lookin at you 👀 {{ never_detected }} (never detected)</p>
-    {% endif %}
+    <p><a class="gray" href="/admin/flock/device/add/">Add your devices</a> (and make sure their Bluetooth is on)!</p>
+    <p><a href="/admin/flock/groundtruth/add/">Report a mistake</a> 🙏</p>
+    <p>Optionally, <a class="gray" href="/admin/flock/customthreshold/">set a custom threshold</a> for a person-location pair (or a device-location pair).</p>
 </div>
