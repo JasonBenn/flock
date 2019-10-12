@@ -34,7 +34,13 @@ class CustomThresholdAdmin(admin.ModelAdmin):
 
 admin.site.register(Device, DeviceAdmin)
 admin.site.register(CustomThreshold, CustomThresholdAdmin)
-admin.site.register(SensorReading)
+
+
+class SensorReadingAdmin(admin.ModelAdmin):
+    ordering = ("-created_at",)
+    list_display = ["device", "location", "rssi", "created_at"]
+
+admin.site.register(SensorReading, SensorReadingAdmin)
 
 
 class GroundTruthAdmin(admin.ModelAdmin):
