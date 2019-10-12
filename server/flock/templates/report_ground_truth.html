@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block container %}
+  <div>
+  <form action="/ground_truths" method="post">
+    {% csrf_token %}
+
+    <div class="center-contents">
+      <div class="control-group">
+        <h2>Which location?</h2>
+        {% for location in locations %}
+          <label class="control control--radio">{{ location.name }}
+            <input name="location_id" value="{{ location.id }}" type="radio" {% if location.id == current_location_id %}checked="checked"{% endif %}/>
+            <div class="control__indicator"></div>
+          </label>
+        {% endfor %}
+      </div>
+      <div class="control-group">
+        <h2>Who's there?</h2>
+        {% for person in people %}
+          <label class="control control--checkbox">{{ person.name }}
+            <input name="person_id" value="{{ person.id }}" type="checkbox" {% if person.present %}checked="checked"{% endif %}/>
+            <div class="control__indicator"></div>
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+    <input type="submit">
+  </form>
+  </div>
+{% endblock %}

@@ -4,7 +4,6 @@ from datetime import datetime
 from datetime import timedelta
 from itertools import groupby
 from typing import Dict
-from typing import List
 from typing import Optional
 
 from django.contrib.auth.decorators import login_required
@@ -12,6 +11,7 @@ from django.db import transaction
 from django.db.models import Max
 from django.db.models import Q
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -20,12 +20,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from flock.models import CustomThreshold
 from flock.models import Device
+from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
 
 MAX_THRESHOLD = 100
-
 
 PersonToReading = Dict[Person, Optional[SensorReading]]
 
@@ -117,20 +117,6 @@ def get_current_positions():
     )
 
 
-def get_never_detected_people() -> List[Person]:
-    detected = set(SensorReading.objects.values_list("device__person_id", flat=True).distinct())
-    people = set(Person.objects.values_list("id", flat=True).distinct())
-    never_detected = people - detected
-    return Person.objects.filter(id__in=never_detected)
-
-
-def get_never_detected_devices() -> List[Device]:
-    detected = set(SensorReading.objects.values_list("device", flat=True).distinct())
-    devices = set(Device.objects.values_list("id", flat=True).distinct())
-    never_detected = devices - detected
-    return Device.objects.filter(id__in=never_detected)
-
-
 @login_required
 def index(request):
     user = request.user
@@ -138,11 +124,7 @@ def index(request):
         return redirect(login)
 
     context = _get_main_contents_context()
-    return render(
-        request,
-        "index.html",
-        context,
-    )
+    return render(request, "index.html", context)
 
 
 @login_required
@@ -152,22 +134,47 @@ def get_contents(request):
         return redirect(login)
 
     context = _get_main_contents_context()
+    return render(request, "contents.html", context)
+
+
+@login_required
+def report_ground_truth(request):
+    current_readings = get_current_readings()
     return render(
         request,
-        "contents.html",
-        context,
+        "report_ground_truth.html",
+        {
+            "people": [
+                {"name": x.name, "id": x.id, "present": current_readings.get(x)}
+                for x in Person.objects.all().order_by("first_name")
+            ],
+            "locations": Location.objects.all().order_by("name"),
+            "current_location_id": (int(request.GET.get('location_id', -1)))
+        },
     )
+
+
+def thanks(request):
+    return render(request, 'thanks.html')
+
+
+def post_ground_truths(request):
+    location_id = request.POST.get('location_id')
+    person_ids = request.POST.getlist('person_id')
+    print(location_id, person_ids)
+    for person_id in person_ids:
+        GroundTruth.objects.create(person_id=person_id, location_id=location_id, present=True)
+    return HttpResponseRedirect('/thanks')
 
 
 def _get_main_contents_context():
     location_to_readings = defaultdict(list)
-    for reading in get_current_readings().values():
+    current_readings = get_current_readings()
+    for reading in current_readings.values():
         if reading:
             location_to_readings[reading.location].append(reading)
-    context = {
-        "location_to_readings": dict(location_to_readings),
-        "never_detected": ", ".join(sorted([x.name for x in get_never_detected_people()])),
-    }
+
+    context = {"location_to_readings": dict(location_to_readings)}
     return context
 
 
@@ -181,33 +188,6 @@ def macs(request):
             x["mac"]: x["person__first_name"] + " " + x["person__last_name"][0]
             for x in Device.objects.values("mac", "person__first_name", "person__last_name")
         }
-    )
-
-
-@login_required
-def debug(request):
-    person_id = request.GET.get("person_id")
-    context = {"readings": []}
-    if person_id:
-        person = Person.objects.get(id=person_id)
-        readings = SensorReading.objects.filter(
-            device__person=person, created_at__gt=localtime() - timedelta(minutes=60)
-        )
-
-    custom_thresholds = CustomThreshold.objects.filter(Q(person=person) | Q(device__person=person))
-    current_readings_unhidden = get_current_readings_unhidden()
-    overrides = get_matching_override_rules(current_readings_unhidden)
-    return render(
-        request,
-        "debug_person.html",
-        {
-            "person": person,
-            "readings": readings,
-            "custom_thresholds": custom_thresholds,
-            "current_readings_unhidden": current_readings_unhidden,
-            "overrides": overrides,
-            "people": Person.objects.all(),
-        },
     )
 
 

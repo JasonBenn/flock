@@ -1,25 +1,27 @@
 {% load template_utils %}
 {% if location_to_readings %}
 {% else %}
-    <div>
-        <p>no one's here, come hang!</p>
-        <p>(click <a href="/admin/flock/groundtruth/add/">here</a> if that's wrong)</p>
-    </div>
+  <div>
+    <p>no one's here, come hang!</p>
+  </div>
 {% endif %}
 {% for location, readings in location_to_readings.items %}
-    <div id='loc_{{location.clean_name|snake_case}}' class='locationPanel'>
-        <div class="locationHolder">
-            <p class='locationName'>{{location.name}}</p>
-            <div class='{{location.clean_name|camel_case}}Icon'></div>
-        </div>
-        {% for reading in readings %}
-            <p style="color: {{ reading.created_at|created_at_color }}">{{ reading.device.person.name }}</p>
-        {% endfor %}
+  <a class="gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">
+    <div id='loc_{{ location.clean_name|snake_case }}' class='locationPanel'>
+      <div class="locationHolder">
+        <p class='locationName'>{{ location.name }}</p>
+        <div class='{{ location.clean_name|camel_case }}Icon'></div>
+      </div>
+      {% for reading in readings %}
+        <p style="color: {{ reading.created_at|created_at_color }}">{{ reading.device.person.name }}</p>
+      {% endfor %}
     </div>
+  </a>
 {% endfor %}
 
 <div class="bottom">
-    <p><a class="gray" href="/admin/flock/device/add/">Add your devices</a> (and make sure their Bluetooth is on)!</p>
-    <p><a href="/admin/flock/groundtruth/add/">Report a mistake</a> 🙏</p>
-    <p>Optionally, <a class="gray" href="/admin/flock/customthreshold/">set a custom threshold</a> for a person-location pair (or a device-location pair).</p>
+  <p><a class="gray" href="/admin/flock/device/add/">Add your devices</a> (and make sure their Bluetooth is on)!</p>
+  <p>Something wrong? <a class="gray" href="/report_ground_truth">Correct Flock here</a>.</p>
+  <p>Optionally, <a class="gray" href="/admin/flock/customthreshold/">set a custom threshold</a> for a person-location
+    pair (or a device-location pair).</p>
 </div>

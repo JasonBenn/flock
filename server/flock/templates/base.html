@@ -1,0 +1,16 @@
+{% load static %}
+{% load template_utils %}
+
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+<title>Flock</title>
+<meta name="mobile-web-app-capable" content="yes">
+
+<body>
+    <div class="container">
+        {% block container %}{% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>

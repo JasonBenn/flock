@@ -13,7 +13,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         location = Location.objects.get(name__icontains=options["name"])
-        for reading in SensorReading.objects.filter(location=location, created_at__gte=localtime() - timedelta(hours=2)):
+        for reading in SensorReading.objects.filter(
+            location=location, created_at__gte=localtime() - timedelta(hours=2)
+        ):
             print(reading)
 
         # xs = []

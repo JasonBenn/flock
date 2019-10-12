@@ -137,8 +137,12 @@ class GroundTruth(models.Model):
     person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     created_at = DateTimeField(default=localtime)
-    device = models.ForeignKey(Device, on_delete=models.DO_NOTHING, null=True, blank=True, help_text="Helpful, but optional.")
+    device = models.ForeignKey(
+        Device, on_delete=models.DO_NOTHING, null=True, blank=True, help_text="Helpful, but optional."
+    )
 
     def __str__(self):
         present_str = "@" if self.present else "!@"
-        return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.person.name} {present_str} {self.location.name}"
+        return (
+            f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.person.name} {present_str} {self.location.name}"
+        )

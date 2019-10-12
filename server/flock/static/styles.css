@@ -91,6 +91,7 @@ p {
     margin-bottom: 24px;
     padding-bottom: 24px;
     border-bottom: 1px solid rgba(5, 25, 55, .33);
+    text-decoration: none;
 }
 
 .red {
@@ -117,6 +118,10 @@ p {
     color: darkgray;
 }
 
+.no-underline {
+    text-decoration: none;
+}
+
 .bottom {
     margin: 0 1em;
     position: absolute;
@@ -126,5 +131,14 @@ p {
 
 .bottom p {
     margin-top: 0.7em;
-    /*font-size: 12px;*/
+}
+
+.center-contents {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+.center-contents > div {
+    margin: 3em;
 }

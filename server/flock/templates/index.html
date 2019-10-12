@@ -1,21 +1,17 @@
-{% load static %}
-<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
-<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
-<title>Flock</title>
-<meta name="mobile-web-app-capable" content="yes">
+{% extends "base.html" %}
 
+{% block container %}
+  {% include "contents.html" %}
+{% endblock %}
 
-{% load template_utils %}
-
-<div class="container">
-    {% include "contents.html" %}
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script>
-    window.interval = setInterval(function() {
-        $.get("/get_contents")
-            .done(data => $('.container').html((data)))
-            .fail(() => $('.container').html("<div style='text-align: center'><div>WHAT THE FLOCK!!</div><div>server (temporarily) down</div></div>"))
-    }, 10000);
-</script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+{% block scripts %}
+  <script>
+      window.interval = setInterval(function () {
+          $.get("/get_contents")
+              .done(data => $('.container').html((data)))
+              .fail(() => $('.container').html("<div style='text-align: center'><div>WHAT THE FLOCK!!</div><div>server (temporarily) down</div></div>"))
+      }, 10000);
+  </script>
+{% endblock %}

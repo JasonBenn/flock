@@ -7,25 +7,30 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('flock', '0001_initial'),
-    ]
+    dependencies = [("flock", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='device',
-            name='created_at',
-            field=models.DateTimeField(default=django.utils.timezone.localtime),
+            model_name="device", name="created_at", field=models.DateTimeField(default=django.utils.timezone.localtime)
         ),
         migrations.CreateModel(
-            name='GroundTruth',
+            name="GroundTruth",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('present', models.BooleanField(default=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.localtime)),
-                ('device', models.ForeignKey(blank=True, help_text='Helpful, but optional.', null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='flock.Device')),
-                ('location', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='flock.Location')),
-                ('person', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='flock.Person')),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("present", models.BooleanField(default=False)),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.localtime)),
+                (
+                    "device",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Helpful, but optional.",
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        to="flock.Device",
+                    ),
+                ),
+                ("location", models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to="flock.Location")),
+                ("person", models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to="flock.Person")),
             ],
         ),
     ]

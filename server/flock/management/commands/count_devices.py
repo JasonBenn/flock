@@ -15,7 +15,9 @@ class Command(BaseCommand):
             people_to_phones[device.person].append(device)
 
         people_to_laptops = defaultdict(list)
-        for device in Device.objects.filter(device_type__in=[DeviceType.LAPTOP, DeviceType.WORK_LAPTOP], person__in=archivists):
+        for device in Device.objects.filter(
+            device_type__in=[DeviceType.LAPTOP, DeviceType.WORK_LAPTOP], person__in=archivists
+        ):
             people_to_laptops[device.person].append(device)
 
         missing_phones = {x for x in archivists if x not in people_to_phones}
