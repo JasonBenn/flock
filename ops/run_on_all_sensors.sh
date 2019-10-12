@@ -9,7 +9,7 @@ echo "Working..."
     echo study
     echo middle_kingdom_kitchen
     echo jasons_room
-    echo workshop
+    echo workshop_arrams_room
     echo backyard
     echo roof
 } | parallel -k bash $1
