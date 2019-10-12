@@ -141,4 +141,13 @@ p {
 
 .center-contents > div {
     margin: 3em;
+    width: 50%;
+}
+
+input[type="radio"]:not(:checked) + label {
+    color: lightgray;
+}
+
+input[type="checkbox"]:indeterminate + label {
+  color: lightgray;
 }

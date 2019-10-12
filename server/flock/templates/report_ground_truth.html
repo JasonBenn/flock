@@ -2,30 +2,71 @@
 
 {% block container %}
   <div>
-  <form action="/ground_truths" method="post">
-    {% csrf_token %}
+    <form action="/ground_truths" method="post">
+      {% csrf_token %}
 
-    <div class="center-contents">
-      <div class="control-group">
-        <h2>Which location?</h2>
-        {% for location in locations %}
-          <label class="control control--radio">{{ location.name }}
-            <input name="location_id" value="{{ location.id }}" type="radio" {% if location.id == current_location_id %}checked="checked"{% endif %}/>
-            <div class="control__indicator"></div>
-          </label>
-        {% endfor %}
+      <div class="center-contents">
+        <div class="control-group">
+          <h2>Which location?</h2>
+          {% for location in locations %}
+            <div>
+              <input name="location_id" value="{{ location.id }}" type="radio"
+                     {% if location.id == current_location_id %}checked="checked"{% endif %}/>
+              <label>{{ location.name }}</label>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="control-group">
+          <h2>Who's there?</h2>
+          <div>If Flock thinks someone is in the selected room and they're not, uncheck their box.</div>
+          {% for person in people %}
+            <div>
+              <input name="person_id" value="{{ person.id }}" type="checkbox"
+                     {% if person.present %}checked="checked"{% endif %}/>
+              <label for="person_id">{{ person.name }}</label>
+            </div>
+          {% endfor %}
+        </div>
       </div>
-      <div class="control-group">
-        <h2>Who's there?</h2>
-        {% for person in people %}
-          <label class="control control--checkbox">{{ person.name }}
-            <input name="person_id" value="{{ person.id }}" type="checkbox" {% if person.present %}checked="checked"{% endif %}/>
-            <div class="control__indicator"></div>
-          </label>
-        {% endfor %}
-      </div>
-    </div>
-    <input type="submit">
-  </form>
+      <input type="submit">
+    </form>
   </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+      $("input[type=checkbox]:not(:checked)").prop('indeterminate', true).parent().addClass('indeterminate')
+      var $check = $("input[type=checkbox]"), el;
+      $check
+          .data('checked', 0)
+          .click(function (e) {
+
+              el = $(this);
+
+              switch (el.data('checked')) {
+
+                  // unchecked, going indeterminate
+                  case 0:
+                      el.data('checked', 1);
+                      el.prop('indeterminate', true);
+                      break;
+
+                  // indeterminate, going checked
+                  case 1:
+                      el.data('checked', 2);
+                      el.prop('indeterminate', false);
+                      el.prop('checked', true);
+                      break;
+
+                  // checked, going unchecked
+                  default:
+                      el.data('checked', 0);
+                      el.prop('indeterminate', false);
+                      el.prop('checked', false);
+
+              }
+
+          });
+  </script>
+
 {% endblock %}
