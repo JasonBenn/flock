@@ -141,3 +141,7 @@ if os.getenv("PRODUCTION") == "1":
         integrations=[DjangoIntegration()],
         environment=f"server",
     )
+
+# Other
+
+FREEZE_TIME = os.environ.get('FREEZE_TIME', None)

@@ -6,6 +6,7 @@ from itertools import groupby
 from typing import Dict
 from typing import Optional
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models import Max
@@ -35,6 +36,8 @@ def get_most_mobile_device(devices):
 
 
 def get_current_readings(at_time: Optional[datetime] = None) -> PersonToReading:
+    if settings.FREEZE_TIME:
+        at_time = SensorReading.objects.aggregate(Max('created_at'))['created_at__max']
     current_readings_unhidden = get_current_readings_unhidden(at_time)
     overrides = get_matching_override_rules(current_readings_unhidden)
     return {**current_readings_unhidden, **overrides}
