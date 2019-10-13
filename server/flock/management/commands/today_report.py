@@ -25,6 +25,11 @@ class Command(BaseCommand):
                     grouped[reading.location.name].append(reading.device.person.name)
 
                 if max([len(x) for x in grouped.values()]) > 1:
-                    print(current_dt.strftime("%-I:%M%p"), grouped)
+                    print(
+                        current_dt.strftime("%-I:%M%p") + "\t",
+                        len(found),
+                        max(len(v) for k, v in grouped.items()),
+                        grouped,
+                    )
 
             current_dt += timedelta(minutes=10)

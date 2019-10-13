@@ -3,6 +3,7 @@ from collections import defaultdict
 from datetime import datetime
 from datetime import timedelta
 from itertools import groupby
+from operator import attrgetter
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -196,7 +197,7 @@ def merge_recent_ground_truths(
         if reading is not None and truth:
             if reading.location != truth.location and truth.present:
                 person_estimates[person] = truth
-            if reading.location == truth.location and not truth.present:
+            elif reading.location == truth.location and not truth.present:
                 person_estimates[person] = None
     return person_estimates
 
