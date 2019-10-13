@@ -3,13 +3,20 @@ import re
 from django.contrib.postgres.indexes import BrinIndex
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import DateTimeField
+from django.db.models import BooleanField
 from django.db.models import ForeignKey
 from django.db.models import TextField
-from django.db.models import BooleanField
 from django.utils.timezone import localtime
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
+
+
+class TZAwareDateTimeField(models.DateTimeField):
+    def from_db_value(self, value, expression, connection, context):
+        if value is None:
+            return None
+        else:
+            return localtime(value)
 
 
 class Location(models.Model):
@@ -56,7 +63,7 @@ def mac_validator(mac):
 class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     device_type = EnumField(DeviceType)
-    created_at = DateTimeField(default=localtime, editable=False)
+    created_at = TZAwareDateTimeField(default=localtime, editable=False)
     mac = models.CharField(
         max_length=17,
         unique=True,
@@ -77,7 +84,7 @@ class SensorReading(models.Model):
     device = models.ForeignKey(Device, on_delete=models.DO_NOTHING)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     rssi = models.IntegerField()
-    created_at = DateTimeField(default=localtime)
+    created_at = TZAwareDateTimeField(default=localtime)
 
     class Meta:
         indexes = [BrinIndex(fields=["created_at"])]
@@ -136,7 +143,7 @@ class GroundTruth(models.Model):
     present = BooleanField(default=False)
     person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
-    created_at = DateTimeField(default=localtime)
+    created_at = TZAwareDateTimeField(default=localtime)
     device = models.ForeignKey(
         Device, on_delete=models.DO_NOTHING, null=True, blank=True, help_text="Helpful, but optional."
     )
