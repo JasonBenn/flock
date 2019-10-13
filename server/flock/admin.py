@@ -36,9 +36,20 @@ admin.site.register(Device, DeviceAdmin)
 admin.site.register(CustomThreshold, CustomThresholdAdmin)
 
 
+def rssi_to_ten(modeladmin, request, queryset):
+    for reading in queryset:
+        reading.rssi = 10
+        reading.save()
+
+
+rssi_to_ten.short_description = "Change RSSI to 10"
+
+
 class SensorReadingAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
     list_display = ["device", "location", "rssi", "created_at"]
+    actions = [rssi_to_ten]  # <-- Add the list action function here
+
 
 admin.site.register(SensorReading, SensorReadingAdmin)
 
