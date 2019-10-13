@@ -9,7 +9,31 @@ from flock.models import Person
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        archivists = Person.objects.exclude(first_name__in=["Robin", "YC", "Akiva"])
+        whitelist = [
+            "Zain",
+            "Ben",
+            "Jason",
+            "Allie",
+            "Tina",
+            "Josh",
+            "Kanjun",
+            "Taylor",
+            "Beth",
+            "Michael",
+            "Danielle",
+            "Danny",
+            "Laura",
+            "Rilka",
+            "Chris",
+            "Arram",
+            "Michelle",
+            "Tom",
+            "Austin",
+            "Emily",
+            "Annie",
+            "Tommy",
+        ]
+        archivists = Person.objects.filter(first_name__in=whitelist)
         people_to_phones = defaultdict(list)
         for device in Device.objects.filter(device_type=DeviceType.PHONE, person__in=archivists):
             people_to_phones[device.person].append(device)
@@ -24,9 +48,9 @@ class Command(BaseCommand):
         missing_laptops = {x for x in archivists if x not in people_to_laptops}
         person_count = Person.objects.count()
         print(
-            f"Missing {len(missing_phones) / person_count*100:.0f}% of phones ({', '.join(sorted(x.first_name for x in missing_phones))})"
+            f"Missing {len(missing_phones) / person_count*100:.0f}% of phones (@{', @'.join(sorted(x.first_name for x in missing_phones))})"
         )
         print(
-            f"Missing {len(missing_laptops) / person_count*100:.0f}% of laptops ({', '.join(sorted(x.first_name for x in missing_laptops))})"
+            f"Missing {len(missing_laptops) / person_count*100:.0f}% of laptops (@{', @'.join(sorted(x.first_name for x in missing_laptops))})"
         )
         print(f"Total devices: {Device.objects.count()}")
