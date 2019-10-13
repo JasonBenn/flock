@@ -1,72 +1,76 @@
 {% extends "base.html" %}
 
 {% block container %}
-  <div>
-    <form action="/ground_truths" method="post">
-      {% csrf_token %}
-
-      <div class="center-contents">
-        <div class="control-group">
-          <h2>Which location?</h2>
-          {% for location in locations %}
-            <div>
-              <input name="location_id" value="{{ location.id }}" type="radio"
-                     {% if location.id == current_location_id %}checked="checked"{% endif %}/>
-              <label>{{ location.name }}</label>
-            </div>
-          {% endfor %}
-        </div>
-        <div class="control-group">
-          <h2>Who's there?</h2>
-          <div>If Flock thinks someone is in the selected room and they're not, uncheck their box.</div>
-          {% for person in people %}
-            <div>
-              <input name="person_id" value="{{ person.id }}" type="checkbox"
-                     {% if person.present %}checked="checked"{% endif %}/>
-              <label for="person_id">{{ person.name }}</label>
-            </div>
-          {% endfor %}
-        </div>
+  <form action="/ground_truths" method="post">
+    {% csrf_token %}
+    <div class="center-contents">
+      <div class="control-group">
+        <h2>Which location?</h2>
+        {% for location in locations %}
+          <div>
+            <input name="location_id" value="{{ location.id }}" type="radio"
+                   {% if location.id == current_location_id %}checked="checked"{% endif %}/>
+            <label>{{ location.name }}</label>
+          </div>
+        {% endfor %}
       </div>
-      <input type="submit">
-    </form>
-  </div>
+      <div class="control-group">
+        <h2>Who's there?</h2>
+        <div>If Flock thinks someone is in the selected room and they're not, uncheck their box.</div>
+        {% for person in people %}
+          <div>
+            <input name="present_person_id" value="{{ person.id }}" type="checkbox"
+                   {% if person.present %}checked="checked"{% endif %}/>
+            <label for="person_id">{{ person.name }}</label>
+            <input class="hide" name="not_present_person_id" value="{{ person.id }}" type="checkbox"/>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <input type="submit">
+  </form>
 {% endblock %}
 
 {% block scripts %}
   <script>
-      $("input[type=checkbox]:not(:checked)").prop('indeterminate', true).parent().addClass('indeterminate')
-      var $check = $("input[type=checkbox]"), el;
-      $check
-          .data('checked', 0)
-          .click(function (e) {
+      $("input[type=checkbox]:not(:checked):not(.hide)").prop('indeterminate', true).data('checked', 1)
+      $("input[type=checkbox]:checked").data('checked', 2)
 
-              el = $(this);
+      $("input[type=checkbox]").click(function() {
+          const presentEl = $(this);
+          console.log(presentEl)
+          const notPresentEl = presentEl.siblings('input.hide')
+          console.log('hi', presentEl.data('checked'))
 
-              switch (el.data('checked')) {
+          switch (presentEl.data('checked')) {
 
-                  // unchecked, going indeterminate
-                  case 0:
-                      el.data('checked', 1);
-                      el.prop('indeterminate', true);
-                      break;
+              // unchecked, going indeterminate
+              case 0:
+                  presentEl.data('checked', 1);
+                  presentEl.prop('indeterminate', true);
+                  notPresentEl.prop('checked', false);
+                  break;
 
-                  // indeterminate, going checked
-                  case 1:
-                      el.data('checked', 2);
-                      el.prop('indeterminate', false);
-                      el.prop('checked', true);
-                      break;
+              // indeterminate, going checked
+              case 1:
+                  presentEl.data('checked', 2);
+                  presentEl.prop('indeterminate', false);
+                  presentEl.prop('checked', true);
+                  notPresentEl.prop('checked', false);
+                  break;
 
-                  // checked, going unchecked
-                  default:
-                      el.data('checked', 0);
-                      el.prop('indeterminate', false);
-                      el.prop('checked', false);
+              // checked, going unchecked
+              default:
+                  presentEl.data('checked', 0);
+                  presentEl.prop('indeterminate', false);
+                  presentEl.prop('checked', false);
+                  notPresentEl.prop('checked', true);
 
-              }
+          }
 
-          });
+      })
+
+
   </script>
 
 {% endblock %}

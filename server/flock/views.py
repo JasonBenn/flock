@@ -163,10 +163,12 @@ def thanks(request):
 
 def post_ground_truths(request):
     location_id = request.POST.get('location_id')
-    person_ids = request.POST.getlist('person_id')
-    print(location_id, person_ids)
-    for person_id in person_ids:
+    present_person_ids = request.POST.getlist('present_person_id')
+    not_present_person_ids = request.POST.getlist('not_present_person_id')
+    for person_id in present_person_ids:
         GroundTruth.objects.create(person_id=person_id, location_id=location_id, present=True)
+    for person_id in not_present_person_ids:
+        GroundTruth.objects.create(person_id=person_id, location_id=location_id, present=False)
     return HttpResponseRedirect('/thanks')
 
 

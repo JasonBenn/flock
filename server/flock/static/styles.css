@@ -151,3 +151,19 @@ input[type="radio"]:not(:checked) + label {
 input[type="checkbox"]:indeterminate + label {
   color: lightgray;
 }
+
+input[type="submit"] {
+    position: fixed;
+    bottom: 3em;
+    right: 3em;
+    background-color: green;
+    padding: 1em 2em;
+    outline: none;
+    border-radius: 1em;
+    color: white;
+    font-weight: bold;
+}
+
+.hide {
+    display: none;
+}
