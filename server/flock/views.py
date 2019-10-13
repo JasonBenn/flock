@@ -210,7 +210,8 @@ def get_estimates() -> Dict[Location, List[Estimate]]:
     current_readings = get_current_readings()
     person_estimates = merge_recent_ground_truths(current_readings)
     for estimate in person_estimates.values():
-        if estimate:
+        use_estimate = isinstance(estimate, SensorReading) or (isinstance(estimate, GroundTruth) and estimate.present)
+        if use_estimate:
             location_to_estimates[estimate.location].append(estimate)
 
     return dict(location_to_estimates)
