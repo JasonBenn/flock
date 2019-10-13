@@ -138,7 +138,7 @@ def index(request):
     if not user.is_authenticated or not user.is_staff:
         return redirect(login)
 
-    return render(request, "index.html", get_estimates())
+    return render(request, "index.html", get_main_content())
 
 
 @login_required
@@ -147,7 +147,7 @@ def get_contents(request):
     if not user.is_authenticated or not user.is_staff:
         return redirect(login)
 
-    return render(request, "contents.html", get_estimates())
+    return render(request, "contents.html", get_main_content())
 
 
 @login_required
