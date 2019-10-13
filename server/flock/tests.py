@@ -125,6 +125,15 @@ class LocationEstimationTests(TestCase):
         estimates = get_estimates()
         self.assertEqual(estimates, {self.study: [truth]})
 
+    def test_single_device_moves_between_locations(self):
+        """Allie went from Study to Common Room"""
+        SensorReading.objects.create(
+            device=self.allie_phone, location=self.study, rssi=0, created_at=(localtime() - timedelta(minutes=5))
+        )
+        common_room_reading = SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
+        estimates = get_estimates()
+        self.assertEqual(estimates, {self.common_room: [common_room_reading]})
+
     def test_not_present_report_falls_back_to_another_reading(self):
         """Allie has a reading from the common room, someone reports she's not there, so we fall back to another valid reading from the Study"""
         common_room_reading = SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)

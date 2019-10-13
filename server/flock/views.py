@@ -114,13 +114,17 @@ def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> Dict[Pe
 
         if reading.rssi >= threshold:
             over_threshold_readings.add(reading)
-    latest_device_readings = {x.device: x for x in over_threshold_readings}
+
+    # If multiple readings from same device, prefer the most recent one.
+    latest_device_readings = {x.device: x for x in sorted(over_threshold_readings, key=attrgetter("created_at"))}
     current_readings = {x: None for x in people}
+
     for person, readings in groupby(latest_device_readings.values(), key=lambda reading: reading.device.person):
         device_to_readings = {x.device: x for x in readings}
         best_device = get_most_mobile_device(device_to_readings.keys())
         best_reading = device_to_readings[best_device]
         current_readings[best_reading.device.person] = best_reading
+
     return current_readings
 
 
