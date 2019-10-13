@@ -16,7 +16,7 @@
       </div>
       <div class="control-group">
         <h2>Who's there?</h2>
-        <div>If Flock thinks someone is in the selected room and they're not, uncheck their box.</div>
+        <div>To show or hide a person from a room, check/uncheck their box.</div>
         {% for person in people %}
           <div>
             <input name="present_person_id" value="{{ person.id }}" type="checkbox"/>

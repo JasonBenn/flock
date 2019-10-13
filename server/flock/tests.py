@@ -6,10 +6,12 @@ from django.utils.timezone import localtime
 from flock.models import CustomThreshold
 from flock.models import Device
 from flock.models import DeviceType
+from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
 from flock.views import MAX_THRESHOLD
+from flock.views import get_estimates
 from flock.views import get_current_readings
 
 
@@ -27,6 +29,7 @@ class LocationEstimationTests(TestCase):
         self.michael_phone = Device.objects.create(person=self.michael, device_type=DeviceType.PHONE, mac="d")
 
         self.common_room = Location.objects.create(name="Common room")
+        self.study = Location.objects.create(name="study")
         self.jasons_room = Location.objects.create(name="Jason's room")
 
     def test_basic_detection(self):
@@ -102,3 +105,34 @@ class LocationEstimationTests(TestCase):
         reading_b = SensorReading.objects.create(device=self.michael_phone, location=self.common_room, rssi=0)
         locations = get_current_readings()
         self.assertEqual(locations, {self.allie: reading_a, self.michael: reading_b})
+
+    def test_present_ground_truth(self):
+        """Allie is in the common room"""
+        truth = GroundTruth.objects.create(person=self.allie, location=self.common_room, present=True)
+        estimates = get_estimates()
+        self.assertEqual(estimates, {self.common_room: [truth]})
+
+    def test_not_present_ground_truth(self):
+        """Allie is not in the common room"""
+        GroundTruth.objects.create(person=self.allie, location=self.common_room, present=False)
+        estimates = get_estimates()
+        self.assertEqual(estimates, {self.common_room: []})
+
+    def test_ground_truth_in_different_room(self):
+        """Allie has a reading from the common room, but someone reports she's really in the Study"""
+        SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
+        truth = GroundTruth.objects.create(person=self.allie, location=self.study, present=True)
+        estimates = get_estimates()
+        self.assertEqual(estimates, {self.study: [truth]})
+
+    def test_not_present_report_falls_back_to_another_reading(self):
+        """Allie has a reading from the common room, someone reports she's not there, so we fall back to another valid reading from the Study"""
+        common_room_reading = SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
+        study_reading = SensorReading.objects.create(
+            device=self.allie_phone, location=self.study, rssi=0, created_at=localtime() - timedelta(minutes=5)
+        )
+        estimates = get_estimates()
+        self.assertEqual(estimates, {self.common_room: [common_room_reading]})
+        GroundTruth.objects.create(person=self.allie, location=self.common_room, present=False)
+        estimates = get_estimates()
+        self.assertEqual(estimates, {self.study: [study_reading]})
