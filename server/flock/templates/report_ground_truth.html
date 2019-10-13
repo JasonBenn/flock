@@ -19,8 +19,7 @@
         <div>If Flock thinks someone is in the selected room and they're not, uncheck their box.</div>
         {% for person in people %}
           <div>
-            <input name="present_person_id" value="{{ person.id }}" type="checkbox"
-                   {% if person.present %}checked="checked"{% endif %}/>
+            <input name="present_person_id" value="{{ person.id }}" type="checkbox"/>
             <label for="person_id">{{ person.name }}</label>
             <input class="hide" name="not_present_person_id" value="{{ person.id }}" type="checkbox"/>
           </div>
@@ -34,13 +33,10 @@
 {% block scripts %}
   <script>
       $("input[type=checkbox]:not(:checked):not(.hide)").prop('indeterminate', true).data('checked', 1)
-      $("input[type=checkbox]:checked").data('checked', 2)
 
       $("input[type=checkbox]").click(function() {
           const presentEl = $(this);
-          console.log(presentEl)
           const notPresentEl = presentEl.siblings('input.hide')
-          console.log('hi', presentEl.data('checked'))
 
           switch (presentEl.data('checked')) {
 

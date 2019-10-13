@@ -149,13 +149,12 @@ def get_contents(request):
 
 @login_required
 def report_ground_truth(request):
-    current_readings = get_current_readings()
     return render(
         request,
         "report_ground_truth.html",
         {
             "people": [
-                {"name": x.name, "id": x.id, "present": current_readings.get(x)}
+                {"name": x.name, "id": x.id}
                 for x in Person.objects.all().order_by("first_name")
             ],
             "locations": Location.objects.all().order_by("name"),
@@ -181,13 +180,12 @@ def post_ground_truths(request):
 
 def merge_recent_ground_truths(current_readings: PersonToReading, at_time: Optional[datetime] = None) -> PersonToEstimate:
     at_time = get_at_time(at_time)
-    ground_truths = GroundTruth.objects.filter(created_at__gte=at_time - timedelta(minutes=15))#, created_at__lte=at_time)  TODO
+    ground_truths = GroundTruth.objects.filter(created_at__gte=at_time - timedelta(minutes=15), created_at__lte=at_time)
     ground_truths_by_people = {x.person: x for x in ground_truths}
-
-    person_estimates: PersonToEstimate = current_readings.copy()
+    person_estimates: PersonToEstimate = {**ground_truths_by_people, **current_readings}
     for person, reading in current_readings.items():
         truth = ground_truths_by_people.get(person)
-        if reading and truth:
+        if reading is not None and truth:
             if reading.location != truth.location and truth.present:
                 person_estimates[person] = truth
             if reading.location == truth.location and not truth.present:
