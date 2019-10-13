@@ -45,10 +45,11 @@ def get_current_readings(at_time: Optional[datetime] = None) -> PersonToReading:
     return {**current_readings_unhidden, **overrides}
 
 
-def get_at_time(at_time):
+def get_at_time(at_time) -> datetime:
     if at_time is None and settings.FREEZE_TIME:
-        at_time = SensorReading.objects.aggregate(Max('created_at'))['created_at__max']
-    return at_time
+        return SensorReading.objects.aggregate(Max('created_at'))['created_at__max']
+    else:
+        return localtime()
 
 
 def get_matching_override_rules(person_readings: PersonToReading) -> PersonToReading:
