@@ -1,5 +1,6 @@
 from datetime import datetime
 from datetime import timedelta
+from typing import Any
 from typing import Optional
 
 from django import template
@@ -8,9 +9,12 @@ from stringcase import snakecase
 
 from django.utils.timezone import localtime
 
+from flock.models import GroundTruth
+
 register = template.Library()
 
 
+@register.filter
 def created_at_color(created_at: datetime, current_time: Optional[datetime] = None):
     if current_time is None:
         current_time = localtime()
@@ -23,14 +27,16 @@ def created_at_color(created_at: datetime, current_time: Optional[datetime] = No
     return color
 
 
+@register.filter
 def snake_case(string):
     return snakecase(string)
 
 
+@register.filter
 def camel_case(string):
     return camelcase(string)
 
 
-register.filter("created_at_color", created_at_color)
-register.filter("snake_case", snake_case)
-register.filter("camel_case", camel_case)
+@register.filter
+def is_ground_truth(instance: Any) -> bool:
+    return isinstance(instance, GroundTruth)

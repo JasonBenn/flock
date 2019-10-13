@@ -4,7 +4,9 @@ from datetime import datetime
 from datetime import timedelta
 from itertools import groupby
 from typing import Dict
+from typing import List
 from typing import Optional
+from typing import Union
 
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -29,6 +31,7 @@ from flock.models import SensorReading
 MAX_THRESHOLD = 100
 
 PersonToReading = Dict[Person, Optional[SensorReading]]
+PersonToEstimate = Dict[Person, Optional[Union[SensorReading, GroundTruth]]]
 
 
 def get_most_mobile_device(devices):
@@ -36,11 +39,16 @@ def get_most_mobile_device(devices):
 
 
 def get_current_readings(at_time: Optional[datetime] = None) -> PersonToReading:
-    if settings.FREEZE_TIME:
-        at_time = SensorReading.objects.aggregate(Max('created_at'))['created_at__max']
+    at_time = get_at_time(at_time)
     current_readings_unhidden = get_current_readings_unhidden(at_time)
     overrides = get_matching_override_rules(current_readings_unhidden)
     return {**current_readings_unhidden, **overrides}
+
+
+def get_at_time(at_time):
+    if at_time is None and settings.FREEZE_TIME:
+        at_time = SensorReading.objects.aggregate(Max('created_at'))['created_at__max']
+    return at_time
 
 
 def get_matching_override_rules(person_readings: PersonToReading) -> PersonToReading:
@@ -71,8 +79,7 @@ def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> PersonT
     """
     Estimate a person's most mobile active device and its location by choosing one of several possible SensorReadings.
     """
-    if at_time is None:
-        at_time = localtime()
+    at_time = get_at_time(at_time)
     recent_readings = list(
         SensorReading.objects.select_related("device", "device__person", "location")
         .filter(created_at__gt=at_time - timedelta(minutes=15), created_at__lte=at_time)
@@ -172,14 +179,28 @@ def post_ground_truths(request):
     return HttpResponseRedirect('/thanks')
 
 
-def _get_main_contents_context():
-    location_to_readings = defaultdict(list)
-    current_readings = get_current_readings()
-    for reading in current_readings.values():
-        if reading:
-            location_to_readings[reading.location].append(reading)
+def merge_recent_ground_truths(current_readings: PersonToReading, at_time: Optional[datetime] = None) -> PersonToEstimate:
+    at_time = get_at_time(at_time)
+    ground_truths = GroundTruth.objects.filter(created_at__gte=at_time - timedelta(minutes=15))#, created_at__lte=at_time)  TODO
+    ground_truths_by_people = {x.person: x for x in ground_truths}
 
-    context = {"location_to_readings": dict(location_to_readings)}
+    person_estimates: PersonToEstimate = current_readings.copy()
+    for person, reading in current_readings.items():
+        truth = ground_truths_by_people.get(person)
+        if reading and truth and reading.location != truth.location:
+            person_estimates[person] = truth
+    return person_estimates
+
+
+def _get_main_contents_context():
+    location_to_estimates = defaultdict(list)
+    current_readings = get_current_readings()
+    person_estimates = merge_recent_ground_truths(current_readings)
+    for estimate in person_estimates.values():
+        if estimate:
+            location_to_estimates[estimate.location].append(estimate)
+
+    context = {"location_to_estimates": dict(location_to_estimates)}
     return context
 
 

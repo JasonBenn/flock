@@ -1,19 +1,23 @@
 {% load template_utils %}
-{% if location_to_readings %}
+{% if location_to_estimates %}
 {% else %}
   <div>
     <p>no one's here, come hang!</p>
   </div>
 {% endif %}
-{% for location, readings in location_to_readings.items %}
+{% for location, estimates in location_to_estimates.items %}
   <a class="gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">
     <div id='loc_{{ location.clean_name|snake_case }}' class='locationPanel'>
       <div class="locationHolder">
         <p class='locationName'>{{ location.name }}</p>
         <div class='{{ location.clean_name|camel_case }}Icon'></div>
       </div>
-      {% for reading in readings %}
-        <p style="color: {{ reading.created_at|created_at_color }}">{{ reading.device.person.name }}</p>
+      {% for estimate in estimates %}
+        {% if estimate|is_ground_truth %}
+          <p style="color: {{ estimate.created_at|created_at_color }}">{{ estimate.person.name }}?</p>
+        {% else %}
+          <p style="color: {{ estimate.created_at|created_at_color }}">{{ estimate.device.person.name }}</p>
+        {% endif %}
       {% endfor %}
     </div>
   </a>
