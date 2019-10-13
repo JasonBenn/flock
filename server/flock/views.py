@@ -187,8 +187,11 @@ def merge_recent_ground_truths(current_readings: PersonToReading, at_time: Optio
     person_estimates: PersonToEstimate = current_readings.copy()
     for person, reading in current_readings.items():
         truth = ground_truths_by_people.get(person)
-        if reading and truth and reading.location != truth.location:
-            person_estimates[person] = truth
+        if reading and truth:
+            if reading.location != truth.location and truth.present:
+                person_estimates[person] = truth
+            if reading.location == truth.location and not truth.present:
+                person_estimates[person] = None
     return person_estimates
 
 
