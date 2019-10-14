@@ -132,6 +132,7 @@ def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> Dict[Pe
 def get_current_positions():
     return (
         SensorReading.objects.filter(created_at__gt=localtime() - timedelta(minutes=15))
+        .select_related("device", "device__person", "location")
         .values("device__person__first_name", "device__person__last_name", "location_id")
         .annotate(updated_at=Max("created_at"))
     )
@@ -189,7 +190,7 @@ def merge_recent_ground_truths(
     at_time = get_at_time(at_time)
     ground_truths = GroundTruth.objects.filter(
         created_at__gte=at_time - timedelta(minutes=15), created_at__lte=at_time
-    )
+    ).select_related("person", "location")
     ground_truths_by_people = {x.person: x for x in ground_truths}
     person_estimates = {**ground_truths_by_people, **current_readings}
     for person, reading in current_readings.items():
@@ -206,10 +207,10 @@ def get_main_content():
     return {"location_to_estimates": get_estimates()}
 
 
-def get_estimates() -> Dict[Location, List[Estimate]]:
+def get_estimates(at_time: Optional[datetime] = None) -> Dict[Location, List[Estimate]]:
     location_to_estimates = defaultdict(list)
-    current_readings = get_current_readings()
-    person_estimates = merge_recent_ground_truths(current_readings)
+    current_readings = get_current_readings(at_time)
+    person_estimates = merge_recent_ground_truths(current_readings, at_time)
     for estimate in person_estimates.values():
         use_estimate = isinstance(estimate, SensorReading) or (isinstance(estimate, GroundTruth) and estimate.present)
         if use_estimate:
@@ -248,3 +249,10 @@ def scans(request):
     SensorReading.objects.bulk_create(positions)
 
     return HttpResponse(status=204)
+
+
+def get_person_from_estimate(estimate: Union[SensorReading, GroundTruth]) -> Person:
+    if isinstance(estimate, SensorReading):
+        return estimate.device.person
+    else:
+        return estimate.person

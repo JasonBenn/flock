@@ -1,11 +1,20 @@
+import warnings
+
+from pandas.plotting import register_matplotlib_converters
+
+from flock.views import get_estimates
+from flock.views import get_person_from_estimate
+
+register_matplotlib_converters()
+
 import matplotlib.pyplot as plt
+import seaborn as sns
 import subprocess
 from datetime import timedelta
 from typing import Dict
 from typing import List
 from typing import Tuple
 
-import numpy as np
 from django.core.management.base import BaseCommand
 from django.db.models import Max
 from django.utils.timezone import localtime
@@ -17,8 +26,6 @@ from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
 from flock.templatetags.template_utils import created_at_color
-from flock.views import get_current_readings_unhidden
-from flock.views import get_matching_override_rules
 
 
 def above_thresholds(reading: SensorReading, location: Location, thresholds: List[CustomThreshold]):
@@ -35,6 +42,7 @@ class Command(BaseCommand):
         parser.add_argument("-n", "--num_hours", type=int)
 
     def handle(self, *args, **options):
+        # options = {"first_name": "jason", "num_hours": 4}
         person = Person.objects.get(first_name__iexact=options["first_name"])
         num_hours = options["num_hours"]
 
@@ -72,46 +80,53 @@ class Command(BaseCommand):
                 sizes.append(10)
             colors.append(reading.rssi)
 
-        min_time = min(xs)
         max_time = max(xs)
+        min_time = min(xs) if min(xs) != max_time else max_time - timedelta(hours=1)
 
-        plt.clf()
-        fig, ax1 = plt.subplots(figsize=(num_hours * 3, 3))
-        ax1.legend(colors)
-        scatter = ax1.scatter(x=xs, y=ys, c=colors, s=sizes, marker="o", zorder=3)
-        ax1.legend(*scatter.legend_elements(), loc="center left", title="RSSI", bbox_to_anchor=(1.05, 0.5))
-        ax1.set_xlim(left=min_time, right=max_time)
+        with warnings.catch_warnings():
+            # Bug in Pandas emits useless warning when sorting tz-aware index
+            warnings.simplefilter("ignore")
+            ax = sns.scatterplot(x=xs, y=ys, hue=colors, sizes=sizes, markers="o", legend="brief")
+
         labels = [
             f"{location.name}, {DeviceType.get(device.device_type).name.lower()}"
             for (location, device) in sorted_location_devices
         ]
-        ax1.yaxis.set_ticklabels(labels)
-        ax1.yaxis.set_ticks(sorted(set(ys)))
+        ax.yaxis.set_ticklabels(labels)
+        ax.yaxis.set_ticks(sorted(set(ys)))
+        ax.set_xlim(left=min_time, right=max_time)
+        plt.setp(ax.get_xticklabels(), rotation=30, horizontalalignment="right")
 
+        print("\nestimates")
         current_time = min_time
         while current_time <= max_time:
-            readings_unhidden = get_current_readings_unhidden(at_time=current_time)
-            overrides = get_matching_override_rules(readings_unhidden)
-            reading = readings_unhidden.get(person)
-            if reading:
-                if person in overrides:
-                    color = "red"
-                else:
-                    color = created_at_color(reading.created_at, current_time)
-                ax1.hlines(
-                    y=location_devices_to_y[(reading.location, reading.device)],
-                    xmin=current_time,
-                    xmax=current_time + timedelta(minutes=1),
-                    color=color,
-                    zorder=1,
-                )
-                # print("YUP ", current_time, readings_unhidden[person], color)
-            else:
-                pass
-                #     print("NOPE", current_time)
-            current_time += timedelta(minutes=1)
+            location_to_estimates = get_estimates(current_time)
+            for location, estimates in location_to_estimates.items():
+                people_to_estimates = {get_person_from_estimate(x): x for x in estimates}
+                if person not in people_to_estimates:
+                    continue
+                estimate = people_to_estimates[person]
+                if estimate:
+                    print(estimate)
 
-        plt.setp(ax1.get_xticklabels(), rotation=30, horizontalalignment="right")
+            current_time += timedelta(minutes=1)
+            # reading = readings_unhidden.get(person)
+            # if reading:
+            #     if person in overrides:
+            #         color = "red"
+            #     else:
+            #         color = created_at_color(reading.created_at, current_time)
+            #     ax.hlines(
+            #         y=location_devices_to_y[(reading.location, reading.device)],
+            #         xmin=current_time,
+            #         xmax=current_time + timedelta(minutes=1),
+            #         color=color,
+            #         zorder=1,
+            #     )
+            #     # print("YUP ", current_time, readings_unhidden[person], color)
+            # else:
+            #     pass
+            #     #     print("NOPE", current_time)
 
         plt.tight_layout()
         plt.title(person.name)
@@ -119,5 +134,3 @@ class Command(BaseCommand):
         filename = f"/tmp/plot_person_{person.first_name.lower()}.png"
         plt.savefig(filename)
         subprocess.call(["open", filename])
-
-        # BUG: y labels are wrong
