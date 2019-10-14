@@ -2,6 +2,7 @@ import asyncio
 import re
 import json
 import os
+from json import JSONDecodeError
 from random import shuffle
 from typing import Optional, Tuple, List
 
@@ -43,7 +44,7 @@ async def ping_mac(mac_tup: Tuple[MacAddress, PersonName]) -> Optional[int]:
     return rssi
 
 
-@backoff.on_exception(backoff.expo, requests.exceptions.ConnectionError, max_tries=8)
+@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8)
 async def post_scans(macs):
     data = json.dumps({"location": location, "macs": macs})
     return session.post(f"{BASE_URL}/scans", data).status_code
@@ -64,7 +65,7 @@ def load_macs():
     return macs
 
 
-@backoff.on_exception(backoff.expo, requests.exceptions.ConnectionError, max_tries=8)
+@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8)
 def get_macs():
     return session.get(f"{BASE_URL}/macs")
 
