@@ -49,6 +49,7 @@ class SensorReadingAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
     list_display = ["device", "location", "rssi", "created_at"]
     exclude = ("person", "present")
+    list_filter = ("location", "created_at", "person")
     actions = [rssi_to_ten]  # <-- Add the list action function here
 
 
