@@ -5,6 +5,7 @@ import os
 from random import shuffle
 from typing import Optional, Tuple, List
 
+import backoff
 import requests
 import sentry_sdk
 
@@ -42,30 +43,10 @@ async def ping_mac(mac_tup: Tuple[MacAddress, PersonName]) -> Optional[int]:
     return rssi
 
 
+@backoff.on_exception(backoff.expo, requests.exceptions.ConnectionError, max_tries=8)
 async def post_scans(macs):
-    data = {"location": location, "macs": macs}
-    response_code = None
-    try:
-        post_request = session.post(f"{BASE_URL}/scans", data=json.dumps(data))
-        response_code = post_request.status_code
-    except requests.exceptions.ConnectionError as e:
-        print(f"Fail 1... {e}", flush=True)
-        try:
-            post_request = session.post(f"{BASE_URL}/scans", data=json.dumps(data))
-            response_code = post_request.status_code
-        except requests.exceptions.ConnectionError as e:
-            print(f"Fail 1... {e}", flush=True)
-            try:
-                post_request = session.post(f"{BASE_URL}/scans", data=json.dumps(data))
-                response_code = post_request.status_code
-            except requests.exceptions.ConnectionError as e:
-                print(f"Fail 1... {e}", flush=True)
-                try:
-                    post_request = session.post(f"{BASE_URL}/scans", data=json.dumps(data))
-                    response_code = post_request.status_code
-                except requests.exceptions.ConnectionError as e:
-                    print(f"🙄 Giving up! {e}", flush=True)
-    return response_code
+    data = json.dumps({"location": location, "macs": macs})
+    return session.post(f"{BASE_URL}/scans", data).status_code
 
 
 async def ping_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):
@@ -77,10 +58,15 @@ async def ping_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):
 
 
 def load_macs():
-    mac_request = session.get(f"{BASE_URL}/macs")
+    mac_request = get_macs()
     macs = json.loads(mac_request.text)
     print(f"GET {len(macs)} macs total", flush=True)
     return macs
+
+
+@backoff.on_exception(backoff.expo, requests.exceptions.ConnectionError, max_tries=8)
+def get_macs():
+    return session.get(f"{BASE_URL}/macs")
 
 
 async def main():
