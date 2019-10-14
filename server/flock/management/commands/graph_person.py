@@ -3,7 +3,6 @@ import warnings
 from pandas.plotting import register_matplotlib_converters
 
 from flock.views import get_estimates
-from flock.views import get_person_from_estimate
 
 register_matplotlib_converters()
 
@@ -25,7 +24,6 @@ from flock.models import DeviceType
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
-from flock.templatetags.template_utils import created_at_color
 
 
 def above_thresholds(reading: SensorReading, location: Location, thresholds: List[CustomThreshold]):
@@ -60,7 +58,7 @@ class Command(BaseCommand):
         all_recent_readings = (
             SensorReading.objects.all()
             .filter(device__person=person, created_at__gte=max_created_at - timedelta(hours=num_hours))
-            .select_related("device", "device__person", "location")
+            .select_related("device", "person", "location")
         )
 
         location_devices = {(x.location, x.device) for x in all_recent_readings}
@@ -102,7 +100,7 @@ class Command(BaseCommand):
         while current_time <= max_time:
             location_to_estimates = get_estimates(current_time)
             for location, estimates in location_to_estimates.items():
-                people_to_estimates = {get_person_from_estimate(x): x for x in estimates}
+                people_to_estimates = {x.person: x for x in estimates}
                 if person not in people_to_estimates:
                     continue
                 estimate = people_to_estimates[person]

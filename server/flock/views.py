@@ -24,14 +24,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 from flock.models import CustomThreshold
 from flock.models import Device
+from flock.models import Estimate
 from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
 
 MAX_THRESHOLD = 100
-
-Estimate = Union[SensorReading, GroundTruth]
 
 
 def get_most_mobile_device(devices):
@@ -87,7 +86,7 @@ def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> Dict[Pe
     """
     at_time = get_at_time(at_time)
     recent_readings = list(
-        SensorReading.objects.select_related("device", "device__person", "location")
+        SensorReading.objects.select_related("device", "person", "location")
         .filter(created_at__gt=at_time - timedelta(minutes=15), created_at__lte=at_time)
         .order_by("-created_at")
     )
@@ -132,7 +131,7 @@ def get_current_readings_unhidden(at_time: Optional[datetime] = None) -> Dict[Pe
 def get_current_positions():
     return (
         SensorReading.objects.filter(created_at__gt=localtime() - timedelta(minutes=15))
-        .select_related("device", "device__person", "location")
+        .select_related("device", "person", "location")
         .values("device__person__first_name", "device__person__last_name", "location_id")
         .annotate(updated_at=Max("created_at"))
     )
@@ -212,8 +211,7 @@ def get_estimates(at_time: Optional[datetime] = None) -> Dict[Location, List[Est
     current_readings = get_current_readings(at_time)
     person_estimates = merge_recent_ground_truths(current_readings, at_time)
     for estimate in person_estimates.values():
-        use_estimate = isinstance(estimate, SensorReading) or (isinstance(estimate, GroundTruth) and estimate.present)
-        if use_estimate:
+        if estimate and estimate.present:
             location_to_estimates[estimate.location].append(estimate)
 
     return dict(location_to_estimates)
@@ -249,10 +247,3 @@ def scans(request):
     SensorReading.objects.bulk_create(positions)
 
     return HttpResponse(status=204)
-
-
-def get_person_from_estimate(estimate: Union[SensorReading, GroundTruth]) -> Person:
-    if isinstance(estimate, SensorReading):
-        return estimate.device.person
-    else:
-        return estimate.person

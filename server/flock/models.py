@@ -6,6 +6,8 @@ from django.db import models
 from django.db.models import BooleanField
 from django.db.models import ForeignKey
 from django.db.models import TextField
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 from django.utils.timezone import localtime
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
@@ -80,17 +82,40 @@ class Device(models.Model):
         return f"{self.person}'s {DeviceType.get(self.device_type)} ({self.mac})"
 
 
-class SensorReading(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.DO_NOTHING)
+class Estimate(models.Model):
+    class Meta:
+        abstract = True
+        indexes = [BrinIndex(fields=["created_at"])]
+
+    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
-    rssi = models.IntegerField()
+    present = BooleanField(default=True)
     created_at = TZAwareDateTimeField(default=localtime)
 
-    class Meta:
-        indexes = [BrinIndex(fields=["created_at"])]
+
+class SensorReading(Estimate):
+    device = models.ForeignKey(Device, on_delete=models.DO_NOTHING)
+    rssi = models.IntegerField()
 
     def __str__(self):
         return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.rssi:>3} @ {self.location.name[:10]:<11} {self.device.person.name}'s {DeviceType.get(self.device.device_type)}"
+
+
+@receiver(pre_save, sender=SensorReading)
+def backfill_person_id(sender, instance, **kwargs):
+    instance.person_id = instance.device.person_id
+
+
+class GroundTruth(Estimate):
+    device = models.ForeignKey(
+        Device, on_delete=models.DO_NOTHING, null=True, blank=True, help_text="Helpful, but optional."
+    )
+
+    def __str__(self):
+        present_str = "@" if self.present else "!@"
+        return (
+            f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.person.name} {present_str} {self.location.name}"
+        )
 
 
 def custom_threshold_validator(threshold):
@@ -137,19 +162,3 @@ class CustomThreshold(models.Model):
         if self.device:
             components.append(DeviceType.get(self.device.device_type).name)
         return ", ".join([x for x in components if x])
-
-
-class GroundTruth(models.Model):
-    present = BooleanField(default=False)
-    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
-    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
-    created_at = TZAwareDateTimeField(default=localtime)
-    device = models.ForeignKey(
-        Device, on_delete=models.DO_NOTHING, null=True, blank=True, help_text="Helpful, but optional."
-    )
-
-    def __str__(self):
-        present_str = "@" if self.present else "!@"
-        return (
-            f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.person.name} {present_str} {self.location.name}"
-        )

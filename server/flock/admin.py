@@ -48,6 +48,7 @@ rssi_to_ten.short_description = "Change RSSI to 10"
 class SensorReadingAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
     list_display = ["device", "location", "rssi", "created_at"]
+    exclude = ("person", "present")
     actions = [rssi_to_ten]  # <-- Add the list action function here
 
 
