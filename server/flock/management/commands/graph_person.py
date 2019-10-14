@@ -1,7 +1,9 @@
+import matplotlib.pyplot as plt
 import subprocess
 from datetime import timedelta
 from typing import Dict
 from typing import List
+from typing import Tuple
 
 import numpy as np
 from django.core.management.base import BaseCommand
@@ -29,10 +31,12 @@ def above_thresholds(reading: SensorReading, location: Location, thresholds: Lis
 
 class Command(BaseCommand):
     def add_arguments(self, parser):
-        parser.add_argument("-n", "--first_name")
+        parser.add_argument("-p", "--first_name")
+        parser.add_argument("-n", "--num_hours", type=int)
 
     def handle(self, *args, **options):
         person = Person.objects.get(first_name__iexact=options["first_name"])
+        num_hours = options["num_hours"]
 
         max_created_at = (
             SensorReading.objects.filter(device__person=person)
@@ -40,45 +44,36 @@ class Command(BaseCommand):
             .aggregate(Max("created_at"))["created_at__max"]
         )
         xs = []
-        location_devices = []
+        ys = []
         colors = []
         sizes = []
-        num_hours = 5
-
-        DeviceID = int
-        detected = set(SensorReading.objects.values_list("device", flat=True).distinct())
-
         thresholds = CustomThreshold.objects.filter(person=person)
 
-        y_ids: Dict[DeviceID, int] = {v: k for k, v in enumerate(detected)}
         all_recent_readings = (
             SensorReading.objects.all()
             .filter(device__person=person, created_at__gte=max_created_at - timedelta(hours=num_hours))
             .select_related("device", "device__person", "location")
         )
 
+        location_devices = {(x.location, x.device) for x in all_recent_readings}
+        sorted_location_devices = sorted(location_devices, key=lambda x: (x[0].id, x[1].device_type))
+        y_to_location_devices: Dict[int, Tuple[Location, Device]] = dict(enumerate(sorted_location_devices))
+        location_devices_to_y: Dict[Tuple[Location, Device], int] = {v: k for k, v in y_to_location_devices.items()}
+
+        for x in all_recent_readings:
+            print(x)
+
         for reading in all_recent_readings:
             xs.append(localtime(reading.created_at))
-            location_devices.append((reading.location, reading.device))
+            ys.append(location_devices_to_y[(reading.location, reading.device)])
             if above_thresholds(reading, reading.location, thresholds):
-                sizes.append(50)
+                sizes.append(250)
             else:
                 sizes.append(10)
             colors.append(reading.rssi)
 
-        ordered_location_devices = sorted(enumerate(set(location_devices)))
-        location_device_to_y = {v: k for k, v in ordered_location_devices}
-
-        ys = [location_device_to_y[location_device] for location_device in location_devices]
-
-        device_names: Dict[int, str] = {}
-        for device in Device.objects.all().order_by("id").filter(id__in=detected):
-            device_names[y_ids[device.id]] = f"{device.person} {DeviceType.get(device.device_type)}"
-
         min_time = min(xs)
         max_time = max(xs)
-
-        import matplotlib.pyplot as plt
 
         plt.clf()
         fig, ax1 = plt.subplots(figsize=(num_hours * 3, 3))
@@ -87,13 +82,11 @@ class Command(BaseCommand):
         ax1.legend(*scatter.legend_elements(), loc="center left", title="RSSI", bbox_to_anchor=(1.05, 0.5))
         ax1.set_xlim(left=min_time, right=max_time)
         labels = [
-            f"{location.name} {DeviceType.get(device.device_type)}"
-            for index, (location, device) in reversed(ordered_location_devices)
+            f"{location.name}, {DeviceType.get(device.device_type).name.lower()}"
+            for (location, device) in sorted_location_devices
         ]
         ax1.yaxis.set_ticklabels(labels)
         ax1.yaxis.set_ticks(sorted(set(ys)))
-
-        data = [np.arange(len(xs))]
 
         current_time = min_time
         while current_time <= max_time:
@@ -106,7 +99,7 @@ class Command(BaseCommand):
                 else:
                     color = created_at_color(reading.created_at, current_time)
                 ax1.hlines(
-                    y=location_device_to_y[(reading.location, reading.device)],
+                    y=location_devices_to_y[(reading.location, reading.device)],
                     xmin=current_time,
                     xmax=current_time + timedelta(minutes=1),
                     color=color,
