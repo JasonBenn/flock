@@ -240,10 +240,7 @@ def scans(request):
     device_ids_by_mac = {x.mac: x.id for x in Device.objects.all()}
     locations_by_id = {x.clean_name(): x for x in Location.objects.all()}
 
-    positions = [
-        SensorReading(device_id=device_ids_by_mac[mac], location=locations_by_id[location], rssi=rssi)
-        for mac, rssi in data["macs"].items()
-    ]
-    SensorReading.objects.bulk_create(positions)
+    for mac, rssi in data["macs"].items():
+        SensorReading.objects.create(device_id=device_ids_by_mac[mac], location=locations_by_id[location], rssi=rssi)
 
     return HttpResponse(status=204)
