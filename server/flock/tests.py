@@ -36,8 +36,8 @@ class LocationEstimationTests(TestCase):
     def test_basic_detection(self):
         """Ben is in the common room"""
         reading = SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-7)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.ben: reading})
+        locations = get_estimates()
+        self.assertEqual(locations, {self.common_room: [reading]})
 
     def test_moved_to_another_room(self):
         """Ben went to hang in Jason's room"""
@@ -45,8 +45,8 @@ class LocationEstimationTests(TestCase):
             device=self.ben_phone, location=self.common_room, rssi=0, created_at=localtime() - timedelta(minutes=5)
         )
         reading = SensorReading.objects.create(device=self.ben_phone, location=self.jasons_room, rssi=0)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.ben: reading})
+        locations = get_estimates()
+        self.assertEqual(locations, {self.jasons_room: [reading]})
 
     def test_devices_in_multiple_locations(self):
         """Allie has two devices in different locations - prefer the one with the phone"""
@@ -55,57 +55,57 @@ class LocationEstimationTests(TestCase):
         )
         SensorReading.objects.create(device=self.allie_laptop, location=self.jasons_room, rssi=0)
         SensorReading.objects.create(device=self.allie_work_laptop, location=self.jasons_room, rssi=0)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.allie: reading})
+        locations = get_estimates()
+        self.assertEqual(locations, {self.common_room: [reading]})
 
     def test_ordinary_threshold(self):
         """Ben in backyard, but common room still sees device (weakly)"""
         SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-25)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.ben: None})
+        locations = get_estimates()
+        self.assertEqual(locations, {})
 
     def test_under_threshold_override(self):
         """Ben in his own room, but common room still sees device (weakly)"""
         SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-7)
         CustomThreshold.objects.create(person=self.ben, location=self.common_room, threshold=-5)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.ben: None})
+        locations = get_estimates()
+        self.assertEqual(locations, {})
 
     def test_over_threshold_override(self):
         """Ben in common room with override"""
         reading = SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-3)
         CustomThreshold.objects.create(person=self.ben, location=self.common_room, threshold=-5)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.ben: reading})
+        locations = get_estimates()
+        self.assertEqual(locations, {self.common_room: [reading]})
 
     def test_hidden_person_location(self):
         """Allie in Jason's room, ignore"""
         SensorReading.objects.create(device=self.allie_phone, location=self.jasons_room, rssi=0)
         CustomThreshold.objects.create(person=self.allie, location=self.jasons_room, threshold=MAX_THRESHOLD)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.allie: None})
+        locations = get_estimates()
+        self.assertEqual(locations, {})
 
     def test_hidden_person_location_with_another_devices_in_another_location(self):
         """Allie really in Jason's room, but laptop in common room"""
         CustomThreshold.objects.create(person=self.allie, location=self.jasons_room, threshold=MAX_THRESHOLD)
         SensorReading.objects.create(device=self.allie_phone, location=self.jasons_room, rssi=0)
         SensorReading.objects.create(device=self.allie_laptop, location=self.common_room, rssi=0)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.allie: None})
+        locations = get_estimates()
+        self.assertEqual(locations, {})
 
     def test_hidden_device_in_location(self):
         """Michaels phone always charges in common room, ignore"""
         CustomThreshold.objects.create(device=self.michael_phone, location=self.common_room, threshold=MAX_THRESHOLD)
         SensorReading.objects.create(device=self.michael_phone, location=self.common_room, rssi=0)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.michael: None})
+        locations = get_estimates()
+        self.assertEqual(locations, {})
 
     def test_multiple_people_in_location(self):
         """Allie and Michael hanging out in the common room"""
         reading_a = SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
         reading_b = SensorReading.objects.create(device=self.michael_phone, location=self.common_room, rssi=0)
-        locations = get_current_readings()
-        self.assertEqual(locations, {self.allie: reading_a, self.michael: reading_b})
+        locations = get_estimates()
+        self.assertEqual(locations, {self.common_room: [reading_a, reading_b]})
 
     def test_present_ground_truth(self):
         """Allie is in the common room"""
@@ -146,3 +146,20 @@ class LocationEstimationTests(TestCase):
         estimates = get_estimates()
         # TODO
         # self.assertEqual(estimates, {self.study: [study_reading]})
+
+    def test_correct_correction(self):
+        """Allie has a GroundTruth in the common room, then an anti-GroundTruth right after."""
+        GroundTruth.objects.create(
+            person=self.allie, location=self.common_room, present=True, created_at=localtime() - timedelta(minutes=5)
+        )
+        GroundTruth.objects.create(person=self.allie, location=self.common_room, present=False)
+        estimates = get_estimates()
+        self.assertEqual(estimates, {})
+
+    def test_report_wrong_hidden_classification(self):
+        """Allie has a GroundTruth in the common room, then an anti-GroundTruth right after."""
+        CustomThreshold.objects.create(person=self.ben, location=self.common_room, threshold=0)
+        SensorReading.objects.create(device=self.ben_phone, location=self.common_room, rssi=-5)
+        truth = GroundTruth.objects.create(person=self.ben, location=self.study, present=True)
+        estimates = get_estimates()
+        self.assertEqual(estimates, {self.study: [truth]})
