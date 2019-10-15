@@ -33,6 +33,8 @@ class Command(BaseCommand):
             "Annie",
             "Tommy",
         ]
+        laptop_blacklist = ["Josh", "Michelle"]
+
         archivists = Person.objects.filter(first_name__in=whitelist)
         people_to_phones = defaultdict(list)
         for device in Device.objects.filter(device_type=DeviceType.PHONE, person__in=archivists):
@@ -45,7 +47,9 @@ class Command(BaseCommand):
             people_to_laptops[device.person].append(device)
 
         missing_phones = {x for x in archivists if x not in people_to_phones}
-        missing_laptops = {x for x in archivists if x not in people_to_laptops}
+        missing_laptops = {x for x in archivists if x not in people_to_laptops} - set(
+            Person.objects.filter(first_name__in=laptop_blacklist)
+        )
         person_count = Person.objects.count()
         print(
             f"Missing {len(missing_phones) / person_count*100:.0f}% of phones (@{', @'.join(sorted(x.first_name for x in missing_phones))})"
