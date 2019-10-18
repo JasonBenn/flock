@@ -33,7 +33,7 @@ class Command(BaseCommand):
             "Annie",
             "Tommy",
         ]
-        laptop_blacklist = ["Josh", "Michelle"]
+        laptop_blacklist = ["Josh", "Michelle", "Allie"]
 
         archivists = Person.objects.filter(first_name__in=whitelist)
         people_to_phones = defaultdict(list)
