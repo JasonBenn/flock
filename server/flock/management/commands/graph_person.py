@@ -2,7 +2,7 @@ import warnings
 
 from pandas.plotting import register_matplotlib_converters
 
-from flock.views import get_estimates
+from flock.algorithm import get_location_to_people
 
 register_matplotlib_converters()
 
@@ -98,7 +98,7 @@ class Command(BaseCommand):
         print("\nestimates")
         current_time = min_time
         while current_time <= max_time:
-            location_to_estimates = get_estimates(current_time)
+            location_to_estimates = get_location_to_people(current_time)
             for location, estimates in location_to_estimates.items():
                 people_to_estimates = {x.person: x for x in estimates}
                 if person not in people_to_estimates:
