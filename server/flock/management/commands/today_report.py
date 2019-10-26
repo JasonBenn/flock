@@ -3,10 +3,8 @@ from datetime import datetime
 from datetime import time
 from datetime import timedelta
 
-from django.utils.timezone import localtime
-from flock.views import get_current_readings
-
 from django.core.management.base import BaseCommand
+from django.utils.timezone import localtime
 
 
 class Command(BaseCommand):

@@ -10,7 +10,7 @@ from flock.models import Location
 from flock.models import CustomThreshold
 from flock.models import Person
 from flock.models import SensorReading
-from flock.views import MAX_THRESHOLD
+from flock.constants import MAX_THRESHOLD
 
 people_devices = {
     "Ben Mann": {DeviceType.PHONE: "3C:28:6D:2C:37:9F", DeviceType.TABLET: "34:42:62:70:4B:0A"},

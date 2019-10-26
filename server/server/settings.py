@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "flock",
     "social_django",
+    "django_nose",
 ]
+
+TEST_RUNNER = "django_nose.NoseTestSuiteRunner"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -144,4 +147,4 @@ if os.getenv("PRODUCTION") == "1":
 
 # Other
 
-FREEZE_TIME = os.environ.get('FREEZE_TIME', None)
+FREEZE_TIME = os.environ.get("FREEZE_TIME", None)
