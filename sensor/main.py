@@ -1,15 +1,15 @@
 import asyncio
-from datetime import datetime
 import json
 import os
 import re
+from datetime import datetime
 from json import JSONDecodeError
 from random import shuffle
 from typing import List
 from typing import Tuple
 
-import backoff
 import attr
+import backoff
 import pytz
 import requests
 import sentry_sdk
@@ -20,7 +20,6 @@ location = os.listdir(RASPBERRY_PI_LOCATION_DIRPATH)[0]
 sentry_sdk.init("https://c3f1f286f7964d6b8761fee94f1fc73d@sentry.io/1758125", environment=f"sensor_{location}")
 BASE_URL = "https://flock.archive.house"
 RSSI_REGEX = re.compile("RSSI return value: (-?\d+)\n")
-stdout = b"RSSI return value: -1\n"
 
 session = requests.Session()
 
@@ -62,14 +61,24 @@ async def post_scans(scan_results: List[ScanResult]) -> int:
     return session.post(f"{BASE_URL}/scans", data).status_code
 
 
+def reboot():
+    os.system("sudo shutdown -r now")
+
+
 async def scan_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):
     scan_results = await asyncio.gather(*[scan_mac(x) for x in mac_tups])
-    response_code = await post_scans(scan_results)
+    try:
+        response_code = await post_scans(scan_results)
+    except requests.exceptions.ConnectionError:
+        return reboot()
     print(f"Sent {scan_results}, response code {response_code}", flush=True)
 
 
 def load_macs():
-    mac_request = get_macs()
+    try:
+        mac_request = get_macs()
+    except requests.exceptions.ConnectionError:
+        return reboot()
     macs = json.loads(mac_request.text)
     print(f"GET {len(macs)} macs total", flush=True)
     return macs
