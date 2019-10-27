@@ -171,3 +171,10 @@ class LocationEstimationTests(TestCase):
 
         estimates = get_location_to_people()
         self.assertCountEqual(estimates[self.study], [self.allie, self.michael, self.ben])
+
+    def test_mask_different_location(self):
+        """Masking one location shouldn't prevent detection in other locations."""
+        CustomThreshold.objects.create(device=self.allie_phone, location=self.study, threshold=MAX_THRESHOLD)
+        SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
+        estimates = get_location_to_people()
+        self.assertCountEqual(estimates[self.common_room], [self.allie])

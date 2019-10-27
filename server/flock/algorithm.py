@@ -157,10 +157,12 @@ def _is_valid(custom_thresholds: Dict[Person, Dict[Location, int]], reading: Sen
 
 
 def mask_people_to_location(people_to_location: Dict[Person, Location]) -> Dict[Person, Location]:
-    person_ids = CustomThreshold.objects.filter(
-        person__in=list(people_to_location.keys()), threshold=MAX_THRESHOLD
-    ).values_list("person_id", flat=True)
-    return {k: v for k, v in people_to_location.items() if k.id not in person_ids}
+    person_ids = list(people_to_location.keys())
+    masks = CustomThreshold.objects.filter(person__in=person_ids, threshold=MAX_THRESHOLD).values(
+        "person_id", "location_id"
+    )
+    masks_set = set([(x["person_id"], x["location_id"]) for x in masks])
+    return {k: v for k, v in people_to_location.items() if (k.id, v.id) not in masks_set}
 
 
 def get_location_to_people(
