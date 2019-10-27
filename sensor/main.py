@@ -1,12 +1,14 @@
 import asyncio
-import re
+from datetime import datetime
 import json
 import os
+import re
 from json import JSONDecodeError
-from random import shuffle
-from typing import Optional, Tuple, List
+from typing import List
+from typing import Tuple
 
 import backoff
+import attr
 import requests
 import sentry_sdk
 
@@ -25,9 +27,17 @@ MacAddress = str
 PersonName = str
 
 
-async def ping_mac(mac_tup: Tuple[MacAddress, PersonName]) -> Optional[int]:
+@attr.s
+class ScanResult:
+    scanned_at: datetime = attr.ib()
+    rssi: int = attr.ib()
+    mac: str = attr.ib()
+
+
+async def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:
     mac, name = mac_tup
     print(f"  {mac} ping...", flush=True)
+    scanned_at = datetime.now()
     proc = await asyncio.create_subprocess_shell(
         f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",
         stdout=asyncio.subprocess.PIPE,
@@ -41,21 +51,19 @@ async def ping_mac(mac_tup: Tuple[MacAddress, PersonName]) -> Optional[int]:
         print(f"    ✅ {mac} ({name}): {rssi}", flush=True)
     else:
         print(f"    ❌ {mac} ({name}): {stdout} ({stderr})", flush=True)
-    return rssi
+    return ScanResult(scanned_at=scanned_at, rssi=rssi, mac=mac)
 
 
 @backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8)
-async def post_scans(macs):
-    data = json.dumps({"location": location, "macs": macs})
+async def post_scans(scan_results: List[ScanResult]) -> int:
+    data = json.dumps({"location": location, "scan_results": [attr.asdict(x) for x in scan_results]}, default=str)
     return session.post(f"{BASE_URL}/scans", data).status_code
 
 
-async def ping_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):
-    ping_outputs = await asyncio.gather(*[ping_mac(x) for x in mac_tups])
-    macs = [x[0] for x in mac_tups]
-    found_macs = {mac: rssi for mac, rssi in zip(macs, ping_outputs) if rssi}
-    response_code = await post_scans(found_macs)
-    print(f"Sent {found_macs}, response code {response_code}", flush=True)
+async def scan_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):
+    scan_results = await asyncio.gather(*[scan_mac(x) for x in mac_tups])
+    response_code = await post_scans(scan_results)
+    print(f"Sent {scan_results}, response code {response_code}", flush=True)
 
 
 def load_macs():
@@ -76,7 +84,7 @@ async def main():
         mac_tups = list(macs.items())
         shuffle(mac_tups)
         for x in mac_tups:
-            await ping_macs([x])
+            await scan_macs([x])
             await asyncio.sleep(2)
 
 

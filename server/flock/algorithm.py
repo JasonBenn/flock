@@ -142,7 +142,7 @@ def best_locations_by_device_mobility(location_to_estimates: Dict[Location, List
 
 
 def _is_valid(custom_thresholds: Dict[Person, Dict[Location, int]], reading: SensorReading) -> bool:
-    return reading.rssi >= max(
+    return reading.present and reading.rssi >= max(
         [reading.location.threshold, custom_thresholds[reading.person].get(reading.location, float("-inf"))]
     )
 

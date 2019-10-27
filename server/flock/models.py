@@ -95,15 +95,21 @@ class Estimate(models.Model):
 
 class SensorReading(Estimate):
     device = models.ForeignKey(Device, on_delete=models.DO_NOTHING)
-    rssi = models.IntegerField()
+    rssi = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.rssi:>3} @ {self.location.name[:10]:<11} {self.device.person.name}'s {DeviceType.get(self.device.device_type)}"
+        return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.rssi or '':>3} @ {self.location.name[:10]:<11} {self.device.person.name}'s {DeviceType.get(self.device.device_type)}"
 
 
 @receiver(pre_save, sender=SensorReading)
 def backfill_person_id(sender, instance, **kwargs):
     instance.person_id = instance.device.person_id
+
+
+@receiver(pre_save, sender=SensorReading)
+def backfill_present(sender, instance, **kwargs):
+    if instance.rssi is None:
+        instance.present = False
 
 
 class GroundTruth(Estimate):

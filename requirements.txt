@@ -1,7 +1,6 @@
 -e git+https://github.com/pybluez/pybluez.git#egg=pybluez
 appdirs==1.4.3
 appnope==0.1.0
-attrs==19.1.0
 backcall==0.1.0
 black==19.3b0
 cli-helpers==1.2.1
@@ -55,3 +54,5 @@ traitlets==4.3.2
 wcwidth==0.1.7
 Werkzeug==0.15.2
 tqdm==4.*
+attrs==19.*
+django-nose==1.4.*
