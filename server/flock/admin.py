@@ -121,11 +121,39 @@ class DeviceTypeListFilter(admin.SimpleListFilter):
             return queryset.filter(device__device_type=DeviceType.get(self.value()).value)
 
 
+class RssiListFilter(admin.SimpleListFilter):
+    title = _("rssi")
+    parameter_name = "rssi"
+
+    def lookups(self, request, model_admin):
+        return [("gte_zero", ">= 0"), ("gte_five", ">= -5"), ("gte_ten", ">= -10")]
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+        if self.value() == "gte_zero":
+            return queryset.filter(rssi__gte=0)
+        if self.value() == "gte_five":
+            return queryset.filter(rssi__gte=-5)
+        if self.value() == "gte_ten":
+            return queryset.filter(rssi__gte=-10)
+
+
 class SensorReadingAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
     list_display = ["device", "location", "rssi", "created_at", "present"]
     exclude = ("person", "present")
-    list_filter = ("present", "location", CreatedAtListFilter, DeviceTypeListFilter, "person")
+    list_filter = (
+        "present",
+        "location",
+        CreatedAtListFilter,
+        RssiListFilter,
+        DeviceTypeListFilter,
+        ("person", admin.RelatedOnlyFieldListFilter),
+    )
     actions = [rssi_to_ten]  # <-- Add the list action function here
 
 
