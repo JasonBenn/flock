@@ -102,9 +102,6 @@ def get_people_to_location(all_valid_estimates: Dict[Person, List[Estimate]]):
         if most_mobile_location:
             people_to_location[person] = most_mobile_location
 
-        # What about grouping estimates by device? How would that work?
-        # Probably would want each device to get classified.
-
     return people_to_location
 
 
@@ -150,7 +147,7 @@ def best_locations_by_device_mobility(location_to_estimates: Dict[Location, List
     if not len(estimates):
         return None
 
-    best_location, _ = max(location_to_estimates.items(), key=lambda x: x[1][-1].device.device_type)
+    best_location, _ = min(location_to_estimates.items(), key=lambda x: x[1][-1].device.device_type)
     return best_location
 
 
