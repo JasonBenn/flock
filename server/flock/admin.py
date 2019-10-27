@@ -1,10 +1,12 @@
 from datetime import timedelta
 
+import pytz
+from dateutil.parser import parse
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
-from flock.models import CustomThreshold, DeviceType, Estimate
+from flock.models import CustomThreshold, DeviceType
 from flock.models import Device
 from flock.models import GroundTruth
 from flock.models import Location
@@ -150,6 +152,19 @@ class SensorReadingAdmin(admin.ModelAdmin):
     exclude = ("person", "present")
     list_filter = ("present", "location", CreatedAtListFilter, RssiListFilter, DeviceTypeListFilter, "person")
     actions = [make_readings_current]  # <-- Add the list action function here
+    search_fields = ("created_at",)
+
+    def get_search_results(self, request, queryset, search_term):
+        new_queryset, use_distinct = super().get_search_results(request, queryset, search_term)
+        try:
+            dt = parse(search_term).replace(tzinfo=pytz.UTC)
+        except ValueError:
+            pass
+        else:
+            new_queryset = queryset.filter(
+                created_at__gte=dt - timedelta(minutes=20), created_at__lte=dt + timedelta(minutes=20)
+            )
+        return new_queryset, use_distinct
 
 
 admin.site.register(SensorReading, SensorReadingAdmin)

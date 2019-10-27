@@ -12,7 +12,7 @@ from django.dispatch import receiver
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
 
-from flock.utils import now
+from flock.utils import friendly_time, now
 
 
 class TZAwareDateTimeField(models.DateTimeField):
@@ -96,11 +96,11 @@ class Estimate(models.Model):
 
 
 class SensorReading(Estimate):
-    device = models.ForeignKey(Device, on_delete=models.DO_NOTHING)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
     rssi = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.rssi or '':>3} @ {self.location.name[:10]:<11} {self.device.person.name}'s {DeviceType.get(self.device.device_type)}"
+        return f"{friendly_time(self.created_at)}: {self.rssi or '':>3} @ {self.location.name[:10]:<11} {self.device.person.name}'s {DeviceType.get(self.device.device_type)}"
 
 
 @receiver(pre_save, sender=SensorReading)
@@ -116,9 +116,7 @@ class GroundTruth(Estimate):
 
     def __str__(self):
         present_str = "@" if self.present else "!@"
-        return (
-            f"{self.created_at.strftime('%-m/%-d %-I:%M %p')}: {self.person.name} {present_str} {self.location.name}"
-        )
+        return f"{friendly_time(self.created_at)}: {self.person.name} {present_str} {self.location.name}"
 
 
 def custom_threshold_validator(threshold):

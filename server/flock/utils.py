@@ -28,3 +28,7 @@ def get_at_time(at_time: Optional[datetime] = None) -> datetime:
 
 def now() -> datetime:
     return timezone.now()
+
+
+def friendly_time(dt: datetime) -> str:
+    return dt.strftime("%-m/%-d %-I:%M %p")
