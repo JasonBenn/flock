@@ -146,12 +146,7 @@ class RssiListFilter(admin.SimpleListFilter):
             return queryset.filter(rssi__gte=-10)
 
 
-class SensorReadingAdmin(admin.ModelAdmin):
-    ordering = ("-created_at",)
-    list_display = ["device", "location", "rssi", "created_at", "present"]
-    exclude = ("person", "present")
-    list_filter = ("present", "location", CreatedAtListFilter, RssiListFilter, DeviceTypeListFilter, "person")
-    actions = [make_readings_current]  # <-- Add the list action function here
+class FilterableByCreatedAt:
     search_fields = ("created_at",)
 
     def get_search_results(self, request, queryset, search_term):
@@ -167,10 +162,18 @@ class SensorReadingAdmin(admin.ModelAdmin):
         return new_queryset, use_distinct
 
 
+class SensorReadingAdmin(FilterableByCreatedAt, admin.ModelAdmin):
+    ordering = ("-created_at",)
+    list_display = ["device", "location", "rssi", "created_at", "present"]
+    exclude = ("person", "present")
+    list_filter = ("present", "location", CreatedAtListFilter, RssiListFilter, DeviceTypeListFilter, "person")
+    actions = [make_readings_current]  # <-- Add the list action function here
+
+
 admin.site.register(SensorReading, SensorReadingAdmin)
 
 
-class GroundTruthAdmin(admin.ModelAdmin):
+class GroundTruthAdmin(FilterableByCreatedAt, admin.ModelAdmin):
     ordering = ("-created_at",)
     list_display = ["person", "location", "present", "created_at"]
     list_filter = ("present", "location", CreatedAtListFilter, "person")
