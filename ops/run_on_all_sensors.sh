@@ -5,10 +5,10 @@
 
 echo "Working..."
 {
-    echo common_room
-    echo study
-    echo middle_kingdom_kitchen
-    echo jasons_room
+    echo common_room_external
+    echo study_external
+    echo middle_kingdom_kitchen_external
+    # echo jasons_room_external
     # echo workshop_arrams_room
     # echo backyard
     # echo roof

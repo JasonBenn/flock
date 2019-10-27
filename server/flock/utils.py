@@ -2,9 +2,9 @@ from collections import defaultdict
 from datetime import datetime
 from typing import Optional
 
-import pytz
 from django.conf import settings
 from django.db.models import Max
+from django.utils import timezone
 
 
 def group_by(iterable, key):
@@ -27,4 +27,4 @@ def get_at_time(at_time: Optional[datetime] = None) -> datetime:
 
 
 def now() -> datetime:
-    return datetime.now(pytz.UTC)
+    return timezone.now()

@@ -4,3 +4,4 @@ requests==2.21.0
 backoff==1.8.1
 -e git+https://github.com/pybluez/pybluez.git#egg=pybluez
 attrs==19.*
+pytz==*
