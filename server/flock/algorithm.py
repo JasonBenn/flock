@@ -132,7 +132,11 @@ def best_locations_by_rssi(location_to_estimates: Dict[Location, List[Estimate]]
 
 
 def best_locations_by_recency(location_to_estimates: Dict[Location, List[Estimate]]) -> List[Location]:
-    max_created_at = max(flatten(location_to_estimates.values()), key=lambda x: x.created_at)
+    estimates = flatten(location_to_estimates.values())
+    if not len(estimates):
+        return []
+
+    max_created_at = max(estimates, key=lambda x: x.created_at)
     best_locations = [
         location
         for location, estimates in location_to_estimates.items()
@@ -141,7 +145,11 @@ def best_locations_by_recency(location_to_estimates: Dict[Location, List[Estimat
     return best_locations
 
 
-def best_locations_by_device_mobility(location_to_estimates: Dict[Location, List[Estimate]]) -> Location:
+def best_locations_by_device_mobility(location_to_estimates: Dict[Location, List[Estimate]]) -> Optional[Location]:
+    estimates = flatten(location_to_estimates.values())
+    if not len(estimates):
+        return None
+
     best_location, _ = max(location_to_estimates.items(), key=lambda x: x[1][-1].device.device_type)
     return best_location
 
