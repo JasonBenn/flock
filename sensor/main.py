@@ -4,6 +4,7 @@ import json
 import os
 import re
 from json import JSONDecodeError
+from random import shuffle
 from typing import List
 from typing import Tuple
 

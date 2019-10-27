@@ -117,7 +117,10 @@ def best_locations_by_rssi(location_to_estimates: Dict[Location, List[Estimate]]
         location: mean([x.rssi for x in estimates]) for location, estimates in location_to_readings.items()
     }
 
-    highest_overall_rssi = max(flatten(location_to_average_rssi.values()))
+    average_rssis = flatten(location_to_average_rssi.values())
+    if not len(average_rssis):
+        return []
+    highest_overall_rssi = max(average_rssis)
     best_locations = [
         location
         for location, average_rssi in location_to_average_rssi.items()
