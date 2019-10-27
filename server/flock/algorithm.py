@@ -3,10 +3,7 @@ from datetime import datetime
 from datetime import timedelta
 from functools import partial
 from operator import attrgetter
-from operator import itemgetter
-from statistics import StatisticsError
 from statistics import mean
-from statistics import mode
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -111,7 +108,9 @@ def best_locations_by_rssi(location_to_estimates: Dict[Location, List[Estimate]]
         for location, estimates in location_to_estimates.items()
     }
     location_to_average_rssi = {
-        location: mean([x.rssi for x in estimates]) for location, estimates in location_to_readings.items()
+        location: mean([x.rssi for x in estimates])
+        for location, estimates in location_to_readings.items()
+        if len(estimates)
     }
 
     average_rssis = flatten(location_to_average_rssi.values())
