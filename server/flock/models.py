@@ -113,6 +113,7 @@ class GroundTruth(Estimate):
     device = models.ForeignKey(
         Device, on_delete=models.DO_NOTHING, null=True, blank=True, help_text="Helpful, but optional."
     )
+    fixed_at = DateTimeField(blank=True, null=True)
 
     def __str__(self):
         present_str = "@" if self.present else "!@"

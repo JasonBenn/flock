@@ -173,10 +173,20 @@ class SensorReadingAdmin(FilterableByCreatedAt, admin.ModelAdmin):
 admin.site.register(SensorReading, SensorReadingAdmin)
 
 
+def updated_fixed_at(modeladmin, request, queryset):
+    for reading in queryset:
+        reading.fixed_at = now()
+        reading.save()
+
+
+updated_fixed_at.short_description = "Update fixed at"
+
+
 class GroundTruthAdmin(FilterableByCreatedAt, admin.ModelAdmin):
     ordering = ("-created_at",)
-    list_display = ["person", "location", "present", "created_at"]
-    list_filter = ("present", "location", CreatedAtListFilter, "person")
+    list_display = ["person", "location", "present", "created_at", "fixed_at"]
+    list_filter = ("present", "fixed_at", "location", CreatedAtListFilter, "person")
+    actions = [updated_fixed_at]
 
 
 admin.site.register(GroundTruth, GroundTruthAdmin)
