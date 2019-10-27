@@ -158,15 +158,10 @@ class LocationEstimationTests(TestCase):
         SensorReading.objects.create(device=self.allie_phone, location=self.study, rssi=0, created_at=past)
         SensorReading.objects.create(device=self.allie_laptop, location=self.study, rssi=0, created_at=past)
 
-        # What makes this better?
-        # Study over last 10m: -1.33
-        # Maybe I ought to have a per-device estimate.
-        SensorReading.objects.create(device=self.allie_laptop, location=self.study, rssi=-5)
+        SensorReading.objects.create(device=self.allie_laptop, location=self.study, rssi=-15)
         SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
         estimates = get_location_to_people()
         self.assertEqual(estimates, {self.common_room: [self.allie]})
-        #
-        # Add to tests: asserts based on information that should be gathered.
 
     def test_three_people_in_location(self):
         """Everyone is in the Common Room."""
