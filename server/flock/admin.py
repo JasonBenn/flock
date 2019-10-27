@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
-from flock.models import CustomThreshold, DeviceType
+from flock.models import CustomThreshold, DeviceType, Estimate
 from flock.models import Device
 from flock.models import GroundTruth
 from flock.models import Location
@@ -34,6 +34,7 @@ class DeviceAdmin(admin.ModelAdmin):
 class CustomThresholdAdmin(admin.ModelAdmin):
     ordering = ("person__first_name",)
     list_display = ["person", "location", "device", "threshold", "reason"]
+    list_filter = ("location", "person")
 
 
 admin.site.register(Device, DeviceAdmin)
@@ -147,14 +148,7 @@ class SensorReadingAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
     list_display = ["device", "location", "rssi", "created_at", "present"]
     exclude = ("person", "present")
-    list_filter = (
-        "present",
-        "location",
-        CreatedAtListFilter,
-        RssiListFilter,
-        DeviceTypeListFilter,
-        ("person", admin.RelatedOnlyFieldListFilter),
-    )
+    list_filter = ("present", "location", CreatedAtListFilter, RssiListFilter, DeviceTypeListFilter, "person")
     actions = [make_readings_current]  # <-- Add the list action function here
 
 
@@ -164,6 +158,7 @@ admin.site.register(SensorReading, SensorReadingAdmin)
 class GroundTruthAdmin(admin.ModelAdmin):
     ordering = ("-created_at",)
     list_display = ["person", "location", "present", "created_at"]
+    list_filter = ("present", "location", CreatedAtListFilter, "person")
 
 
 admin.site.register(GroundTruth, GroundTruthAdmin)
