@@ -10,6 +10,7 @@ from typing import Tuple
 
 import backoff
 import attr
+import pytz
 import requests
 import sentry_sdk
 
@@ -38,7 +39,7 @@ class ScanResult:
 async def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:
     mac, name = mac_tup
     print(f"  {mac} ping...", flush=True)
-    scanned_at = datetime.now()
+    scanned_at = datetime.now(pytz.UTC)
     proc = await asyncio.create_subprocess_shell(
         f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",
         stdout=asyncio.subprocess.PIPE,

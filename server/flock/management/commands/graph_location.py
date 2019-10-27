@@ -1,10 +1,10 @@
 from datetime import timedelta
 
 from django.core.management.base import BaseCommand
-from django.utils.timezone import localtime
 
 from flock.models import Location
 from flock.models import SensorReading
+from flock.utils import now
 
 
 class Command(BaseCommand):
@@ -13,9 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         location = Location.objects.get(name__icontains=options["name"])
-        for reading in SensorReading.objects.filter(
-            location=location, created_at__gte=localtime() - timedelta(hours=2)
-        ):
+        for reading in SensorReading.objects.filter(location=location, created_at__gte=now() - timedelta(hours=2)):
             print(reading)
 
         # xs = []

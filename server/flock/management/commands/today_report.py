@@ -4,15 +4,16 @@ from datetime import time
 from datetime import timedelta
 
 from django.core.management.base import BaseCommand
-from django.utils.timezone import localtime
+
+from flock.utils import now
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         days_ago = 0  # CONFIGURE
-        day = (localtime() - timedelta(days=days_ago)).date()
-        start_day = datetime.combine(day, time(hour=5), tzinfo=localtime().tzinfo)
-        end_day = datetime.combine(day + timedelta(days=1), time(hour=5), tzinfo=localtime().tzinfo)
+        day = (now() - timedelta(days=days_ago)).date()
+        start_day = datetime.combine(day, time(hour=5), tzinfo=now().tzinfo)
+        end_day = datetime.combine(day + timedelta(days=1), time(hour=5), tzinfo=now().tzinfo)
         current_dt = start_day
         while current_dt <= end_day:
             readings = get_current_readings(current_dt)

@@ -7,9 +7,8 @@ from django import template
 from stringcase import camelcase
 from stringcase import snakecase
 
-from django.utils.timezone import localtime
-
 from flock.models import GroundTruth
+from flock.utils import now
 
 register = template.Library()
 
@@ -17,7 +16,7 @@ register = template.Library()
 @register.filter
 def created_at_color(created_at: datetime, current_time: Optional[datetime] = None):
     if current_time is None:
-        current_time = localtime()
+        current_time = now()
     if created_at > (current_time - timedelta(minutes=9)):
         color = "black"
     elif created_at > (current_time - timedelta(minutes=12)):

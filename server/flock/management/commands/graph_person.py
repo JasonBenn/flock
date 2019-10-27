@@ -16,7 +16,6 @@ from typing import Tuple
 
 from django.core.management.base import BaseCommand
 from django.db.models import Max
-from django.utils.timezone import localtime
 
 from flock.models import CustomThreshold
 from flock.models import Device
@@ -70,7 +69,7 @@ class Command(BaseCommand):
             print(x)
 
         for reading in all_recent_readings:
-            xs.append(localtime(reading.created_at))
+            xs.append(reading.created_at)
             ys.append(location_devices_to_y[(reading.location, reading.device)])
             if above_thresholds(reading, reading.location, thresholds):
                 sizes.append(250)

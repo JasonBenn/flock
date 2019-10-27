@@ -1,8 +1,7 @@
-from datetime import date, timedelta
+from datetime import timedelta
 
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from django.utils.timezone import localtime
 from django.utils.translation import gettext_lazy as _
 
 from flock.models import CustomThreshold, DeviceType
@@ -11,6 +10,7 @@ from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
+from flock.utils import now
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -40,13 +40,14 @@ admin.site.register(Device, DeviceAdmin)
 admin.site.register(CustomThreshold, CustomThresholdAdmin)
 
 
-def rssi_to_ten(modeladmin, request, queryset):
+def make_readings_current(modeladmin, request, queryset):
     for reading in queryset:
         reading.rssi = 10
+        reading.created_at = now()
         reading.save()
 
 
-rssi_to_ten.short_description = "Change RSSI to 10"
+make_readings_current.short_description = "Make readings current"
 
 
 class CreatedAtListFilter(admin.SimpleListFilter):
@@ -82,15 +83,15 @@ class CreatedAtListFilter(admin.SimpleListFilter):
         # Compare the requested value (either '80s' or '90s')
         # to decide how to filter the queryset.
         if self.value() == "last_10":
-            return queryset.filter(created_at__gte=localtime() - timedelta(minutes=10))
+            return queryset.filter(created_at__gte=now() - timedelta(minutes=10))
         if self.value() == "last_30":
-            return queryset.filter(created_at__gte=localtime() - timedelta(minutes=30))
+            return queryset.filter(created_at__gte=now() - timedelta(minutes=30))
         if self.value() == "last_hour":
-            return queryset.filter(created_at__gte=localtime() - timedelta(minutes=60))
+            return queryset.filter(created_at__gte=now() - timedelta(minutes=60))
         if self.value() == "last_day":
-            return queryset.filter(created_at__gte=localtime() - timedelta(hours=24))
+            return queryset.filter(created_at__gte=now() - timedelta(hours=24))
         if self.value() == "last_week":
-            return queryset.filter(created_at__gte=localtime() - timedelta(days=7))
+            return queryset.filter(created_at__gte=now() - timedelta(days=7))
 
 
 class DeviceTypeListFilter(admin.SimpleListFilter):
@@ -154,7 +155,7 @@ class SensorReadingAdmin(admin.ModelAdmin):
         DeviceTypeListFilter,
         ("person", admin.RelatedOnlyFieldListFilter),
     )
-    actions = [rssi_to_ten]  # <-- Add the list action function here
+    actions = [make_readings_current]  # <-- Add the list action function here
 
 
 admin.site.register(SensorReading, SensorReadingAdmin)

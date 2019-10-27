@@ -1,16 +1,18 @@
 import re
 
+import pytz
 from django.contrib.postgres.indexes import BrinIndex
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import BooleanField
+from django.db.models import BooleanField, DateTimeField
 from django.db.models import ForeignKey
 from django.db.models import TextField
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from django.utils.timezone import localtime
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
+
+from flock.utils import now
 
 
 class TZAwareDateTimeField(models.DateTimeField):
@@ -18,7 +20,7 @@ class TZAwareDateTimeField(models.DateTimeField):
         if value is None:
             return None
         else:
-            return localtime(value)
+            return value.replace(tzinfo=pytz.UTC)
 
 
 class Location(models.Model):
@@ -65,7 +67,7 @@ def mac_validator(mac):
 class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     device_type = EnumField(DeviceType)
-    created_at = TZAwareDateTimeField(default=localtime, editable=False)
+    created_at = DateTimeField(default=now, editable=False)
     mac = models.CharField(
         max_length=17,
         unique=True,
@@ -90,7 +92,7 @@ class Estimate(models.Model):
     person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     present = BooleanField(default=True)
-    created_at = TZAwareDateTimeField(default=localtime)
+    created_at = DateTimeField(default=now)
 
 
 class SensorReading(Estimate):

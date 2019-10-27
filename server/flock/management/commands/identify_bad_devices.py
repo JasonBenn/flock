@@ -3,10 +3,10 @@ from operator import itemgetter
 
 from django.core.management.base import BaseCommand
 from django.db.models import Max
-from django.utils.timezone import localtime
 
 from flock.models import Device
 from flock.models import SensorReading
+from flock.utils import now
 
 
 class Command(BaseCommand):
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         quiet_devices = {
             device: last_reading
             for device, last_reading in most_recent_readings.items()
-            if last_reading and localtime() - timedelta(hours=3) > last_reading
+            if last_reading and now() - timedelta(hours=3) > last_reading
         }
         for device, last_reading in sorted(quiet_devices.items(), key=itemgetter(1)):
             day = last_reading.strftime("%-m/%-d")

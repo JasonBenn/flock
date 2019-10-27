@@ -22,3 +22,4 @@ ssh pi_$1 touch /home/pi/.config/flock/$1
 # Misc
 sudo chown -R pi /var/log
 sudo hciconfig hci0 pageto 3200  # shorten BT timeout from 5s to 2s
+sudo timedatectl set-timezone UTC

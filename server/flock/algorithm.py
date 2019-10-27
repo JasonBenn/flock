@@ -31,13 +31,13 @@ def get_recent_estimates_by_type(at_time: Optional[datetime] = None) -> Dict[Per
     all_people = {person: {} for person in Person.objects.all()}
 
     recent_truths = GroundTruth.objects.filter(
-        created_at__gte=at_time - timedelta(minutes=READING_WINDOW_MINUTES), created_at__lt=at_time
+        created_at__gte=at_time - timedelta(minutes=READING_WINDOW_MINUTES), created_at__lte=at_time
     ).select_related("person", "location")
     for person, truths in group_by(recent_truths, key=attrgetter("person")).items():
         all_people[person]["truths"] = truths
 
     recent_readings = SensorReading.objects.filter(
-        created_at__gte=at_time - timedelta(minutes=READING_WINDOW_MINUTES), created_at__lt=at_time
+        created_at__gte=at_time - timedelta(minutes=READING_WINDOW_MINUTES), created_at__lte=at_time
     ).select_related("person", "location")
     for person, readings in group_by(recent_readings, key=attrgetter("person")).items():
         all_people[person]["readings"] = readings
@@ -118,8 +118,10 @@ def best_locations_by_rssi(location_to_estimates: Dict[Location, List[Estimate]]
     }
 
     average_rssis = flatten(location_to_average_rssi.values())
+
     if not len(average_rssis):
         return []
+
     highest_overall_rssi = max(average_rssis)
     best_locations = [
         location

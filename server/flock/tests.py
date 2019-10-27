@@ -1,8 +1,10 @@
 from datetime import timedelta
 
 from django.test import TestCase
-from django.utils.timezone import localtime
+from django.utils.timezone import now
 
+from flock.algorithm import get_location_to_people
+from flock.constants import MAX_THRESHOLD
 from flock.models import CustomThreshold
 from flock.models import Device
 from flock.models import DeviceType
@@ -10,8 +12,7 @@ from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
-from flock.constants import MAX_THRESHOLD
-from flock.algorithm import get_location_to_people
+from flock.utils import now
 
 
 class LocationEstimationTests(TestCase):
@@ -109,7 +110,7 @@ class LocationEstimationTests(TestCase):
         """Allie has a reading from the common room, someone reports she's not there, so we fall back to another valid reading from the Study"""
         SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
         SensorReading.objects.create(
-            device=self.allie_phone, location=self.study, rssi=0, created_at=localtime() - timedelta(minutes=5)
+            device=self.allie_phone, location=self.study, rssi=0, created_at=now() - timedelta(minutes=5)
         )
         SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
         GroundTruth.objects.create(person=self.allie, location=self.common_room, present=False)
@@ -120,7 +121,7 @@ class LocationEstimationTests(TestCase):
     def test_correct_correction(self):
         """Allie has a GroundTruth in the common room, then an anti-GroundTruth right after."""
         GroundTruth.objects.create(
-            person=self.allie, location=self.common_room, present=True, created_at=localtime() - timedelta(minutes=5)
+            person=self.allie, location=self.common_room, present=True, created_at=now() - timedelta(minutes=5)
         )
         GroundTruth.objects.create(person=self.allie, location=self.common_room, present=False)
         estimates = get_location_to_people()
@@ -145,7 +146,7 @@ class LocationEstimationTests(TestCase):
     def test_single_device_moves_between_locations(self):
         """Allie went from Study to Common Room"""
         SensorReading.objects.create(
-            device=self.allie_phone, location=self.study, rssi=0, created_at=(localtime() - timedelta(minutes=5))
+            device=self.allie_phone, location=self.study, rssi=0, created_at=(now() - timedelta(minutes=5))
         )
         SensorReading.objects.create(device=self.allie_phone, location=self.common_room, rssi=0)
         estimates = get_location_to_people()
@@ -153,7 +154,7 @@ class LocationEstimationTests(TestCase):
 
     def test_two_readings_in_one_location_strong_recent_reading_in_another(self):
         """Jason recently had both devices in the Study, now he's moved to the Common Room and just the phone is detected."""
-        past = localtime() - timedelta(minutes=5)
+        past = now() - timedelta(minutes=5)
         SensorReading.objects.create(device=self.allie_phone, location=self.study, rssi=0, created_at=past)
         SensorReading.objects.create(device=self.allie_laptop, location=self.study, rssi=0, created_at=past)
 
