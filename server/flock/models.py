@@ -104,14 +104,9 @@ class SensorReading(Estimate):
 
 
 @receiver(pre_save, sender=SensorReading)
-def backfill_person_id(sender, instance, **kwargs):
+def backfill_fields(sender, instance, **kwargs):
     instance.person_id = instance.device.person_id
-
-
-@receiver(pre_save, sender=SensorReading)
-def backfill_present(sender, instance, **kwargs):
-    if instance.rssi is None:
-        instance.present = False
+    instance.present = instance.rssi is not None
 
 
 class GroundTruth(Estimate):
