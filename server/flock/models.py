@@ -1,10 +1,11 @@
 import re
 
 import pytz
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import BrinIndex
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import BooleanField, DateTimeField
+from django.db.models import BooleanField, DateTimeField, IntegerField
 from django.db.models import ForeignKey
 from django.db.models import TextField
 from django.db.models.signals import pre_save
@@ -164,3 +165,9 @@ class CustomThreshold(models.Model):
         if self.device:
             components.append(DeviceType.get(self.device.device_type).name)
         return ", ".join([x for x in components if x])
+
+
+class ChillTime(models.Model):
+    person_ids = ArrayField(IntegerField())
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
+    created_at = DateTimeField(default=now)
