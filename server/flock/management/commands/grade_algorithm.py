@@ -17,4 +17,4 @@ class Command(BaseCommand):
                 correct.append(truth)
             else:
                 incorrect.append(truth)
-        print(f"{len(correct) / len(incorrect)*100:.0f}% correct! ({len(correct)}/{len(incorrect)})")
+        print(f"{len(correct) / len(correct + incorrect)*100:.0f}% correct! ({len(correct)}/{len(incorrect)})")
