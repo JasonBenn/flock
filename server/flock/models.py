@@ -171,3 +171,7 @@ class ChillTime(models.Model):
     person_ids = ArrayField(IntegerField())
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     created_at = DateTimeField(default=now)
+
+    def __str__(self):
+        people = Person.objects.filter(id__in=self.person_ids)
+        return f"{', '.join([x.name for x in people])} in {self.location} at {friendly_time(self.created_at)}"

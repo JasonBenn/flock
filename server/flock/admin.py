@@ -3,10 +3,11 @@ from datetime import timedelta
 import pytz
 from dateutil.parser import parse
 from django.contrib import admin
+from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
-from flock.models import CustomThreshold, DeviceType
+from flock.models import CustomThreshold, DeviceType, ChillTime
 from flock.models import Device
 from flock.models import GroundTruth
 from flock.models import Location
@@ -191,4 +192,18 @@ class GroundTruthAdmin(FilterableByCreatedAt, admin.ModelAdmin):
 
 admin.site.register(GroundTruth, GroundTruthAdmin)
 
+
+def display_people(obj):
+    people = Person.objects.filter(id__in=obj.person_ids)
+    return ", ".join([x.name for x in people])
+
+
+display_people.short_description = "people"
+
+
+class ChillTimeAdmin(ModelAdmin):
+    list_display = [display_people, "location", "created_at"]
+
+
+admin.site.register(ChillTime, ChillTimeAdmin)
 admin.site.unregister(Group)
