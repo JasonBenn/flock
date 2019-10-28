@@ -33,3 +33,7 @@ reload_server:
 
 reload_db:
 	bash ops/load_prod_data.sh
+
+update_crontab:
+	# crontab -e, copy ./ops/crontab over
+	ssh flock sudo systemctl restart cron
