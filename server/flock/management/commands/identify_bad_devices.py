@@ -13,9 +13,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         most_recent_readings = {}
         for device in Device.objects.all():
-            most_recent_readings[device] = SensorReading.objects.filter(device=device).aggregate(Max("created_at"))[
+            max_created_at = SensorReading.objects.filter(device=device, present=True).aggregate(Max("created_at"))[
                 "created_at__max"
             ]
+            if max_created_at and max_created_at < now() - timedelta(days=7):
+                most_recent_readings[device] = max_created_at
 
         quiet_devices = {
             device: last_reading

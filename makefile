@@ -30,3 +30,6 @@ deploy_server:
 reload_server:
 	bash ops/load_prod_data.sh
 	server/manage.py runserver
+
+reload_db:
+	bash ops/load_prod_data.sh

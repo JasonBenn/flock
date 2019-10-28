@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.core.management.base import BaseCommand
 from tqdm import tqdm
 
@@ -10,11 +12,9 @@ class Command(BaseCommand):
         correct = []
         incorrect = []
         for truth in tqdm(GroundTruth.objects.all()):
-            location_to_people = get_location_to_people(truth.created_at, True)
-            # print("Looking for:", truth.person, truth.location)
-            # print("Found:", location_to_people)
-            if location_to_people.get(truth.person) == truth.location:
+            location_to_people = get_location_to_people(truth.created_at + timedelta(minutes=5), True)
+            if truth.fixed_at or truth.person in location_to_people.get(truth.location, []):
                 correct.append(truth)
             else:
                 incorrect.append(truth)
-        print(len(correct), len(incorrect))
+        print(f"{len(correct) / len(incorrect)*100:.0f}% correct! ({len(correct)}/{len(incorrect)})")
