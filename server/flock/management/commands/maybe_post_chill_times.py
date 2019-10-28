@@ -43,5 +43,5 @@ def post_chill_times(location: Location, people: List[Person]) -> Response:
     message = (
         f"<!here> chill times in the {title_case(location.name)} with {', '.join(people_head)} and {last_person}!"
     )
-    data = {"channel": "#testing", "username": "Flock", "text": message, "icon_emoji": ":bird:"}
+    data = {"channel": "#chill-times", "username": "Flock", "text": message, "icon_emoji": ":bird:"}
     return requests.post(os.getenv("SLACK_URL"), data=json.dumps(data), headers={"Content-Type": "application/json"})
