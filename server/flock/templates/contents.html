@@ -12,16 +12,16 @@
         <p class='locationName'>{{ location.name }}</p>
         <div class='{{ location.clean_name|camel_case }}Icon'></div>
       </div>
-      {% for person in people %}
-          <p>{{ person.name }}</p>
-      {% endfor %}
+      <div class="locationBody">
+        {% for person in people %}
+            <p>{{ person.name }}</p>
+        {% endfor %}
+      </div>
     </div>
   </a>
 {% endfor %}
 
 <div class="bottom">
-  <p><a class="gray" href="/admin/flock/device/add/">Add your devices</a> (and make sure their Bluetooth is on)!</p>
-  <p>Something wrong? <a class="gray" href="/report_ground_truth">Correct Flock here</a>.</p>
-  <p>Optionally, <a class="gray" href="/admin/flock/customthreshold/">set a custom threshold</a> for a person-location
-    pair (or a device-location pair).</p>
+  <p><a class="gray" href="/report_ground_truth">Report a mistake</a></p>
+  <p><a class="gray" href="/admin/flock/device/add/">Add your device(s)</a></p>
 </div>

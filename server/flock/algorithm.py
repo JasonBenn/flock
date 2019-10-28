@@ -180,7 +180,7 @@ def get_location_to_people(
     location_to_people = defaultdict(list)
     for person, location in masked_people_to_location.items():
         location_to_people[location].append(person)
-    return dict(location_to_people)
+    return {k: sorted(v, key=attrgetter("first_name")) for k, v in location_to_people.items()}
 
 
 def get_most_mobile_device(devices):
