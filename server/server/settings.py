@@ -56,6 +56,7 @@ SILENCED_SYSTEM_CHECKS = ["admin.E408"]
 
 ROOT_URLCONF = "server.urls"
 
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -67,6 +68,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "flock.context_processors.export_environ",
             ]
         },
     }

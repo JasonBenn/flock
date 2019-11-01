@@ -10,6 +10,17 @@ test:
 test_one:
 	server/manage.py test -s flock.tests:LocationEstimationTests.test_hidden_person_location
 
+# Local development
+reload_runserver:
+	bash ops/load_prod_data.sh
+	FREEZE_TIME=1 server/manage.py runserver
+
+reload_db:
+	bash ops/load_prod_data.sh
+
+runserver:
+	FREEZE_TIME=1 server/manage.py runserver
+
 # Sensors
 check_sensors:
 	bash ops/run_on_all_sensors.sh ops/check_sensor.sh
@@ -26,13 +37,6 @@ pip_install_sensors:
 # Server
 deploy_server:
 	bash ops/server/deploy.sh
-
-reload_server:
-	bash ops/load_prod_data.sh
-	server/manage.py runserver
-
-reload_db:
-	bash ops/load_prod_data.sh
 
 update_crontab:
 	# crontab -e, copy ./ops/crontab over
