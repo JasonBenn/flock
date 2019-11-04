@@ -6,7 +6,7 @@
   </div>
 {% endif %}
 {% for location, people in location_to_people.items %}
-  <a class="gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">
+  <a class="locationPanelContainer gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">
     <div id='loc_{{ location.clean_name|snake_case }}' class='locationPanel'>
       <div class="locationHolder">
         <p class='locationName'>{{ location.name }}</p>

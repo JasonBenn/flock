@@ -7,12 +7,10 @@ html, body {
     height: 100vh;
     margin: 0;
     font-size: 18px;
-}
-
-@media (max-width: 40em) and (orientation: landscape) {
-    body {
-        font-size: 12px;
-    }
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 p {
@@ -23,21 +21,26 @@ p {
 }
 
 .container {
-    height: 100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: auto;
+    width: 100%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
 }
 
+.locationPanelContainer {
+    padding: 0 1em;
+    margin-top: 1em;
+    flex: 0 1 14em;
+}
+
 .locationPanel {
-    width: 10em;
     height: 20em;
-    padding: 1.8em;
-    margin: 1em;
+    padding: 1em 1.5em;
     background-color: #FEF9F9;
     border-radius: 1em;
 }
@@ -67,17 +70,12 @@ p {
     font-size: 1.8em;
 }
 
-.workshopArramsRoomIcon:after {
-    content: "🔨";
-    font-size: 1.8em;
-}
-
 .roofIcon:after {
     content: "🌇";
     font-size: 1.8em;
 }
 
-.middleKingdomKitchenIcon:after {
+.middleKitchenIcon:after {
     content: "🥘";
     font-size: 1.8em;
 }
@@ -88,7 +86,6 @@ p {
     line-height: 1.5em;
     text-transform: uppercase;
     color: #051937;
-    /*white-space: nowrap;*/
 }
 
 .locationHolder {
@@ -108,13 +105,14 @@ p {
 }
 
 ::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
+    -webkit-appearance: none;
+    width: 7px;
 }
+
 ::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .2);
-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .3);
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .3);
 }
 
 .red {
@@ -146,10 +144,15 @@ p {
 }
 
 .bottom {
-    position: absolute;
-    right: 1em;
-    bottom: 1em;
+    /*margin-top: 2em;*/
+    margin-bottom: 2em;
+    margin-right: 2em;
     text-align: right;
+    height: 4em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
 }
 
 
@@ -157,15 +160,14 @@ p {
     margin-top: 0.7em;
 }
 
-.center-contents {
+.report-ground-truth {
     display: flex;
-    justify-content: space-evenly;
-    align-content: center;
+    flex-flow: wrap;
 }
 
-.center-contents > div {
-    margin: 3em;
-    width: 50%;
+.report-ground-truth > div {
+    flex: 1 1 15em;
+    margin: 1em;
 }
 
 input[type="radio"]:not(:checked) + label {
@@ -173,7 +175,7 @@ input[type="radio"]:not(:checked) + label {
 }
 
 input[type="checkbox"]:indeterminate + label {
-  color: lightgray;
+    color: lightgray;
 }
 
 input[type="submit"] {
@@ -190,4 +192,42 @@ input[type="submit"] {
 
 .hide {
     display: none;
+}
+
+@media (max-width: 45em) {
+    body {
+        font-size: 12px;
+        justify-content: initial;
+    }
+
+    .locationPanel {
+        padding: 1em 1.5em;
+        height: 16em;
+    }
+
+    .locationPanelContainer {
+        flex: 0 1 12em;
+    }
+
+    @media (orientation: portrait) {
+        body {
+            font-size: 16px;
+        }
+
+        .container {
+            align-items: initial;
+        }
+
+        .locationPanel {
+            height: auto;
+        }
+
+        .locationPanelContainer {
+            flex-grow: 1;
+        }
+
+        .bottom {
+            position: initial;
+        }
+    }
 }
