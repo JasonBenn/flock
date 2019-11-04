@@ -2,7 +2,7 @@ SHELL := /usr/bin/env bash
 
 # Testing
 test_post_scans:
-	curl -v localhost:8000/scans -X POST -d '{"location": "common_room", "scan_results": [{"mac": "5C:F9:38:95:06:17", "rssi": null, "scanned_at": "2019-10-26 15:43:50.351126"}]}'
+	curl -v 127.0.0.1:8000/scans -d '{"location": "common_room", "scan_results": [{"mac": "5C:F9:38:95:06:17", "rssi": null, "scanned_at": "2019-10-26 15:43:50.351126"}]}'
 
 test:
 	server/manage.py test flock
