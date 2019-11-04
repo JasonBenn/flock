@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from flock.algorithm import get_location_to_people
+from flock.algorithm import get_location_to_people, get_stubbed_location_to_people
 from flock.models import Device
 from flock.models import GroundTruth
 from flock.models import Location
@@ -95,3 +95,8 @@ def scans(request):
         )
 
     return HttpResponse(status=204)
+
+
+def stubbed_data(request):
+    num_locations = request.GET["num_locations"] and int(request.GET["num_locations"])
+    return render(request, "index.html", {"location_to_people": get_stubbed_location_to_people(num_locations)})

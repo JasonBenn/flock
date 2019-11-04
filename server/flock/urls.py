@@ -14,4 +14,5 @@ urlpatterns = [
     path("", include("django.contrib.auth.urls")),
     path("", include("social_django.urls")),
     path("login", views.login),
+    path("stubbed_data", views.stubbed_data),
 ]

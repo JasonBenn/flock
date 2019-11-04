@@ -3,6 +3,7 @@ from datetime import datetime
 from datetime import timedelta
 from functools import partial
 from operator import attrgetter
+from random import shuffle
 from statistics import mean
 from typing import Dict
 from typing import List
@@ -185,3 +186,13 @@ def get_location_to_people(
 
 def get_most_mobile_device(devices):
     return sorted(devices, key=lambda x: x.device_type)[0]
+
+
+def get_stubbed_location_to_people(num_locations: int = 2) -> Dict[Location, List[Person]]:
+    random_locations = list(Location.objects.all()[:num_locations])
+    random_people = list(Person.objects.all()[: 2 * num_locations])
+    shuffle(random_people)
+    stubbed_location_to_people = {}
+    for i, location in enumerate(random_locations):
+        stubbed_location_to_people[location] = random_people[i * 2 : i * 2 + 2]
+    return stubbed_location_to_people
