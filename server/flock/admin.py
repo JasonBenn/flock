@@ -51,7 +51,14 @@ def make_readings_current(modeladmin, request, queryset):
         reading.save()
 
 
-make_readings_current.short_description = "Make readings current"
+def make_readings_present(modeladmin, request, queryset):
+    for reading in queryset:
+        reading.rssi = 10
+        reading.save()
+
+
+make_readings_current.short_description = "Make present and current"
+make_readings_present.short_description = "Make present"
 
 
 class CreatedAtListFilter(admin.SimpleListFilter):
@@ -168,7 +175,7 @@ class SensorReadingAdmin(FilterableByCreatedAt, admin.ModelAdmin):
     list_display = ["device", "location", "rssi", "created_at", "present"]
     exclude = ("person", "present")
     list_filter = ("present", "location", CreatedAtListFilter, RssiListFilter, DeviceTypeListFilter, "person")
-    actions = [make_readings_current]  # <-- Add the list action function here
+    actions = [make_readings_current, make_readings_present]  # <-- Add the list action function here
 
 
 admin.site.register(SensorReading, SensorReadingAdmin)
