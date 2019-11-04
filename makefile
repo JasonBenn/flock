@@ -21,7 +21,11 @@ reload_db:
 runserver:
 	FREEZE_TIME=1 server/manage.py runserver
 
-# Sensors
+DB_URL=postgresql://flock:flock@127.0.0.1:5432/flock
+dump_db:
+	pg_dump $(DB_URL) -a > backup_2.sql
+
+# All sensors
 check_sensors:
 	bash ops/run_on_all_sensors.sh ops/check_sensor.sh
 
@@ -33,6 +37,18 @@ init_sensors:
 
 pip_install_sensors:
 	bash ops/run_on_all_sensors.sh ops/pip_install_sensor.sh
+
+# Single sensor
+SENSOR = workshop
+deploy_sensor:
+	ops/deploy_sensor.sh $(SENSOR)
+
+init_sensor:
+	ops/init_sensor.sh $(SENSOR)
+
+pip_install_sensor:
+	ops/pip_install_sensor.sh $(SENSOR)
+
 
 # Server
 deploy_server:

@@ -6,3 +6,4 @@ data
 __pycache__
 .pyc
 scratch.py
+db_backups
