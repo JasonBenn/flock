@@ -1,14 +1,13 @@
 import os
 
 import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 from dotenv import load_dotenv
+from sentry_sdk.integrations.django import DjangoIntegration
 
 load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "d*nm^^af$a-we$u1wg4ot244!jzkp!mx5(0g8fbd5rp17$z9!!"
@@ -24,7 +23,6 @@ ALLOWED_HOSTS = [
     "archive-flock.auth0.com",
     "village.archive.house",
 ]
-
 
 # Application definition
 
@@ -56,7 +54,6 @@ SILENCED_SYSTEM_CHECKS = ["admin.E408"]
 
 ROOT_URLCONF = "server.urls"
 
-
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -76,6 +73,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "server.wsgi.application"
 
+LOGGING = {
+    "version": 1,
+    "handlers": {"null": {"class": "logging.NullHandler"}},
+    "loggers": {"django.security.DisallowedHost": {"handlers": ["null"], "propagate": False}},
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -101,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -120,7 +121,6 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-
 # Auth0 stuff
 
 SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes
@@ -136,7 +136,6 @@ AUTHENTICATION_BACKENDS = {"flock.auth0backend.Auth0", "django.contrib.auth.back
 
 LOGIN_URL = "/login/auth0"
 LOGIN_REDIRECT_URL = "/"
-
 
 # Sentry
 
