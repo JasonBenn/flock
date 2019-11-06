@@ -68,7 +68,7 @@ def login(request):
 
 
 def macs(request):
-    return JsonResponse({x.mac: x.person.name for x in Device.objects.all().select_related("person")})
+    return JsonResponse({x.mac: x.person.name for x in Device.objects.all().select_related("person").order_by("device_type", "mac")})
 
 
 @csrf_exempt

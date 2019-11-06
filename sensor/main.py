@@ -93,7 +93,6 @@ async def main():
     while True:
         macs = load_macs()
         mac_tups = list(macs.items())
-        shuffle(mac_tups)
         for x in mac_tups:
             await scan_macs([x])
             await asyncio.sleep(2)
