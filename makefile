@@ -39,7 +39,7 @@ pip_install_sensors:
 	bash ops/run_on_all_sensors.sh ops/pip_install_sensor.sh
 
 # Single sensor
-SENSOR = jasons_room
+SENSOR = common_room
 deploy_sensor:
 	ops/deploy_sensor.sh $(SENSOR)
 

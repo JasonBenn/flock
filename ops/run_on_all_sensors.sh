@@ -5,9 +5,9 @@
 
 echo "Working..."
 {
-    echo common_room_external
+    echo common_room
     echo study_external
-    echo middle_kingdom_kitchen_external
+    echo middle_kitchen
     echo jasons_room
     echo workshop
     echo backyard
