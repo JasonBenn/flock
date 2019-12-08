@@ -1,7 +1,7 @@
 # 🐦 Flock 🐦
 This is an IoT app for passive hangout discovery among friends.
 
-For a longer explanation, see the Flock Talk. [Slides](https://docs.google.com/presentation/d/1lbyS1Am-ZLKKdFJPfXaTKGL1I0gQWvcRptdZgPVrMxU/edit?usp=sharing).
+For a longer explanation, see the Flock Talk: [slides](https://docs.google.com/presentation/d/1lbyS1Am-ZLKKdFJPfXaTKGL1I0gQWvcRptdZgPVrMxU/edit?usp=sharing).
 
 If you want help installing/setting this up, contact me at jasoncbenn@gmail.com - if there's enough interest, I'd be happy to write a blog post/record a video/help you personally.
 
