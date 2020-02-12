@@ -6,10 +6,10 @@
 echo "Working..."
 {
     echo common_room
-    echo study_external
+    echo study
     echo middle_kitchen
     echo jasons_room
     echo workshop
     echo backyard
-    # echo roof
+    echo roof
 } | parallel -k bash $1
