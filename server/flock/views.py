@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from flock.algorithm import get_location_to_people, get_stubbed_location_to_people
+from flock.algorithm import get_location_to_people, get_stubbed_location_to_people, quiet_locations
 from flock.models import Device
 from flock.models import GroundTruth
 from flock.models import Location
@@ -23,7 +23,9 @@ def index(request):
     if not user.is_authenticated or not user.is_staff:
         return redirect(login)
 
-    return render(request, "index.html", {"location_to_people": get_location_to_people()})
+    return render(
+        request, "index.html", {"location_to_people": get_location_to_people(), "quiet_locations": quiet_locations()}
+    )
 
 
 @login_required
@@ -68,7 +70,9 @@ def login(request):
 
 
 def macs(request):
-    return JsonResponse({x.mac: x.person.name for x in Device.objects.all().select_related("person").order_by("device_type", "mac")})
+    return JsonResponse(
+        {x.mac: x.person.name for x in Device.objects.all().select_related("person").order_by("device_type", "mac")}
+    )
 
 
 @csrf_exempt

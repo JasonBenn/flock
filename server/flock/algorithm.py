@@ -9,7 +9,9 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
+from cache_memoize import cache_memoize
 from django.contrib.admin.utils import flatten
+from django.db.models import Max
 from django.utils.functional import partition
 
 from flock.constants import MAX_THRESHOLD
@@ -20,7 +22,7 @@ from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
-from flock.utils import get_at_time
+from flock.utils import get_at_time, now
 from flock.utils import group_by
 
 
@@ -196,3 +198,12 @@ def get_stubbed_location_to_people(num_locations: int = 2) -> Dict[Location, Lis
     for i, location in enumerate(random_locations):
         stubbed_location_to_people[location] = random_people[i * 2 : i * 2 + 2]
     return stubbed_location_to_people
+
+
+@cache_memoize(100)  # TODO: cache layer
+def quiet_locations() -> Dict[Location, datetime]:
+    recent_readings = {
+        x: SensorReading.objects.filter(location_id=x.id).aggregate(Max("created_at"))["created_at__max"]
+        for x in Location.objects.all()
+    }
+    return {location: reading for location, reading in recent_readings.items() if reading < now() - timedelta(hours=1)}

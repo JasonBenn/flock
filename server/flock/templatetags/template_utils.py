@@ -39,3 +39,12 @@ def camel_case(string):
 @register.filter
 def is_ground_truth(instance: Any) -> bool:
     return isinstance(instance, GroundTruth)
+
+
+@register.filter
+def brief_time(dt: datetime) -> str:
+    delta = now() - dt
+    if delta.days > 1:
+        return f"{delta.days} days"
+    else:
+        return f"{delta.seconds // 3600} hours"

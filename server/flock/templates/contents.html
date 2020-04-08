@@ -21,6 +21,22 @@
   </a>
 {% endfor %}
 
+{% for location, last_heard_time in quiet_locations.items %}
+  <a class="locationPanelContainer gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">
+    <div id='loc_{{ location.clean_name|snake_case }}' class='locationPanel'>
+      <div class="locationHolder">
+        <p class='locationName'>{{ location.name }}</p>
+        <div class='{{ location.clean_name|camel_case }}Icon'></div>
+      </div>
+      <div class="locationBody">
+        <p>Device offline for {{ last_heard_time|brief_time }} ☹️</p>
+        <br>
+        <p>Try turning off & on again</p>
+      </div>
+    </div>
+  </a>
+{% endfor %}
+
 <div class="bottom">
   <p><a class="gray" href="/report_ground_truth">Report a mistake</a></p>
   <p><a class="gray" href="/admin/flock/device/add/">Add your device(s)</a></p>

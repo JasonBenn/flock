@@ -56,3 +56,4 @@ Werkzeug==0.15.2
 tqdm==4.*
 attrs==19.*
 django-nose==1.4.*
+django-cache-memoize==0.*
