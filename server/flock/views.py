@@ -17,15 +17,17 @@ from flock.models import Person
 from flock.models import SensorReading
 
 
+def get_homepage_context_data():
+    return {"location_to_people": get_location_to_people(), "quiet_locations": quiet_locations()}
+
+
 @login_required
 def index(request):
     user = request.user
     if not user.is_authenticated or not user.is_staff:
         return redirect(login)
 
-    return render(
-        request, "index.html", {"location_to_people": get_location_to_people(), "quiet_locations": quiet_locations()}
-    )
+    return render(request, "index.html", get_homepage_context_data())
 
 
 @login_required
@@ -34,7 +36,7 @@ def get_contents(request):
     if not user.is_authenticated or not user.is_staff:
         return redirect(login)
 
-    return render(request, "contents.html", {"location_to_people": get_location_to_people()})
+    return render(request, "contents.html", get_homepage_context_data())
 
 
 @login_required
