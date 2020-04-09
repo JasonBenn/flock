@@ -57,3 +57,9 @@ deploy_server:
 update_crontab:
 	# crontab -e, copy ./ops/crontab over
 	ssh flock sudo systemctl restart cron
+
+download_prod_env:
+	scp flock:/home/flock/code/server/server/.env /Users/jasonbenn/code/flock/.prod_env
+
+upload_prod_env:
+	scp /Users/jasonbenn/code/flock/.prod_env flock:/home/flock/code/server/server/.env

@@ -6,6 +6,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 load_dotenv()
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -129,6 +130,7 @@ SOCIAL_AUTH_AUTH0_KEY = "UGu6gdsS56FqhYvAaNdeYgjbe7n9IqNL"
 SOCIAL_AUTH_AUTH0_SECRET = os.getenv("SOCIAL_AUTH_AUTH0_SECRET")
 
 EMAIL_WHITELIST = set(os.getenv("EMAIL_WHITELIST").split(","))
+print(EMAIL_WHITELIST)
 
 SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
 
