@@ -43,5 +43,9 @@ def post_chill_times(location: Location, people: List[Person]) -> Response:
     message = (
         f"<!here> chill times in the {title_case(location.name)} with {', '.join(people_head)} and {last_person}!"
     )
-    data = {"channel": "#chill-times", "username": "Flock", "text": message, "icon_emoji": ":bird:"}
+    return post_slack(message, "chill-times")
+
+
+def post_slack(message, channel, username="Flock", icon_emoji="bird"):
+    data = {"channel": f"#{channel}", "username": username, "text": message, "icon_emoji": f":{icon_emoji}:"}
     return requests.post(os.getenv("SLACK_URL"), data=json.dumps(data), headers={"Content-Type": "application/json"})

@@ -130,7 +130,6 @@ SOCIAL_AUTH_AUTH0_KEY = "UGu6gdsS56FqhYvAaNdeYgjbe7n9IqNL"
 SOCIAL_AUTH_AUTH0_SECRET = os.getenv("SOCIAL_AUTH_AUTH0_SECRET")
 
 EMAIL_WHITELIST = set(os.getenv("EMAIL_WHITELIST").split(","))
-print(EMAIL_WHITELIST)
 
 SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
 

@@ -1,1 +1,2 @@
 */5 * * * * /usr/local/bin/python /home/flock/code/server/manage.py maybe_post_chill_times >> /var/log/cron.log 2>&1
+30 21 * * * /usr/local/bin/python /home/flock/code/server/manage.py weather_report >> /var/log/cron.log 2>&1
