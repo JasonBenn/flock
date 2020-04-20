@@ -40,7 +40,21 @@ async def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:
     print(f"  {mac} ping...", flush=True)
     scanned_at = datetime.now(pytz.UTC)
     proc = await asyncio.create_subprocess_shell(
-        f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",
+
+        ## old method 
+        # f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",
+
+        ### improved RSSI checking!
+        # "hcitool rssi" only works if some sort of connection with the device already exists.
+        # creating a full connection with "hcitool cc" is the classic way to do this
+        # BUT apparently while/right after l2ping is used some more basic connection exists
+        # that's sufficent enough for "hcitool rssi" to work! And importantly
+        # this consume way less bluetooth traffic and doesn't interfere with
+        # WiFi connectivity as much.  Bluetooth tcpdump's shows this method
+        # uses 30% of the data used previously.
+        f"sudo l2ping -t 2 -c 1 {mac} > /dev/null 2> /dev/null && hcitool rssi {mac};",
+
+
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
