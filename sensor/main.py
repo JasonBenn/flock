@@ -52,7 +52,7 @@ async def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:
         # this consume way less bluetooth traffic and doesn't interfere with
         # WiFi connectivity as much.  Bluetooth tcpdump's shows this method
         # uses 30% of the data used previously.
-        f"sudo timeout 1.2s l2ping  -s 0 -t 0.1 -c 1 {mac}; hcitool rssi {mac}",
+        f"sudo timeout 1.2s l2ping  -s 0 -t 0.1 -c 1 {mac} > /dev/null 2> /dev/null; hcitool rssi {mac}",
 
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
