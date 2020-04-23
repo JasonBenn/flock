@@ -11,27 +11,37 @@ from flock.models import ChillTime, Location, Person
 from flock.utils import as_pdt, now, title_case
 
 
+CHILL_TIME_THRESHOLDS = {
+    "Common room": 5,
+    "Backyard": 3,
+    "Roof": 2,
+    "Study": 4
+}
+
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        if already_posted_today():
-            print("Already posted today!")
-            return
+        for location_name, threshold in CHILL_TIME_THRESHOLDS.items():
+            location = Location.objects.get(name=location_name)
 
-        common_room = Location.objects.get(name="Common room")
-        people = get_location_to_people().get(common_room, [])
-        if len(people) >= 5:
-            response = post_chill_times(common_room, people)
-            if response.status_code == 200:
-                ChillTime.objects.create(person_ids=[x.id for x in people], location=common_room)
-                print("Created ChillTime!")
+            if already_posted_today(location):
+                print("Already posted today!")
+                continue
+
+            people = get_location_to_people().get(location, [])
+            if len(people) >= threshold:
+                response = post_chill_times(location, people)
+                if response.status_code == 200:
+                    ChillTime.objects.create(person_ids=[x.id for x in people], location=location)
+                    print("Created ChillTime!")
+                else:
+                    print("Something went wrong...!")
             else:
-                print("Something went wrong...!")
-        else:
-            print(f"Only saw {len(people)}, not POSTing.")
+                print(f"Only saw {len(people)}, wanted {threshold} for {location.name}, not POSTing.")
 
 
-def already_posted_today() -> bool:
-    last_post = ChillTime.objects.last()
+def already_posted_today(location: Location) -> bool:
+    last_post = ChillTime.objects.filter(location=location).last()
     if not last_post:
         return False
     last_post_created_at = last_post.created_at
