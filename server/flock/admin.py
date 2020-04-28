@@ -7,8 +7,10 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
-from flock.models import CustomThreshold, DeviceType, ChillTime
+from flock.models import ChillTime
+from flock.models import CustomThreshold
 from flock.models import Device
+from flock.models import DeviceType
 from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
@@ -23,8 +25,19 @@ class LocationAdmin(admin.ModelAdmin):
 admin.site.register(Location, LocationAdmin)
 
 
+def toggle_active(modeladmin, request, queryset):
+    for model in queryset:
+        model.active = not model.active
+        model.save()
+
+
+toggle_active.short_description = "Toggle active status"
+
+
 class PersonAdmin(admin.ModelAdmin):
     ordering = ("first_name",)
+    list_display = ["first_name", "last_name", "active"]
+    actions = [toggle_active]
 
 
 admin.site.register(Person, PersonAdmin)
@@ -32,6 +45,12 @@ admin.site.register(Person, PersonAdmin)
 
 class DeviceAdmin(admin.ModelAdmin):
     ordering = ("person__first_name",)
+    list_display = ["person", "device_type", "active", "person_active"]
+    actions = [toggle_active]
+    readonly_fields = ('person_active',)
+
+    def person_active(self, device):
+        return device.person.active
 
 
 class CustomThresholdAdmin(admin.ModelAdmin):

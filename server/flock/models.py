@@ -39,6 +39,7 @@ class Location(models.Model):
 class Person(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
+    active = BooleanField(default=True)
 
     class Meta:
         unique_together = ("first_name", "last_name")
@@ -69,6 +70,7 @@ class Device(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     device_type = EnumField(DeviceType)
     created_at = DateTimeField(default=now, editable=False)
+    active = BooleanField(default=True)
     mac = models.CharField(
         max_length=17,
         unique=True,
