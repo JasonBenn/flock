@@ -69,7 +69,12 @@ async def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:
     return ScanResult(scanned_at=scanned_at, rssi=rssi, mac=mac)
 
 
-@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8)
+def giveup_and_reboot(details: dict):
+    print("Giving up and rebooting! Details:", details)
+    reboot()
+
+
+@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8, on_giveup=giveup_and_reboot)
 async def post_scans(scan_results: List[ScanResult]) -> int:
     data = json.dumps({"location": location, "scan_results": [attr.asdict(x) for x in scan_results]}, default=str)
     return session.post(f"{BASE_URL}/scans", data).status_code
@@ -88,19 +93,12 @@ async def scan_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):
     print(f"Sent {scan_results}, response code {response_code}", flush=True)
 
 
+@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8, on_giveup=giveup_and_reboot)
 def load_macs():
-    try:
-        mac_request = get_macs()
-    except requests.exceptions.ConnectionError:
-        return reboot()
+    mac_request = session.get(f"{BASE_URL}/macs")
     macs = json.loads(mac_request.text)
     print(f"GET {len(macs)} macs total", flush=True)
     return macs
-
-
-@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8)
-def get_macs():
-    return session.get(f"{BASE_URL}/macs")
 
 
 async def main():
