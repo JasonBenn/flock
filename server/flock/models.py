@@ -169,6 +169,17 @@ class CustomThreshold(models.Model):
         return ", ".join([x for x in components if x])
 
 
+class ChillTimesThreshold(models.Model):
+    threshold = models.IntegerField(
+        default=5,
+        help_text="<p>The first time this many people are detected (>=) that day, post to Slack.</p>")
+    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
+    created_at = DateTimeField(default=now)
+
+    def __str__(self):
+        return f"ChillTimesThreshold: {self.location} >= {self.threshold}"
+
+
 class ChillTime(models.Model):
     person_ids = ArrayField(IntegerField())
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)

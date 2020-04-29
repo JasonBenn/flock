@@ -8,28 +8,21 @@ from requests import Response
 
 from flock.algorithm import get_location_to_people
 from flock.models import ChillTime, Location, Person
+from flock.models import ChillTimesThreshold
 from flock.utils import as_pdt, now, title_case
-
-
-CHILL_TIME_THRESHOLDS = {
-    "Common room": 5,
-    "Backyard": 3,
-    "Roof": 2,
-    "Study": 4
-}
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        for location_name, threshold in CHILL_TIME_THRESHOLDS.items():
-            location = Location.objects.get(name=location_name)
+        for chill_times_threshold in ChillTimesThreshold.objects.all():
+            location = chill_times_threshold.location
 
             if already_posted_today(location):
                 print("Already posted today!")
                 continue
 
             people = get_location_to_people().get(location, [])
-            if len(people) >= threshold:
+            if len(people) >= chill_times_threshold.threshold:
                 response = post_chill_times(location, people)
                 if response.status_code == 200:
                     ChillTime.objects.create(person_ids=[x.id for x in people], location=location)
@@ -37,7 +30,7 @@ class Command(BaseCommand):
                 else:
                     print("Something went wrong...!")
             else:
-                print(f"Only saw {len(people)}, wanted {threshold} for {location.name}, not POSTing.")
+                print(f"Only saw {len(people)}, wanted {chill_times_threshold.threshold} for {location.name}, not POSTing.")
 
 
 def already_posted_today(location: Location) -> bool:

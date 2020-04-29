@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
 from flock.models import ChillTime
+from flock.models import ChillTimesThreshold
 from flock.models import CustomThreshold
 from flock.models import Device
 from flock.models import DeviceType
@@ -24,6 +25,14 @@ class LocationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Location, LocationAdmin)
+
+
+class ChillTimesThresholdAdmin(admin.ModelAdmin):
+    ordering = ("location",)
+    list_display = ["location", "threshold"]
+
+
+admin.site.register(ChillTimesThreshold, ChillTimesThresholdAdmin)
 
 
 def toggle_active(modeladmin, request, queryset):
