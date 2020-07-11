@@ -21,7 +21,7 @@ from flock.utils import now
 
 class LocationAdmin(admin.ModelAdmin):
     ordering = ("name",)
-    list_display = ["name", "threshold", "description"]
+    list_display = ["name", "threshold", "active", "description"]
 
 
 admin.site.register(Location, LocationAdmin)

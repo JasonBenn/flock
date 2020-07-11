@@ -191,7 +191,7 @@ def get_most_mobile_device(devices):
 
 
 def get_stubbed_location_to_people(num_locations: int = 2) -> Dict[Location, List[Person]]:
-    random_locations = list(Location.objects.all()[:num_locations])
+    random_locations = list(Location.objects.filter(active=True)[:num_locations])
     random_people = list(Person.objects.all()[: 2 * num_locations])
     shuffle(random_people)
     stubbed_location_to_people = {}
@@ -204,6 +204,6 @@ def get_stubbed_location_to_people(num_locations: int = 2) -> Dict[Location, Lis
 def quiet_locations() -> Dict[Location, datetime]:
     recent_readings = {
         x: SensorReading.objects.filter(location_id=x.id).aggregate(Max("created_at"))["created_at__max"]
-        for x in Location.objects.all()
+        for x in Location.objects.filter(active=True)
     }
     return {location: reading for location, reading in recent_readings.items() if reading < now() - timedelta(hours=1)}

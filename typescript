@@ -1,0 +1,2325 @@
+Script started on Fri Jul 10 21:49:29 2020
+^C[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hbbash ops[1m/[0m[0m/server[1m/[0m[0m/deploy.sh[1m [0m[0m [?1l>[?2004l
+]2;bash ops/server/deploy.sh]1;bashsending incremental file list
+./
+typescript
+.git/
+.git/FETCH_HEAD
+.git/ORIG_HEAD
+.git/index
+.git/sourcetreeconfig
+.git/logs/HEAD
+.git/refs/heads/
+.git/refs/remotes/origin/
+.idea/
+.idea/workspace.xml
+.idea/dataSources/
+.idea/dataSources/49075b39-2c43-4c12-bcaa-d7c5b41a07c3.xml
+.idea/dataSources/4e672179-efbc-4072-bc38-c55e4122cb16.xml
+server/flock/
+server/flock/admin.py
+server/flock/models.py
+server/flock/__pycache__/
+server/flock/__pycache__/admin.cpython-36.pyc
+server/flock/__pycache__/constants.cpython-36.pyc
+server/flock/__pycache__/models.cpython-36.pyc
+server/flock/__pycache__/utils.cpython-36.pyc
+server/flock/management/commands/__pycache__/
+server/flock/management/commands/__pycache__/maybe_post_chill_times.cpython-36.pyc
+server/flock/migrations/__pycache__/
+server/flock/migrations/__pycache__/0013_auto_20200428_2245.cpython-36.pyc
+server/server/
+
+sent 115.01K bytes  received 13.13K bytes  85.43K bytes/sec
+total size is 5.39M  speedup is 42.09
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hsscp flcok:    ock:[7mflock/migrations/0015_location_active.py[27m[40D[27mf[27ml[27mo[27mc[27mk[27m/[27mm[27mi[27mg[27mr[27ma[27mt[27mi[27mo[27mn[27ms[27m/[27m0[27m0[27m1[27m5[27m_[27ml[27mo[27mc[27ma[27mt[27mi[27mo[27mn[27m_[27ma[27mc[27mt[27mi[27mv[27me[27m.[27mp[27my[9D[11D[7m/[7mh[7mo[7mm[7me[7m/[7mf[7ml[7mo[7mc[7mk[7m/[7mc[7mo[7md[7me[7m/[7ms[7me[7mr[7mv[7me[7mr[27mflock/migrations/0015_location_active.py[40D[23D[27m/[27mh[27mo[27mm[27me[27m/[27mf[27ml[27mo[27mc[27mk[27m/[27mc[27mo[27md[27me[27m/[27ms[27me[27mr[27mv[27me[27mr/flock/migrations/0015_location_active.py[40D[40C[?1l>[?2004l
+]2;scp flock:/home/flock/code/server/flock/migrations/0015_location_active.py]1;scpusage: scp [-346BCpqrTv] [-c cipher] [-F ssh_config] [-i identity_file]
+            [-J destination] [-l limit] [-o ssh_option] [-P port]
+            [-S program] source ... target
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;31m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004heeasdfasdf[9De        [8Deasdfasdf[9D         [9D[7mscp flock:/home/flock/code/server/flock/migrations/0015_location_active.py[27m[74D[27ms[27mc[27mp[27m [27mf[27ml[27mo[27mc[27mk[27m:[27m/[27mh[27mo[27mm[27me[27m/[27mf[27ml[27mo[27mc[27mk[27m/[27mc[27mo[27md[27me[27m/[27ms[27me[27mr[27mv[27me[27mr[27m/[27mf[27ml[27mo[27mc[27mk[27m/[27mm[27mi[27mg[27mr[27ma[27mt[27mi[27mo[27mn[27ms[27m/[27m0[27m0[27m1[27m5[27m_[27ml[27mo[27mc[27ma[27mt[27mi[27mo[27mn[27m_[27ma[27mc[27mt[27mi[27mv[27me[27m.[27mp[27my .[?1l>[?2004l
+]2;scp flock:/home/flock/code/server/flock/migrations/0015_location_active.py .]1;scp0015_location_active.py                                                               0%    0     0.0KB/s   --:-- ETA0015_location_active.py                                                             100%  387    17.3KB/s   00:00    
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hmmv 0015_location_active.py[1m [0m[0m server[1m/[0m[0m/flock[1m/[0m[0m/migrations[1m/[0m[0m [?1l>[?2004l
+]2;mv 0015_location_active.py server/flock/migrations]1;mv[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hmv 0015_location_active.py server/flock/migrations[50D                                                  [50Dmv 0015_location_active.py server/flock/migrations[50Dscp flock:/home/flock/code/[23C/0015_location_active.py .[1C[1C .   .       [9D[9D .         [11D .     [7m0[7m0[7m14_chilltimesthreshold.py[27m .[27D[27m0[27m0[27m1[27m4[27m_[27mc[27mh[27mi[27ml[27ml[27mt[27mi[27mm[27me[27ms[27mt[27mh[27mr[27me[27ms[27mh[27mo[27ml[27md[27m.[27mp[27my[2C[?1l>[?2004l
+]2;scp flock:/home/flock/code/server/flock/migrations/0014_chilltimesthreshold.p]1;scp0014_chilltimesthreshold.py                                                           0%    0     0.0KB/s   --:-- ETA0014_chilltimesthreshold.py                                                         100%  872    43.5KB/s   00:00    
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004heeasdfasdf[9D         [9Declear; pull_from_pipe.ts && node src/l_from_pipe.js[51Dsource ~/.zshrc                                    [36D     [10D          [10Dmmv 0014_chilltimesthreshold.py[1m [0m[0m server[1m/[0m[0m/flock[1m/[0m[0m/migrations[1m/[0m[0m [?1l>[?2004l
+]2;mv 0014_chilltimesthreshold.py server/flock/migrations]1;mv[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hmv 0014_chilltimesthreshold.py server/flock/migrations[54Dscp flock:/home/flock/code/[4P[23C/0014_chilltimesthreshold.py .[80Dmv 0015_location_active.py [23C                              [30D[50Dscp flock:/home/flock/code/[23C/0015_location_active.py .[?2004l
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;31m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004h
+bck-i-search: _[K[A[9Cmv 0014_chilltimesthreshold.py server/flock/[4mm[24migrations[1B[64Dm_[A[52C[44D[4mm[4ma[24mke deploy                                 [24m          [1B[63Da_[A[7C[24mm[24ma[1Bfailing bck-i-search: mae_[A[1B[1Ck_[A           [1B[K[A[24C[1Bbck-i-search: _[K[A[9C[4mb[24mash ops/server/deploy.sh[1B[35Db_[A[8C[4mb[4ma[24m[1B[11Da_[A[7C[4mb[4ma[4ms[24m[1B[11Ds_[A[6C[2C[4ms[4mh[24m[1B[11Dh_[A[5C[24mb[24ma[24ms[24mh[1B[K[A[24C[?1l>[?2004l[1B]2;bash ops/server/deploy.sh]1;bashsending incremental file list
+./
+typescript
+.idea/
+.idea/workspace.xml
+server/flock/
+server/flock/algorithm.py
+server/flock/__pycache__/
+server/flock/__pycache__/admin.cpython-36.pyc
+server/flock/__pycache__/models.cpython-36.pyc
+server/flock/management/commands/__pycache__/
+server/flock/management/commands/__pycache__/maybe_post_chill_times.cpython-36.pyc
+server/flock/migrations/
+server/flock/migrations/0014_chilltimesthreshold.py
+server/flock/migrations/0015_location_active.py
+server/flock/migrations/__pycache__/
+server/server/
+
+sent 106.19K bytes  received 916 bytes  42.84K bytes/sec
+total size is 5.40M  speedup is 50.44
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hggs[?1l>[?2004l
+]2;git status -sb]1;gs## [32mmaster[m...[31morigin/master[m
+ [31mM[m server/flock/admin.py
+ [31mM[m server/flock/algorithm.py
+ [31mM[m server/flock/models.py
+[31m??[m server/flock/migrations/0014_chilltimesthreshold.py
+[31m??[m server/flock/migrations/0015_location_active.py
+[31m??[m typescript
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004haalias | grep commit[?1l>[?2004l
+]2;alias | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} ]1;aliasgb='git for-each-ref --sort='\''-[01;31m[Kcommit[m[Kterdate:iso8601'\'' --format='\'' %([01;31m[Kcommit[m[Kterdate:iso8601)%09%(refname)'\'' refs/heads'
+gc='git [01;31m[Kcommit[m[K -v'
+'gc!'='git [01;31m[Kcommit[m[K -v --amend'
+gca='git [01;31m[Kcommit[m[K -v -a'
+'gca!'='git [01;31m[Kcommit[m[K -v -a --amend'
+gcam='git [01;31m[Kcommit[m[K -a -m'
+'gcan!'='git [01;31m[Kcommit[m[K -v -a --no-edit --amend'
+'gcans!'='git [01;31m[Kcommit[m[K -v -a -s --no-edit --amend'
+gcmsg='git [01;31m[Kcommit[m[K -m'
+'gcn!'='git [01;31m[Kcommit[m[K -v --no-edit --amend'
+gcs='git [01;31m[Kcommit[m[K -S'
+gcsm='git [01;31m[Kcommit[m[K -s -m'
+gdt='git diff-tree --no-[01;31m[Kcommit[m[K-id --name-only -r'
+git-svn-d[01;31m[Kcommit[m[K-push='git svn d[01;31m[Kcommit[m[K && git push github $(git_main_branch):svntrunk'
+gsd='git svn d[01;31m[Kcommit[m[K'
+gwch='git whatchanged -p --abbrev-[01;31m[Kcommit[m[K --pretty=medium'
+gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git [01;31m[Kcommit[m[K --no-verify --no-gpg-sign -m "--wip-- [skip ci]"'
+[1m[7m%[27m[1m[0m                                                                                                                      ]2;jasonbenn@Jasons-MBP-2: ~/code/flock]1;~/code/flock[0m[27m[24m[J[01;32m➜  [36mflock[00m [01;34mgit:([31mmaster[34m) [33m✗[00m [K[?1h=[?2004hggwch[?1l>[?2004l
+]2;git whatchanged -p --abbrev-commit --pretty=medium]1;gwch[?1049h[?1h=[33mcommit 9c269ed[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Apr 29 12:13:22 2020 -0700[m
+[m
+    Revise READING_WINDOW_MINUTES from 30 to 20.[m
+[m
+[1mdiff --git a/server/flock/constants.py b/server/flock/constants.py[m[m
+[1mindex 993d8f4..a6193f1 100644[m[m
+[1m--- a/server/flock/constants.py[m[m
+[1m+++ b/server/flock/constants.py[m[m
+[36m@@ -1,2 +1,2 @@[m[m
+ MAX_THRESHOLD = 100[m[m
+[31m-READING_WINDOW_MINUTES = 30[m[m
+[32m+[m[32mREADING_WINDOW_MINUTES = 20[m[m
+[m
+[33mcommit 4e9a1e3[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Apr 29 10:36:48 2020 -0700[m
+[m
+    Move ChillTimesThreshold to the database! Now they can be changed from Django Admin.[m
+[m
+[1mdiff --git a/server/flock/admin.py b/server/flock/admin.py[m[m
+[1mindex 32ea1b0..32d858b 100644[m[m
+[1m--- a/server/flock/admin.py[m[m
+[1m+++ b/server/flock/admin.py[m[m
+[36m@@ -8,6 +8,7 @@[m [mfrom django.contrib.auth.models import Group[m[m
+ from django.utils.translation import gettext_lazy as _[m[m
+ [m[m
+ from flock.models import ChillTime[m[m
+[32m+[m[32mfrom flock.models import ChillTimesThreshold[m[m
+ from flock.models import CustomThreshold[m[m
+ from flock.models import Device[m[m
+ from flock.models import DeviceType[m[m
+[36m@@ -26,6 +27,14 @@[m [mclass LocationAdmin(admin.ModelAdmin):[m[m
+ admin.site.register(Location, LocationAdmin)[m[m
+ [m[m
+ [m[m
+[32m+[m[32mclass ChillTimesThresholdAdmin(admin.ModelAdmin):[m[m
+[32m+[m[32m    ordering = ("location",)[m[m
+[32m+[m[32m    list_display = ["location", "threshold"][m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32madmin.site.register(ChillTimesThreshold, ChillTimesThresholdAdmin)[m[m
+[32m+[m[m
+[32m+[m[m
+ def toggle_active(modeladmin, request, queryset):[m[m
+     for model in queryset:[m[m
+         model.active = not model.active[m[m
+[1mdiff --git a/server/flock/management/commands/maybe_post_chill_times.py b/server/flock/management/commands/maybe_post_[m [1mchill_times.py[m[m
+[1mindex 316cf3c..d9ee769 100644[m[m
+[1m--- a/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[1m+++ b/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[36m@@ -8,28 +8,21 @@[m [mfrom requests import Response[m[m
+ [m[m
+ from flock.algorithm import get_location_to_people[m[m
+ from flock.models import ChillTime, Location, Person[m[m
+[32m+[m[32mfrom flock.models import ChillTimesThreshold[m[m
+ from flock.utils import as_pdt, now, title_case[m[m
+ [m[m
+ [m[m
+[31m-CHILL_TIME_THRESHOLDS = {[m[m
+[31m-    "Common room": 5,[m[m
+[31m-    "Backyard": 3,[m[m
+[31m-    "Roof": 2,[m[m
+:[K[K[31m-    "Study": 4[m[m
+[31m-}[m[m
+[31m-[m[m
+[31m-[m[m
+ class Command(BaseCommand):[m[m
+     def handle(self, *args, **options):[m[m
+[31m-        for location_name, threshold in CHILL_TIME_THRESHOLDS.items():[m[m
+[31m-            location = Location.objects.get(name=location_name)[m[m
+[32m+[m[32m        for chill_times_threshold in ChillTimesThreshold.objects.all():[m[m
+[32m+[m[32m            location = chill_times_threshold.location[m[m
+ [m[m
+             if already_posted_today(location):[m[m
+                 print("Already posted today!")[m[m
+                 continue[m[m
+ [m[m
+             people = get_location_to_people().get(location, [])[m[m
+[31m-            if len(people) >= threshold:[m[m
+[32m+[m[32m            if len(people) >= chill_times_threshold.threshold:[m[m
+                 response = post_chill_times(location, people)[m[m
+                 if response.status_code == 200:[m[m
+                     ChillTime.objects.create(person_ids=[x.id for x in people], location=location)[m[m
+[36m@@ -37,7 +30,7 @@[m [mclass Command(BaseCommand):[m[m
+                 else:[m[m
+                     print("Something went wrong...!")[m[m
+             else:[m[m
+[31m-                print(f"Only saw {len(people)}, wanted {threshold} for {location.name}, not POSTing.")[m[m
+[32m+[m[32m                print(f"Only saw {len(people)}, wanted {chill_times_threshold.threshold} for {location.name}, not POS[m [32m[m[32mTing.")[m[m
+ [m[m
+ [m[m
+ def already_posted_today(location: Location) -> bool:[m[m
+[1mdiff --git a/server/flock/models.py b/server/flock/models.py[m[m
+[1mindex 26236e4..ad53a43 100644[m[m
+[1m--- a/server/flock/models.py[m[m
+[1m+++ b/server/flock/models.py[m[m
+[36m@@ -169,6 +169,17 @@[m [mclass CustomThreshold(models.Model):[m[m
+         return ", ".join([x for x in components if x])[m[m
+ [m[m
+ [m[m
+[32m+[m[32mclass ChillTimesThreshold(models.Model):[m[m
+[32m+[m[32m    threshold = models.IntegerField([m[m
+[32m+[m[32m        default=5,[m[m
+[32m+[m[32m        help_text="<p>The first time this many people are detected (>=) that day, post to Slack.</p>")[m[m
+[32m+[m[32m    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)[m[m
+[32m+[m[32m    created_at = DateTimeField(default=now)[m[m
+[32m+[m[m
+[32m+[m[32m    def __str__(self):[m[m
+[32m+[m[32m        return f"ChillTimesThreshold: {self.location} >= {self.threshold}"[m[m
+[32m+[m[m
+[32m+[m[m
+ class ChillTime(models.Model):[m[m
+     person_ids = ArrayField(IntegerField())[m[m
+     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)[m[m
+[m
+[33mcommit 8ab0d39[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Apr 29 10:21:26 2020 -0700[m
+[m
+    Make threshold visible on Location admin page.[m
+[m
+[1mdiff --git a/server/flock/admin.py b/server/flock/admin.py[m[m
+[1mindex 1550db4..32ea1b0 100644[m[m
+[1m--- a/server/flock/admin.py[m[m
+[1m+++ b/server/flock/admin.py[m[m
+[36m@@ -20,6 +20,7 @@[m [mfrom flock.utils import now[m[m
+:[K[K [m[m
+ class LocationAdmin(admin.ModelAdmin):[m[m
+     ordering = ("name",)[m[m
+[32m+[m[32m    list_display = ["name", "threshold", "description"][m[m
+ [m[m
+ [m[m
+ admin.site.register(Location, LocationAdmin)[m[m
+[m
+[33mcommit 873762a[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Tue Apr 28 17:27:11 2020 -0700[m
+[m
+    Catch more sensor errors, reboot after repeated failures. This was happening when the server was down for longer t[m han a few minutes.[m
+[m
+[1mdiff --git a/sensor/main.py b/sensor/main.py[m[m
+[1mindex eb24189..8d456bb 100755[m[m
+[1m--- a/sensor/main.py[m[m
+[1m+++ b/sensor/main.py[m[m
+[36m@@ -69,7 +69,12 @@[m [masync def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:[m[m
+     return ScanResult(scanned_at=scanned_at, rssi=rssi, mac=mac)[m[m
+ [m[m
+ [m[m
+[31m-@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8)[m[m
+[32m+[m[32mdef giveup_and_reboot(details: dict):[m[m
+[32m+[m[32m    print("Giving up and rebooting! Details:", details)[m[m
+[32m+[m[32m    reboot()[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32m@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8, on_giveup=gi[m [32m[m[32mveup_and_reboot)[m[m
+ async def post_scans(scan_results: List[ScanResult]) -> int:[m[m
+     data = json.dumps({"location": location, "scan_results": [attr.asdict(x) for x in scan_results]}, default=str)[m[m
+     return session.post(f"{BASE_URL}/scans", data).status_code[m[m
+[36m@@ -88,21 +93,14 @@[m [masync def scan_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):[m[m
+     print(f"Sent {scan_results}, response code {response_code}", flush=True)[m[m
+ [m[m
+ [m[m
+[32m+[m[32m@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8, on_giveup=gi[m [32m[m[32mveup_and_reboot)[m[m
+ def load_macs():[m[m
+[31m-    try:[m[m
+[31m-        mac_request = get_macs()[m[m
+[31m-    except requests.exceptions.ConnectionError:[m[m
+[31m-        return reboot()[m[m
+[32m+[m[32m    mac_request = session.get(f"{BASE_URL}/macs")[m[m
+     macs = json.loads(mac_request.text)[m[m
+     print(f"GET {len(macs)} macs total", flush=True)[m[m
+     return macs[m[m
+ [m[m
+ [m[m
+[31m-@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8)[m[m
+[31m-def get_macs():[m[m
+[31m-    return session.get(f"{BASE_URL}/macs")[m[m
+[31m-[m[m
+[31m-[m[m
+ async def main():[m[m
+     while True:[m[m
+         macs = load_macs()[m[m
+[m
+[33mcommit ded26d3[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Tue Apr 28 16:00:50 2020 -0700[m
+[m
+    Add Active status to Device and Person so that I can disable scanning for old guests.[m
+:[K[K[m
+[1mdiff --git a/server/flock/admin.py b/server/flock/admin.py[m[m
+[1mindex a52ca7c..1550db4 100644[m[m
+[1m--- a/server/flock/admin.py[m[m
+[1m+++ b/server/flock/admin.py[m[m
+[36m@@ -7,8 +7,10 @@[m [mfrom django.contrib.admin import ModelAdmin[m[m
+ from django.contrib.auth.models import Group[m[m
+ from django.utils.translation import gettext_lazy as _[m[m
+ [m[m
+[31m-from flock.models import CustomThreshold, DeviceType, ChillTime[m[m
+[32m+[m[32mfrom flock.models import ChillTime[m[m
+[32m+[m[32mfrom flock.models import CustomThreshold[m[m
+ from flock.models import Device[m[m
+[32m+[m[32mfrom flock.models import DeviceType[m[m
+ from flock.models import GroundTruth[m[m
+ from flock.models import Location[m[m
+ from flock.models import Person[m[m
+[36m@@ -23,8 +25,19 @@[m [mclass LocationAdmin(admin.ModelAdmin):[m[m
+ admin.site.register(Location, LocationAdmin)[m[m
+ [m[m
+ [m[m
+[32m+[m[32mdef toggle_active(modeladmin, request, queryset):[m[m
+[32m+[m[32m    for model in queryset:[m[m
+[32m+[m[32m        model.active = not model.active[m[m
+[32m+[m[32m        model.save()[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mtoggle_active.short_description = "Toggle active status"[m[m
+[32m+[m[m
+[32m+[m[m
+ class PersonAdmin(admin.ModelAdmin):[m[m
+     ordering = ("first_name",)[m[m
+[32m+[m[32m    list_display = ["first_name", "last_name", "active"][m[m
+[32m+[m[32m    actions = [toggle_active][m[m
+ [m[m
+ [m[m
+ admin.site.register(Person, PersonAdmin)[m[m
+[36m@@ -32,6 +45,12 @@[m [madmin.site.register(Person, PersonAdmin)[m[m
+ [m[m
+ class DeviceAdmin(admin.ModelAdmin):[m[m
+     ordering = ("person__first_name",)[m[m
+[32m+[m[32m    list_display = ["person", "device_type", "active", "person_active"][m[m
+[32m+[m[32m    actions = [toggle_active][m[m
+[32m+[m[32m    readonly_fields = ('person_active',)[m[m
+[32m+[m[m
+[32m+[m[32m    def person_active(self, device):[m[m
+[32m+[m[32m        return device.person.active[m[m
+ [m[m
+ [m[m
+ class CustomThresholdAdmin(admin.ModelAdmin):[m[m
+[1mdiff --git a/server/flock/migrations/0013_auto_20200428_2245.py b/server/flock/migrations/0013_auto_20200428_2245.py[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..83080ca[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/server/flock/migrations/0013_auto_20200428_2245.py[m[m
+[36m@@ -0,0 +1,23 @@[m[m
+[32m+[m[32m# Generated by Django 2.2.5 on 2020-04-28 22:45[m[m
+[32m+[m[m
+[32m+[m[32mfrom django.db import migrations, models[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mclass Migration(migrations.Migration):[m[m
+[32m+[m[m
+[32m+[m[32m    dependencies = [[m[m
+[32m+[m[32m        ('flock', '0012_auto_20191028_0758'),[m[m
+:[K[K[32m+[m[32m    ][m[m
+[32m+[m[m
+[32m+[m[32m    operations = [[m[m
+[32m+[m[32m        migrations.AddField([m[m
+[32m+[m[32m            model_name='device',[m[m
+[32m+[m[32m            name='active',[m[m
+[32m+[m[32m            field=models.BooleanField(default=True),[m[m
+[32m+[m[32m        ),[m[m
+[32m+[m[32m        migrations.AddField([m[m
+[32m+[m[32m            model_name='person',[m[m
+[32m+[m[32m            name='active',[m[m
+[32m+[m[32m            field=models.BooleanField(default=True),[m[m
+[32m+[m[32m        ),[m[m
+[32m+[m[32m    ][m[m
+[1mdiff --git a/server/flock/models.py b/server/flock/models.py[m[m
+[1mindex 8cdebe6..26236e4 100644[m[m
+[1m--- a/server/flock/models.py[m[m
+[1m+++ b/server/flock/models.py[m[m
+[36m@@ -39,6 +39,7 @@[m [mclass Location(models.Model):[m[m
+ class Person(models.Model):[m[m
+     first_name = models.CharField(max_length=200)[m[m
+     last_name = models.CharField(max_length=200)[m[m
+[32m+[m[32m    active = BooleanField(default=True)[m[m
+ [m[m
+     class Meta:[m[m
+         unique_together = ("first_name", "last_name")[m[m
+[36m@@ -69,6 +70,7 @@[m [mclass Device(models.Model):[m[m
+     person = models.ForeignKey(Person, on_delete=models.CASCADE)[m[m
+     device_type = EnumField(DeviceType)[m[m
+     created_at = DateTimeField(default=now, editable=False)[m[m
+[32m+[m[32m    active = BooleanField(default=True)[m[m
+     mac = models.CharField([m[m
+         max_length=17,[m[m
+         unique=True,[m[m
+[1mdiff --git a/server/flock/views.py b/server/flock/views.py[m[m
+[1mindex 7799ad8..8288ea0 100644[m[m
+[1m--- a/server/flock/views.py[m[m
+[1m+++ b/server/flock/views.py[m[m
+[36m@@ -75,7 +75,7 @@[m [mdef login(request):[m[m
+ [m[m
+ def macs(request):[m[m
+     return JsonResponse([m[m
+[31m-        {x.mac: x.person.name for x in Device.objects.all().select_related("person").order_by("device_type", "mac")}[m[m
+[32m+[m[32m        {x.mac: x.person.name for x in Device.objects.filter(active=True, person__active=True).select_related("person[m [32m[m[32m").order_by("device_type", "mac")}[m[m
+     )[m[m
+ [m[m
+ [m[m
+[m
+[33mcommit 7236e35[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Apr 22 17:21:18 2020 -0700[m
+[m
+    Weather notifications should arrive at 9:30pm PST, not 9:30pm UTC.[m
+[m
+[1mdiff --git a/ops/crontab b/ops/crontab[m[m
+[1mindex d429a3b..9e5e85c 100644[m[m
+[1m--- a/ops/crontab[m[m
+[1m+++ b/ops/crontab[m[m
+[36m@@ -1,2 +1,2 @@[m[m
+ */5 * * * * /usr/local/bin/python /home/flock/code/server/manage.py maybe_post_chill_times >> /var/log/cron.log 2>&1[m[m
+[31m-30 21 * * * /usr/local/bin/python /home/flock/code/server/manage.py weather_report >> /var/log/cron.log 2>&1[m[m
+\ No newline at end of file[m[m
+[32m+[m[32m30 4 * * * /usr/local/bin/python /home/flock/code/server/manage.py weather_report >> /var/log/cron.log 2>&1[m[m
+[m
+:[K[K[33mcommit cb56b0f[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Apr 22 17:20:59 2020 -0700[m
+[m
+    Chill times for roof, backyard, and study![m
+[m
+[1mdiff --git a/server/flock/management/commands/maybe_post_chill_times.py b/server/flock/management/commands/maybe_post_[m [1mchill_times.py[m[m
+[1mindex 849285b..316cf3c 100644[m[m
+[1m--- a/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[1m+++ b/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[36m@@ -11,27 +11,37 @@[m [mfrom flock.models import ChillTime, Location, Person[m[m
+ from flock.utils import as_pdt, now, title_case[m[m
+ [m[m
+ [m[m
+[32m+[m[32mCHILL_TIME_THRESHOLDS = {[m[m
+[32m+[m[32m    "Common room": 5,[m[m
+[32m+[m[32m    "Backyard": 3,[m[m
+[32m+[m[32m    "Roof": 2,[m[m
+[32m+[m[32m    "Study": 4[m[m
+[32m+[m[32m}[m[m
+[32m+[m[m
+[32m+[m[m
+ class Command(BaseCommand):[m[m
+     def handle(self, *args, **options):[m[m
+[31m-        if already_posted_today():[m[m
+[31m-            print("Already posted today!")[m[m
+[31m-            return[m[m
+[31m-[m[m
+[31m-        common_room = Location.objects.get(name="Common room")[m[m
+[31m-        people = get_location_to_people().get(common_room, [])[m[m
+[31m-        if len(people) >= 5:[m[m
+[31m-            response = post_chill_times(common_room, people)[m[m
+[31m-            if response.status_code == 200:[m[m
+[31m-                ChillTime.objects.create(person_ids=[x.id for x in people], location=common_room)[m[m
+[31m-                print("Created ChillTime!")[m[m
+[32m+[m[32m        for location_name, threshold in CHILL_TIME_THRESHOLDS.items():[m[m
+[32m+[m[32m            location = Location.objects.get(name=location_name)[m[m
+[32m+[m[m
+[32m+[m[32m            if already_posted_today(location):[m[m
+[32m+[m[32m                print("Already posted today!")[m[m
+[32m+[m[32m                continue[m[m
+[32m+[m[m
+[32m+[m[32m            people = get_location_to_people().get(location, [])[m[m
+[32m+[m[32m            if len(people) >= threshold:[m[m
+[32m+[m[32m                response = post_chill_times(location, people)[m[m
+[32m+[m[32m                if response.status_code == 200:[m[m
+[32m+[m[32m                    ChillTime.objects.create(person_ids=[x.id for x in people], location=location)[m[m
+[32m+[m[32m                    print("Created ChillTime!")[m[m
+[32m+[m[32m                else:[m[m
+[32m+[m[32m                    print("Something went wrong...!")[m[m
+             else:[m[m
+[31m-                print("Something went wrong...!")[m[m
+[31m-        else:[m[m
+[31m-            print(f"Only saw {len(people)}, not POSTing.")[m[m
+[32m+[m[32m                print(f"Only saw {len(people)}, wanted {threshold} for {location.name}, not POSTing.")[m[m
+ [m[m
+ [m[m
+[31m-def already_posted_today() -> bool:[m[m
+[31m-    last_post = ChillTime.objects.last()[m[m
+[32m+[m[32mdef already_posted_today(location: Location) -> bool:[m[m
+[32m+[m[32m    last_post = ChillTime.objects.filter(location=location).last()[m[m
+     if not last_post:[m[m
+         return False[m[m
+     last_post_created_at = last_post.created_at[m[m
+:[K[K[m
+[33mcommit caf8109[m[m
+Author: Chris Varenhorst <varenc@gmail.com>[m
+Date:   Sun Apr 19 21:16:13 2020 -0700[m
+[m
+    improve rssi checking (#7)[m
+[m
+[1mdiff --git a/sensor/main.py b/sensor/main.py[m[m
+[1mindex 8c67539..eb24189 100755[m[m
+[1m--- a/sensor/main.py[m[m
+[1m+++ b/sensor/main.py[m[m
+[36m@@ -40,7 +40,21 @@[m [masync def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:[m[m
+     print(f"  {mac} ping...", flush=True)[m[m
+     scanned_at = datetime.now(pytz.UTC)[m[m
+     proc = await asyncio.create_subprocess_shell([m[m
+[31m-        f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",[m[m
+[32m+[m[m
+[32m+[m[32m        ## old method[m[41m [m[m
+[32m+[m[32m        # f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",[m[m
+[32m+[m[m
+[32m+[m[32m        ### improved RSSI checking![m[m
+[32m+[m[32m        # "hcitool rssi" only works if some sort of connection with the device already exists.[m[m
+[32m+[m[32m        # creating a full connection with "hcitool cc" is the classic way to do this[m[m
+[32m+[m[32m        # BUT apparently while/right after l2ping is used some more basic connection exists[m[m
+[32m+[m[32m        # that's sufficent enough for "hcitool rssi" to work! And importantly[m[m
+[32m+[m[32m        # this consume way less bluetooth traffic and doesn't interfere with[m[m
+[32m+[m[32m        # WiFi connectivity as much.  Bluetooth tcpdump's shows this method[m[m
+[32m+[m[32m        # uses 30% of the data used previously.[m[m
+[32m+[m[32m        f"sudo l2ping -t 2 -c 1 {mac} > /dev/null 2> /dev/null && hcitool rssi {mac};",[m[m
+[32m+[m[m
+[32m+[m[m
+         stdout=asyncio.subprocess.PIPE,[m[m
+         stderr=asyncio.subprocess.PIPE,[m[m
+     )[m[m
+[m
+[33mcommit 33c140c[m[m
+Author: Chris Varenhorst <varenc@gmail.com>[m
+Date:   Sat Apr 18 17:55:48 2020 -0700[m
+[m
+    add chris ssh key[m
+[m
+[1mdiff --git a/ops/authorized_keys b/ops/authorized_keys[m[m
+[1mindex 98914cc..025526d 100644[m[m
+[1m--- a/ops/authorized_keys[m[m
+[1m+++ b/ops/authorized_keys[m[m
+[36m@@ -1,3 +1,4 @@[m[m
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDT6K2fUgD2tLB+3Pm63OjkcJISYbsjFYci04w4iHG0Rthm/rNj06+P3iW05OzHdnWcIzYP/ss06dtHY[m 9acTGPWIlQ5Dhqaou+4LNpdf35vY/mbDUy0xLavOA0FZ6ChNC8GCmAGyoxA2BgUf3twVmOpytFkLeUZ3ZhH0MjUCuLrkNfeU5BcYBpO+3X9kl79evcNHDH[m gBJMODonqNxbn0OavbOZJCGckWi1lAHj/BU63Glk/zqO63rGF6b93uYJEVAhmfoJj31WRKTOpJWWFHh5m01Rv4AclTyF7ewr43/7GBDDvvEXrm1R/vug1/[m foWuluGDF6JrQEFu7qg+du0FmCdO5H48x7WZpOMCnqIiJQrO+wLgZE1ymNYGLMz5fa8ZmaOktf2cx5kK7Yud0FSTL7VGstr3sglWJkDeGB08HxF0mCtX9w[m We+kaH1ka8CqbATpyIoPKZyRXgqBEkavrj1ELoWPMRIOslYUwgqtrXmChfkYsl5so558ZEvrWIRS17Kc8tSlkoKb/CC6x6DCGlEtc5C8HinJ4+lY4iP9/W[m E+9n40qNNB3uYr9kuOhWbWya8dHuG7yfX6YGR2d9OOJ6jnxuMF2wNJSfM8CM2FnL3kBuLlwU3y72Jm0isvmIQk3Qt+C+hjmDvFhyXm0SppFkJZgQFgJQwP[m bmemDWJF6LKjMew== jasoncbenn@gmail.com[m[m
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4PcJnKG5A64gfLZ9RECNUAFTUuhHKiKw1TktaY95gLLHZnn5w7bIFCH09rH9rh1sr7g2+6ZPdG6VlM[m KAP8wTONqiCBK7UoXNgvIVBEv7fxzNjZuHhuEuQKXc4DA/C1Tsd3M0WKZmvY8qDd8k6tFtC84TL30LRixrr43vIpKgLWGlqwsbo+qE585x1X7BCTec6JkW[m SfoNrQXEN3qD+8rIuDvZIfanKEfe9kTfMHRYR5u/Fis5T7Tm7Z1GgK3AGRx5wCNUNm/0USH+DYh4qfOT2/zLN3V+3vYD7Mrodwb/M0gih1/iVM+M+fdYJp[m EJpuLu5vNjJG0qi9ox+8azVtmnyFA/kD2hGLHgrdWdJPhcuj5sf7KW+xkhRTxSNEACmGuBkdWWOqszkH6HiK3H5IwTsv8CmkKbL51dEOZCoJS4ple0p/Hw[m ciqpro1LAzYRjGYkv3+6J0zl2Dli2gIIeDopYVL91A6QZ1hW2xVZFqmGIipr9193oyAHPuQqJHwldKQB0vJyS8NeoAngI9avpJrI00sTYNx9e1AiYesWEZ[m IBsmkKCl5SWzCIJPq4KJNsd2/fQ7t5tnRyb8wRt5oDLakE9iuuITl1ci7yVLIHjF+0Mtx+hHeI24GcJRnMP+S7ss7JCt99vb5Co6GsrAd6fj0R4L83Q781[m G5L199mL3XpMK2Q== ben@openai.com[m[m
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+NHm5CzIlUl/V/SXo5IuS13TY9+XFvGtNwM1Dw3CzeMzNLztVZDVjX6Oi9pNAEp2kPx+8bQSwQR6fi[m d7uQ1Kq4vNKx0edozDnEd23b+6bK+c8qyvEfkpPATGKq8Otwm+zCzWYD0WYUe9Nhp5FmNGsCXXp8gRvKHp3SnCoMlBRuJknpOFmow096CCf4GukM/0U7gZ[m 5G3aaommzoWrP9msaCt180I2vLzt04z6cejLoghuaJc6XfVahHmvwne6YCsGSBlBxRXGuQJBxXEbHpnPnVT5Omqaaz7zqt2mQoHFRweRDSGSU5boWQsoAx[m 4aKOHh0O7pV2DKmzGe4yOCkU9Yb 8enmann@gmail.com[m[m
+[32m+[m[32mssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL8uRFmOLGZP2tDmYl0pYiNDz4FgExChZTDD7t+gxukQ chris.flock_admin@varenhor.st[m[m
+:[K[K[m
+[33mcommit fdb5846[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Apr 15 19:10:14 2020 -0700[m
+[m
+    Weather feature! Posts at 9:30pm the night before if the next day's weather is going to be good.[m
+[m
+[1mdiff --git a/ops/crontab b/ops/crontab[m[m
+[1mindex 4e52f39..d429a3b 100644[m[m
+[1m--- a/ops/crontab[m[m
+[1m+++ b/ops/crontab[m[m
+[36m@@ -1 +1,2 @@[m[m
+[31m-*/5 * * * * /usr/local/bin/python /home/flock/code/server/manage.py maybe_post_chill_times >> /var/log/cron.log 2>&1[m[m
+\ No newline at end of file[m[m
+[32m+[m[32m*/5 * * * * /usr/local/bin/python /home/flock/code/server/manage.py maybe_post_chill_times >> /var/log/cron.log 2>&1[m[m
+[32m+[m[32m30 21 * * * /usr/local/bin/python /home/flock/code/server/manage.py weather_report >> /var/log/cron.log 2>&1[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/server/flock/management/commands/maybe_post_chill_times.py b/server/flock/management/commands/maybe_post_[m [1mchill_times.py[m[m
+[1mindex 047a7b8..849285b 100644[m[m
+[1m--- a/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[1m+++ b/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[36m@@ -43,5 +43,9 @@[m [mdef post_chill_times(location: Location, people: List[Person]) -> Response:[m[m
+     message = ([m[m
+         f"<!here> chill times in the {title_case(location.name)} with {', '.join(people_head)} and {last_person}!"[m[m
+     )[m[m
+[31m-    data = {"channel": "#chill-times", "username": "Flock", "text": message, "icon_emoji": ":bird:"}[m[m
+[32m+[m[32m    return post_slack(message, "chill-times")[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef post_slack(message, channel, username="Flock", icon_emoji="bird"):[m[m
+[32m+[m[32m    data = {"channel": f"#{channel}", "username": username, "text": message, "icon_emoji": f":{icon_emoji}:"}[m[m
+     return requests.post(os.getenv("SLACK_URL"), data=json.dumps(data), headers={"Content-Type": "application/json"})[m[m
+[1mdiff --git a/server/flock/management/commands/weather_report.py b/server/flock/management/commands/weather_report.py[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..2c35285[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/server/flock/management/commands/weather_report.py[m[m
+[36m@@ -0,0 +1,59 @@[m[m
+[32m+[m[32mimport os[m[m
+[32m+[m[m
+[32m+[m[32mfrom django.core.management.base import BaseCommand[m[m
+[32m+[m[32mimport json[m[m
+[32m+[m[32mfrom datetime import datetime, timedelta[m[m
+[32m+[m[m
+[32m+[m[32mimport pytz[m[m
+[32m+[m[32mimport requests[m[m
+[32m+[m[m
+[32m+[m[32mfrom flock.management.commands.maybe_post_chill_times import post_slack[m[m
+[32m+[m[32mfrom flock.utils import now[m[m
+[32m+[m[m
+[32m+[m[32mWEATHER_URL = "https://api.darksky.net/forecast/1f7ee4a765cface784d81701c93c255d/37.765064,-122.426068"[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mclass Command(BaseCommand):[m[m
+[32m+[m[32m    def handle(self, *args, **options):[m[m
+[32m+[m[32m        response = requests.get(WEATHER_URL)[m[m
+[32m+[m[32m        raw_data = json.loads(response.text)[m[m
+[32m+[m[32m        pdt = pytz.timezone("US/Pacific")[m[m
+[32m+[m[32m        to_pacific = lambda x: datetime.fromtimestamp(x).astimezone(pdt)[m[m
+[32m+[m[32m        today = now().astimezone(pdt)[m[m
+[32m+[m[m
+[32m+[m[32m        rain_unlikely = lambda x: x["precipProbability"] <= 0.2[m[m
+[32m+[m[32m        not_windy = lambda x: x["windSpeed"] <= 10 and x["windGust"] <= 15[m[m
+[32m+[m[32m        warm = lambda x: x["apparentTemperatureMax"] >= 60[m[m
+:[K[K[32m+[m[32m        sunny = lambda x: x["cloudCover"] <= 0.5[m[m
+[32m+[m[32m        good_visibility = lambda x: x["visibility"] >= 8[m[m
+[32m+[m[32m        good_sunset = lambda x: sunny(x) and good_visibility(x)[m[m
+[32m+[m[m
+[32m+[m[32m        nice_for_backyard = lambda x: rain_unlikely(x) and warm(x) and sunny(x)[m[m
+[32m+[m[32m        nice_for_roof = lambda x: good_sunset(x) and not_windy(x)[m[m
+[32m+[m[m
+[32m+[m[32m        weather_day = raw_data["daily"]["data"][1][m[m
+[32m+[m[32m        assert to_pacific(weather_day["time"]).date() == today.date() + timedelta(days=1)[m[m
+[32m+[m[m
+[32m+[m[32m        high_temp = weather_day["apparentTemperatureHigh"][m[m
+[32m+[m[32m        sunset_time = to_pacific(weather_day["sunsetTime"]).time().strftime("%-I:%mpm")[m[m
+[32m+[m[32m        summary = weather_day["summary"][m[m
+[32m+[m[32m        wind_speed = weather_day["windSpeed"][m[m
+[32m+[m[32m        precip_chance = weather_day["precipProbability"][m[m
+[32m+[m[m
+[32m+[m[32m        if not nice_for_backyard(weather_day):[m[m
+[32m+[m[32m            return[m[m
+[32m+[m[m
+[32m+[m[32m        message = f"Tomorrow will be {high_temp:.0f}, {summary.lower().strip('.')}, {precip_chance*100:.0f}% chance o[m [32m[m[32mf rain. Backyard hang?"[m[m
+[32m+[m[32m        emoji = "palm_tree"[m[m
+[32m+[m[m
+[32m+[m[32m        if nice_for_roof(weather_day):[m[m
+[32m+[m[32m            message += f"\n\nWind speeds of {wind_speed:.0f}mph, too - roof hang? Sunset's at {sunset_time}."[m[m
+[32m+[m[32m            emoji = "city_sunset"[m[m
+[32m+[m[m
+[32m+[m[32m        message += "\n\nIf you’re in, mark :sunny:"[m[m
+[32m+[m[32m        post_slack(message, "chill-times", "Flock", emoji)[m[m
+[32m+[m[m
+[32m+[m[32m        # Nice TODO: the hours when weather is nice[m[m
+[32m+[m[32m        # weather_hourly = [{**x, **{"time": to_pacific(x["time"])}} for x in (raw_data["hourly"]["data"])][m[m
+[32m+[m[32m        # Nice TODO: use the actual Slack API to post a :sunny: reaction[m[m
+[32m+[m[32m        # requests.get(os.getenv("SLACK_URL"), data=json.dumps({}), headers={"Content-Type": "application/json"})[m[m
+[1mdiff --git a/server/server/settings.py b/server/server/settings.py[m[m
+[1mindex 0832f98..b1f8d58 100644[m[m
+[1m--- a/server/server/settings.py[m[m
+[1m+++ b/server/server/settings.py[m[m
+[36m@@ -130,7 +130,6 @@[m [mSOCIAL_AUTH_AUTH0_KEY = "UGu6gdsS56FqhYvAaNdeYgjbe7n9IqNL"[m[m
+ SOCIAL_AUTH_AUTH0_SECRET = os.getenv("SOCIAL_AUTH_AUTH0_SECRET")[m[m
+ [m[m
+ EMAIL_WHITELIST = set(os.getenv("EMAIL_WHITELIST").split(","))[m[m
+[31m-print(EMAIL_WHITELIST)[m[m
+ [m[m
+ SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"][m[m
+ [m[m
+[m
+[33mcommit 923f287[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Thu Apr 9 11:50:35 2020 -0700[m
+[m
+    Increase READING_WINDOW_MINUTES from 15 to 30.[m
+[m
+[1mdiff --git a/server/flock/constants.py b/server/flock/constants.py[m[m
+[1mindex c459b14..993d8f4 100644[m[m
+[1m--- a/server/flock/constants.py[m[m
+[1m+++ b/server/flock/constants.py[m[m
+[36m@@ -1,2 +1,2 @@[m[m
+ MAX_THRESHOLD = 100[m[m
+[31m-READING_WINDOW_MINUTES = 15[m[m
+[32m+[m[32mREADING_WINDOW_MINUTES = 30[m[m
+[m
+[33mcommit b05d5a1[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Thu Apr 9 09:08:56 2020 -0700[m
+:[K[K[m
+    Prod env commands, weather-related[m
+[m
+[1mdiff --git a/.gitignore b/.gitignore[m[m
+[1mindex 9b76550..5f7204e 100644[m[m
+[1m--- a/.gitignore[m[m
+[1m+++ b/.gitignore[m[m
+[36m@@ -5,5 +5,4 @@[m[m
+ data[m[m
+ __pycache__[m[m
+ .pyc[m[m
+[31m-scratch.py[m[m
+[31m-db_backups[m[m
+\ No newline at end of file[m[m
+[32m+[m[32mdb_backups[m[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex 9a027f3..15e9402 100644[m[m
+[1m--- a/makefile[m[m
+[1m+++ b/makefile[m[m
+[36m@@ -57,3 +57,9 @@[m [mdeploy_server:[m[m
+ update_crontab:[m[m
+        # crontab -e, copy ./ops/crontab over[m[m
+        ssh flock sudo systemctl restart cron[m[m
+[32m+[m[m
+[32m+[m[32mdownload_prod_env:[m[m
+[32m+[m       [32mscp flock:/home/flock/code/server/server/.env /Users/jasonbenn/code/flock/.prod_env[m[m
+[32m+[m[m
+[32m+[m[32mupload_prod_env:[m[m
+[32m+[m       [32mscp /Users/jasonbenn/code/flock/.prod_env flock:/home/flock/code/server/server/.env[m[m
+[1mdiff --git a/server/flock/scratch.py b/server/flock/scratch.py[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..575d4cb[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/server/flock/scratch.py[m[m
+[36m@@ -0,0 +1,41 @@[m[m
+[32m+[m[32mimport json[m[m
+[32m+[m[32mfrom datetime import datetime[m[m
+[32m+[m[m
+[32m+[m[32mimport pytz[m[m
+[32m+[m[32mimport requests[m[m
+[32m+[m[m
+[32m+[m[32mfrom flock.utils import now[m[m
+[32m+[m[m
+[32m+[m[32mWEATHER_URL = "https://api.darksky.net/forecast/1f7ee4a765cface784d81701c93c255d/37.765064,-122.426068"[m[m
+[32m+[m[32mresponse = requests.get(WEATHER_URL)[m[m
+[32m+[m[32mraw_data = json.loads(response.text)[m[m
+[32m+[m[32mpdt = pytz.timezone('US/Pacific')[m[m
+[32m+[m[32mto_pacific = lambda x: datetime.fromtimestamp(x).astimezone(pdt)[m[m
+[32m+[m[32mutc_hourly_data = raw_data['hourly']['data'][m[m
+[32m+[m[32mhourly_data = [{**x, **{'time': to_pacific(x['time'])}} for x in utc_hourly_data][m[m
+[32m+[m[32mutc_hourly_data = raw_data['hourly']['data'][m[m
+[32m+[m[m
+[32m+[m[32mtoday = now().astimezone(pdt)[m[m
+[32m+[m[32mnext_sunset = ...[m[m
+[32m+[m[32msunset_times = {to_pacific(x['sunriseTime']) for x in raw_data['daily']['data'][:2]}[m[m
+[32m+[m[32msunrise_times = {to_pacific(x['sunriseTime']) for x in raw_data['daily']['data'][:2]}[m[m
+[32m+[m[m
+[32m+[m[32mrain_unlikely = lambda x: x['precipProbability'] <= 0.2[m[m
+[32m+[m[32mnot_windy = lambda x: x['windSpeed'] <= 10 and x['windGust'] <= 15[m[m
+[32m+[m[32mwarm = lambda x: x['apparentTemperature'] >= 60[m[m
+[32m+[m[32msunny = lambda x: x['cloudCover'] <= 0.5[m[m
+[32m+[m[32mgood_visibility = lambda x: x['visibility'] >= 8[m[m
+[32m+[m[32mgood_sunset = lambda x: sunny(x) and good_visibility(x)[m[m
+[32m+[m[m
+[32m+[m[32mnice_for_backyard = lambda x: rain_unlikely(x) and warm(x) and sunny(x)[m[m
+:[K[K[32m+[m[32mnice_for_roof = lambda x: good_sunset(x) and not_windy(x)[m[m
+[32m+[m[m
+[32m+[m[32mformat_time = lambda x: x.strftime("%-I%p")[m[m
+[32m+[m[m
+[32m+[m[32mprint("\nbackyard")[m[m
+[32m+[m[32mfor x in [x for x in hourly_data if nice_for_backyard(x)]:[m[m
+[32m+[m[32m    print(f"{format_time(x['time'])}: {x['apparentTemperature']:.0f}° 🌬 {x['windSpeed']:.1f}mph ☁️ {x['cloudCover'] * [m [32m[m[32m100:.0f}%x")[m[m
+[32m+[m[m
+[32m+[m[32mprint("\nroof")[m[m
+[32m+[m[32mfor x in [x for x in hourly_data if nice_for_roof(x)]:[m[m
+[32m+[m[32m    print(f"{format_time(x['time'])}: {x['apparentTemperature']:.0f}° 🌬 {x['windSpeed']:.1f}mph ☁️ {x['cloudCover'] * [m [32m[m[32m100:.0f}%x")[m[m
+[1mdiff --git a/server/flock/views.py b/server/flock/views.py[m[m
+[1mindex 1e69d99..7799ad8 100644[m[m
+[1m--- a/server/flock/views.py[m[m
+[1m+++ b/server/flock/views.py[m[m
+[36m@@ -1,5 +1,7 @@[m[m
+ import json[m[m
+[32m+[m[32mfrom datetime import datetime[m[m
+ [m[m
+[32m+[m[32mimport pytz[m[m
+ from django.contrib.auth.decorators import login_required[m[m
+ from django.db import transaction[m[m
+ from django.http import HttpResponse[m[m
+[1mdiff --git a/server/server/settings.py b/server/server/settings.py[m[m
+[1mindex 5e282ec..0832f98 100644[m[m
+[1m--- a/server/server/settings.py[m[m
+[1m+++ b/server/server/settings.py[m[m
+[36m@@ -6,6 +6,7 @@[m [mfrom sentry_sdk.integrations.django import DjangoIntegration[m[m
+ [m[m
+ load_dotenv()[m[m
+ [m[m
+[32m+[m[m
+ # Build paths inside the project like this: os.path.join(BASE_DIR, ...)[m[m
+ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))[m[m
+ [m[m
+[36m@@ -129,6 +130,7 @@[m [mSOCIAL_AUTH_AUTH0_KEY = "UGu6gdsS56FqhYvAaNdeYgjbe7n9IqNL"[m[m
+ SOCIAL_AUTH_AUTH0_SECRET = os.getenv("SOCIAL_AUTH_AUTH0_SECRET")[m[m
+ [m[m
+ EMAIL_WHITELIST = set(os.getenv("EMAIL_WHITELIST").split(","))[m[m
+[32m+[m[32mprint(EMAIL_WHITELIST)[m[m
+ [m[m
+ SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"][m[m
+ [m[m
+[m
+[33mcommit 8835618[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Tue Apr 7 21:14:37 2020 -0700[m
+[m
+    Get quiet locations on refresh, too.[m
+[m
+[1mdiff --git a/requirements.txt b/requirements.txt[m[m
+[1mindex 3192553..70a6cd2 100644[m[m
+[1m--- a/requirements.txt[m[m
+[1m+++ b/requirements.txt[m[m
+[36m@@ -10,18 +10,18 @@[m [mcycler==0.10.0[m[m
+ decorator==4.4.0[m[m
+ django-enumfield==1.5[m[m
+ django-postgres-extra==1.22[m[m
+[31m-Django==2.2.5[m[m
+[31m-Flask==1.0.2[m[m
+[31m-honcho==1.0.1[m[m
+[31m-humanize==0.5.1[m[m
+[31m-ipdb==0.12.2[m[m
+:[K[K[31m-ipython-genutils==0.2.0[m[m
+[31m-ipython==7.4.0[m[m
+[31m-itsdangerous==1.1.0[m[m
+[31m-jedi==0.13.3[m[m
+[31m-Jinja2==2.10.1[m[m
+[31m-kiwisolver==1.0.1[m[m
+[31m-MarkupSafe==1.1.1[m[m
+[32m+[m[32mDjango==2.2.*[m[m
+[32m+[m[32mFlask==1.*[m[m
+[32m+[m[32mhoncho==1.*[m[m
+[32m+[m[32mhumanize==0.*[m[m
+[32m+[m[32mipdb==0.*[m[m
+[32m+[m[32mipython-genutils==0.*[m[m
+[32m+[m[32mipython==7.*[m[m
+[32m+[m[32mitsdangerous==1.*[m[m
+[32m+[m[32mjedi==0.*[m[m
+[32m+[m[32mJinja2==2.*[m[m
+[32m+[m[32mkiwisolver==1.*[m[m
+[32m+[m[32mMarkupSafe==1.*[m[m
+ matplotlib==3.0.3[m[m
+ numpy==1.16.2[m[m
+ parso==0.4.0[m[m
+[1mdiff --git a/server/flock/views.py b/server/flock/views.py[m[m
+[1mindex a2da8d7..1e69d99 100644[m[m
+[1m--- a/server/flock/views.py[m[m
+[1m+++ b/server/flock/views.py[m[m
+[36m@@ -17,15 +17,17 @@[m [mfrom flock.models import Person[m[m
+ from flock.models import SensorReading[m[m
+ [m[m
+ [m[m
+[32m+[m[32mdef get_homepage_context_data():[m[m
+[32m+[m[32m    return {"location_to_people": get_location_to_people(), "quiet_locations": quiet_locations()}[m[m
+[32m+[m[m
+[32m+[m[m
+ @login_required[m[m
+ def index(request):[m[m
+     user = request.user[m[m
+     if not user.is_authenticated or not user.is_staff:[m[m
+         return redirect(login)[m[m
+ [m[m
+[31m-    return render([m[m
+[31m-        request, "index.html", {"location_to_people": get_location_to_people(), "quiet_locations": quiet_locations()}[m[m
+[31m-    )[m[m
+[32m+[m[32m    return render(request, "index.html", get_homepage_context_data())[m[m
+ [m[m
+ [m[m
+ @login_required[m[m
+[36m@@ -34,7 +36,7 @@[m [mdef get_contents(request):[m[m
+     if not user.is_authenticated or not user.is_staff:[m[m
+         return redirect(login)[m[m
+ [m[m
+[31m-    return render(request, "contents.html", {"location_to_people": get_location_to_people()})[m[m
+[32m+[m[32m    return render(request, "contents.html", get_homepage_context_data())[m[m
+ [m[m
+ [m[m
+ @login_required[m[m
+[m
+[33mcommit 95ec597[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Tue Apr 7 21:08:12 2020 -0700[m
+[m
+    Display quiet locations on dashboard[m
+[m
+[1mdiff --git a/requirements.txt b/requirements.txt[m[m
+[1mindex c5bd01d..3192553 100644[m[m
+:[K[K[1m--- a/requirements.txt[m[m
+[1m+++ b/requirements.txt[m[m
+[36m@@ -55,4 +55,5 @@[m [mwcwidth==0.1.7[m[m
+ Werkzeug==0.15.2[m[m
+ tqdm==4.*[m[m
+ attrs==19.*[m[m
+[31m-django-nose==1.4.*[m[m
+\ No newline at end of file[m[m
+[32m+[m[32mdjango-nose==1.4.*[m[m
+[32m+[m[32mdjango-cache-memoize==0.*[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/server/flock/algorithm.py b/server/flock/algorithm.py[m[m
+[1mindex 08d0c25..86616ad 100644[m[m
+[1m--- a/server/flock/algorithm.py[m[m
+[1m+++ b/server/flock/algorithm.py[m[m
+[36m@@ -9,7 +9,9 @@[m [mfrom typing import Dict[m[m
+ from typing import List[m[m
+ from typing import Optional[m[m
+ [m[m
+[32m+[m[32mfrom cache_memoize import cache_memoize[m[m
+ from django.contrib.admin.utils import flatten[m[m
+[32m+[m[32mfrom django.db.models import Max[m[m
+ from django.utils.functional import partition[m[m
+ [m[m
+ from flock.constants import MAX_THRESHOLD[m[m
+[36m@@ -20,7 +22,7 @@[m [mfrom flock.models import GroundTruth[m[m
+ from flock.models import Location[m[m
+ from flock.models import Person[m[m
+ from flock.models import SensorReading[m[m
+[31m-from flock.utils import get_at_time[m[m
+[32m+[m[32mfrom flock.utils import get_at_time, now[m[m
+ from flock.utils import group_by[m[m
+ [m[m
+ [m[m
+[36m@@ -196,3 +198,12 @@[m [mdef get_stubbed_location_to_people(num_locations: int = 2) -> Dict[Location, Lis[m[m
+     for i, location in enumerate(random_locations):[m[m
+         stubbed_location_to_people[location] = random_people[i * 2 : i * 2 + 2][m[m
+     return stubbed_location_to_people[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32m@cache_memoize(100)  # TODO: cache layer[m[m
+[32m+[m[32mdef quiet_locations() -> Dict[Location, datetime]:[m[m
+[32m+[m[32m    recent_readings = {[m[m
+[32m+[m[32m        x: SensorReading.objects.filter(location_id=x.id).aggregate(Max("created_at"))["created_at__max"][m[m
+[32m+[m[32m        for x in Location.objects.all()[m[m
+[32m+[m[32m    }[m[m
+[32m+[m[32m    return {location: reading for location, reading in recent_readings.items() if reading < now() - timedelta(hours=1[m [32m[m[32m)}[m[m
+[1mdiff --git a/server/flock/templates/contents.html b/server/flock/templates/contents.html[m[m
+[1mindex 9f7b71b..df0eb40 100644[m[m
+[1m--- a/server/flock/templates/contents.html[m[m
+[1m+++ b/server/flock/templates/contents.html[m[m
+[36m@@ -21,6 +21,22 @@[m[m
+   </a>[m[m
+ {% endfor %}[m[m
+ [m[m
+[32m+[m[32m{% for location, last_heard_time in quiet_locations.items %}[m[m
+[32m+[m[32m  <a class="locationPanelContainer gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">[m[m
+[32m+[m[32m    <div id='loc_{{ location.clean_name|snake_case }}' class='locationPanel'>[m[m
+[32m+[m[32m      <div class="locationHolder">[m[m
+[32m+[m[32m        <p class='locationName'>{{ location.name }}</p>[m[m
+[32m+[m[32m        <div class='{{ location.clean_name|camel_case }}Icon'></div>[m[m
+[32m+[m[32m      </div>[m[m
+[32m+[m[32m      <div class="locationBody">[m[m
+[32m+[m[32m        <p>Device offline for {{ last_heard_time|brief_time }} ☹️</p>[m[m
+:[K[K[32m+[m[32m        <br>[m[m
+[32m+[m[32m        <p>Try turning off & on again</p>[m[m
+[32m+[m[32m      </div>[m[m
+[32m+[m[32m    </div>[m[m
+[32m+[m[32m  </a>[m[m
+[32m+[m[32m{% endfor %}[m[m
+[32m+[m[m
+ <div class="bottom">[m[m
+   <p><a class="gray" href="/report_ground_truth">Report a mistake</a></p>[m[m
+   <p><a class="gray" href="/admin/flock/device/add/">Add your device(s)</a></p>[m[m
+[1mdiff --git a/server/flock/templatetags/template_utils.py b/server/flock/templatetags/template_utils.py[m[m
+[1mindex 2941c20..68cd64d 100644[m[m
+[1m--- a/server/flock/templatetags/template_utils.py[m[m
+[1m+++ b/server/flock/templatetags/template_utils.py[m[m
+[36m@@ -39,3 +39,12 @@[m [mdef camel_case(string):[m[m
+ @register.filter[m[m
+ def is_ground_truth(instance: Any) -> bool:[m[m
+     return isinstance(instance, GroundTruth)[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32m@register.filter[m[m
+[32m+[m[32mdef brief_time(dt: datetime) -> str:[m[m
+[32m+[m[32m    delta = now() - dt[m[m
+[32m+[m[32m    if delta.days > 1:[m[m
+[32m+[m[32m        return f"{delta.days} days"[m[m
+[32m+[m[32m    else:[m[m
+[32m+[m[32m        return f"{delta.seconds // 3600} hours"[m[m
+[1mdiff --git a/server/flock/views.py b/server/flock/views.py[m[m
+[1mindex 30e8b54..a2da8d7 100644[m[m
+[1m--- a/server/flock/views.py[m[m
+[1m+++ b/server/flock/views.py[m[m
+[36m@@ -9,7 +9,7 @@[m [mfrom django.shortcuts import redirect[m[m
+ from django.shortcuts import render[m[m
+ from django.views.decorators.csrf import csrf_exempt[m[m
+ [m[m
+[31m-from flock.algorithm import get_location_to_people, get_stubbed_location_to_people[m[m
+[32m+[m[32mfrom flock.algorithm import get_location_to_people, get_stubbed_location_to_people, quiet_locations[m[m
+ from flock.models import Device[m[m
+ from flock.models import GroundTruth[m[m
+ from flock.models import Location[m[m
+[36m@@ -23,7 +23,9 @@[m [mdef index(request):[m[m
+     if not user.is_authenticated or not user.is_staff:[m[m
+         return redirect(login)[m[m
+ [m[m
+[31m-    return render(request, "index.html", {"location_to_people": get_location_to_people()})[m[m
+[32m+[m[32m    return render([m[m
+[32m+[m[32m        request, "index.html", {"location_to_people": get_location_to_people(), "quiet_locations": quiet_locations()}[m[m
+[32m+[m[32m    )[m[m
+ [m[m
+ [m[m
+ @login_required[m[m
+[36m@@ -68,7 +70,9 @@[m [mdef login(request):[m[m
+ [m[m
+ [m[m
+ def macs(request):[m[m
+[31m-    return JsonResponse({x.mac: x.person.name for x in Device.objects.all().select_related("person").order_by("device[m [31m_type", "mac")})[m[m
+[32m+[m[32m    return JsonResponse([m[m
+[32m+[m[32m        {x.mac: x.person.name for x in Device.objects.all().select_related("person").order_by("device_type", "mac")}[m[m
+[32m+[m[32m    )[m[m
+ [m[m
+ [m[m
+ @csrf_exempt[m[m
+[m
+[33mcommit 77d3a8e[m[m
+:[K[KAuthor: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Tue Feb 11 19:40:21 2020 -0800[m
+[m
+    Update scripts.[m
+[m
+[1mdiff --git a/ops/deploy_sensor.sh b/ops/deploy_sensor.sh[m[m
+[1mindex 15bce54..306d54c 100755[m[m
+[1m--- a/ops/deploy_sensor.sh[m[m
+[1m+++ b/ops/deploy_sensor.sh[m[m
+[36m@@ -2,4 +2,5 @@[m[m
+ [m[m
+ echo Deploying $1[m[m
+ rsync -avhr ~/code/flock/sensor/* pi_$1:/home/pi/code/flock/[m[m
+[31m-ssh pi_$1 sudo systemctl restart flock.service[m[m
+\ No newline at end of file[m[m
+[32m+[m[32mssh pi_$1 pip3 install -r /home/pi/code/flock/requirements.txt[m[m
+[32m+[m[32mssh pi_$1 sudo systemctl restart flock.service[m[m
+[1mdiff --git a/ops/run_on_all_sensors.sh b/ops/run_on_all_sensors.sh[m[m
+[1mindex 66279a2..54fd103 100755[m[m
+[1m--- a/ops/run_on_all_sensors.sh[m[m
+[1m+++ b/ops/run_on_all_sensors.sh[m[m
+[36m@@ -6,10 +6,10 @@[m[m
+ echo "Working..."[m[m
+ {[m[m
+     echo common_room[m[m
+[31m-    echo study_external[m[m
+[32m+[m[32m    echo study[m[m
+     echo middle_kitchen[m[m
+     echo jasons_room[m[m
+     echo workshop[m[m
+     echo backyard[m[m
+[31m-    # echo roof[m[m
+[31m-} | parallel -k bash $1[m[m
+\ No newline at end of file[m[m
+[32m+[m[32m    echo roof[m[m
+[32m+[m[32m} | parallel -k bash $1[m[m
+[m
+[33mcommit 738cad0[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Sun Dec 8 00:01:06 2019 -0800[m
+[m
+    Update README.md[m
+[m
+[1mdiff --git a/README.md b/README.md[m[m
+[1mindex d912c8a..0cce5c3 100644[m[m
+[1m--- a/README.md[m[m
+[1m+++ b/README.md[m[m
+[36m@@ -1,7 +1,7 @@[m[m
+ # 🐦 Flock 🐦[m[m
+ This is an IoT app for passive hangout discovery among friends.[m[m
+ [m[m
+[31m-For a longer explanation, see the Flock Talk. [Slides](https://docs.google.com/presentation/d/1lbyS1Am-ZLKKdFJPfXaTKG[m [31mL1I0gQWvcRptdZgPVrMxU/edit?usp=sharing).[m[m
+[32m+[m[32mFor a longer explanation, see the Flock Talk: [slides](https://docs.google.com/presentation/d/1lbyS1Am-ZLKKdFJPfXaTKG[m [32m[m[32mL1I0gQWvcRptdZgPVrMxU/edit?usp=sharing).[m[m
+ [m[m
+ If you want help installing/setting this up, contact me at jasoncbenn@gmail.com - if there's enough interest, I'd be [m happy to write a blog post/record a video/help you personally.[m[m
+ [m[m
+[m
+[33mcommit a4a8980[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Sun Dec 8 00:00:47 2019 -0800[m
+[m
+    Update README.md[m
+:[K[K[m
+[1mdiff --git a/README.md b/README.md[m[m
+[1mindex f83153e..d912c8a 100644[m[m
+[1m--- a/README.md[m[m
+[1m+++ b/README.md[m[m
+[36m@@ -1,6 +1,8 @@[m[m
+ # 🐦 Flock 🐦[m[m
+ This is an IoT app for passive hangout discovery among friends.[m[m
+[32m+[m[m
+ For a longer explanation, see the Flock Talk. [Slides](https://docs.google.com/presentation/d/1lbyS1Am-ZLKKdFJPfXaTKG[m L1I0gQWvcRptdZgPVrMxU/edit?usp=sharing).[m[m
+[32m+[m[m
+ If you want help installing/setting this up, contact me at jasoncbenn@gmail.com - if there's enough interest, I'd be [m happy to write a blog post/record a video/help you personally.[m[m
+ [m[m
+ For my live development notes and the complete history of this project (and oh man, what a history it's been...), see[m  my [Notion page](https://www.notion.so/jasonbenn/Flock-181fe8bd6319482a8a8b677b5632abfa).[m[m
+[m
+[33mcommit 47a9a63[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Sun Dec 8 00:00:21 2019 -0800[m
+[m
+    Update README.md[m
+[m
+[1mdiff --git a/README.md b/README.md[m[m
+[1mindex c92b8d1..f83153e 100644[m[m
+[1m--- a/README.md[m[m
+[1m+++ b/README.md[m[m
+[36m@@ -1,4 +1,11 @@[m[m
+[31m-# flock[m[m
+[32m+[m[32m# 🐦 Flock 🐦[m[m
+[32m+[m[32mThis is an IoT app for passive hangout discovery among friends.[m[m
+[32m+[m[32mFor a longer explanation, see the Flock Talk. [Slides](https://docs.google.com/presentation/d/1lbyS1Am-ZLKKdFJPfXaTKG[m [32m[m[32mL1I0gQWvcRptdZgPVrMxU/edit?usp=sharing).[m[m
+[32m+[m[32mIf you want help installing/setting this up, contact me at jasoncbenn@gmail.com - if there's enough interest, I'd be [m [32m[m[32mhappy to write a blog post/record a video/help you personally.[m[m
+[32m+[m[m
+[32m+[m[32mFor my live development notes and the complete history of this project (and oh man, what a history it's been...), see[m [32m[m[32m my [Notion page](https://www.notion.so/jasonbenn/Flock-181fe8bd6319482a8a8b677b5632abfa).[m[m
+[32m+[m[m
+[32m+[m[32m# For developers[m[m
+ [m[m
+ For all long-running commands, use tmux.[m[m
+ [m[m
+[36m@@ -39,4 +46,4 @@[m [mBackup: `pg_dump $DB_URL -a -t flock_* > backup.sql`[m[m
+ Restore: `psql $DB_URL < backup.sql`[m[m
+ [m[m
+ SSH to all sensors (requires Cluster SSH or [Cluster SSHX](https://github.com/brockgr/csshx/issues/94)):[m[m
+[31m-`csshX pi_backyard pi_study pi_middle_kingdom_kitchen pi_common_room pi_workshop pi_roof pi_jasons_room`[m[m
+\ No newline at end of file[m[m
+[32m+[m[32m`csshX pi_backyard pi_study pi_middle_kingdom_kitchen pi_common_room pi_workshop pi_roof pi_jasons_room`[m[m
+[m
+[33mcommit 399d8db[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Nov 6 12:06:57 2019 -0800[m
+[m
+    Fix a couple SSH targets.[m
+[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex e9b26e7..9a027f3 100644[m[m
+[1m--- a/makefile[m[m
+[1m+++ b/makefile[m[m
+[36m@@ -39,7 +39,7 @@[m [mpip_install_sensors:[m[m
+        bash ops/run_on_all_sensors.sh ops/pip_install_sensor.sh[m[m
+ [m[m
+:[K[K # Single sensor[m[m
+[31m-SENSOR = jasons_room[m[m
+[32m+[m[32mSENSOR = common_room[m[m
+ deploy_sensor:[m[m
+        ops/deploy_sensor.sh $(SENSOR)[m[m
+ [m[m
+[1mdiff --git a/ops/run_on_all_sensors.sh b/ops/run_on_all_sensors.sh[m[m
+[1mindex 53298bb..66279a2 100755[m[m
+[1m--- a/ops/run_on_all_sensors.sh[m[m
+[1m+++ b/ops/run_on_all_sensors.sh[m[m
+[36m@@ -5,9 +5,9 @@[m[m
+ [m[m
+ echo "Working..."[m[m
+ {[m[m
+[31m-    echo common_room_external[m[m
+[32m+[m[32m    echo common_room[m[m
+     echo study_external[m[m
+[31m-    echo middle_kingdom_kitchen_external[m[m
+[32m+[m[32m    echo middle_kitchen[m[m
+     echo jasons_room[m[m
+     echo workshop[m[m
+     echo backyard[m[m
+[m
+[33mcommit 5e61a61[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Wed Nov 6 09:00:19 2019 -0800[m
+[m
+    Scan for people in device type order.[m
+[m
+[1mdiff --git a/sensor/main.py b/sensor/main.py[m[m
+[1mindex a04a28d..8c67539 100755[m[m
+[1m--- a/sensor/main.py[m[m
+[1m+++ b/sensor/main.py[m[m
+[36m@@ -93,7 +93,6 @@[m [masync def main():[m[m
+     while True:[m[m
+         macs = load_macs()[m[m
+         mac_tups = list(macs.items())[m[m
+[31m-        shuffle(mac_tups)[m[m
+         for x in mac_tups:[m[m
+             await scan_macs([x])[m[m
+             await asyncio.sleep(2)[m[m
+[1mdiff --git a/server/flock/views.py b/server/flock/views.py[m[m
+[1mindex 676a029..30e8b54 100644[m[m
+[1m--- a/server/flock/views.py[m[m
+[1m+++ b/server/flock/views.py[m[m
+[36m@@ -68,7 +68,7 @@[m [mdef login(request):[m[m
+ [m[m
+ [m[m
+ def macs(request):[m[m
+[31m-    return JsonResponse({x.mac: x.person.name for x in Device.objects.all().select_related("person")})[m[m
+[32m+[m[32m    return JsonResponse({x.mac: x.person.name for x in Device.objects.all().select_related("person").order_by("device[m [32m[m[32m_type", "mac")})[m[m
+ [m[m
+ [m[m
+ @csrf_exempt[m[m
+[m
+[33mcommit b7fde56[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Nov 4 01:24:43 2019 -0800[m
+[m
+    Tiny refactor.[m
+[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex 065fd55..e9b26e7 100644[m[m
+[1m--- a/makefile[m[m
+:[K[K[1m+++ b/makefile[m[m
+[36m@@ -2,7 +2,7 @@[m [mSHELL := /usr/bin/env bash[m[m
+ [m[m
+ # Testing[m[m
+ test_post_scans:[m[m
+[31m-       curl -v localhost:8000/scans -X POST -d '{"location": "common_room", "scan_results": [{"mac": "5C:F9:38:95:06:[m [31m17", "rssi": null, "scanned_at": "2019-10-26 15:43:50.351126"}]}'[m[m
+[32m+[m       [32mcurl -v 127.0.0.1:8000/scans -d '{"location": "common_room", "scan_results": [{"mac": "5C:F9:38:95:06:17", "rs[m [32m[m[32msi": null, "scanned_at": "2019-10-26 15:43:50.351126"}]}'[m[m
+ [m[m
+ test:[m[m
+        server/manage.py test flock[m[m
+[36m@@ -56,4 +56,4 @@[m [mdeploy_server:[m[m
+ [m[m
+ update_crontab:[m[m
+        # crontab -e, copy ./ops/crontab over[m[m
+[31m-       ssh flock sudo systemctl restart cron[m[m
+\ No newline at end of file[m[m
+[32m+[m       [32mssh flock sudo systemctl restart cron[m[m
+[1mdiff --git a/server/flock/views.py b/server/flock/views.py[m[m
+[1mindex 3041ce3..676a029 100644[m[m
+[1m--- a/server/flock/views.py[m[m
+[1m+++ b/server/flock/views.py[m[m
+[36m@@ -68,12 +68,7 @@[m [mdef login(request):[m[m
+ [m[m
+ [m[m
+ def macs(request):[m[m
+[31m-    return JsonResponse([m[m
+[31m-        {[m[m
+[31m-            x["mac"]: x["person__first_name"] + " " + x["person__last_name"][0][m[m
+[31m-            for x in Device.objects.values("mac", "person__first_name", "person__last_name")[m[m
+[31m-        }[m[m
+[31m-    )[m[m
+[32m+[m[32m    return JsonResponse({x.mac: x.person.name for x in Device.objects.all().select_related("person")})[m[m
+ [m[m
+ [m[m
+ @csrf_exempt[m[m
+[m
+[33mcommit 34f73e0[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Nov 4 00:24:31 2019 -0800[m
+[m
+    Silence DISALLOWED_HOST errors.[m
+[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex c5df02d..065fd55 100644[m[m
+[1m--- a/makefile[m[m
+[1m+++ b/makefile[m[m
+[36m@@ -39,7 +39,7 @@[m [mpip_install_sensors:[m[m
+        bash ops/run_on_all_sensors.sh ops/pip_install_sensor.sh[m[m
+ [m[m
+ # Single sensor[m[m
+[31m-SENSOR = workshop[m[m
+[32m+[m[32mSENSOR = jasons_room[m[m
+ deploy_sensor:[m[m
+        ops/deploy_sensor.sh $(SENSOR)[m[m
+ [m[m
+[1mdiff --git a/server/server/settings.py b/server/server/settings.py[m[m
+[1mindex c730778..5e282ec 100644[m[m
+[1m--- a/server/server/settings.py[m[m
+[1m+++ b/server/server/settings.py[m[m
+[36m@@ -1,15 +1,14 @@[m[m
+ import os[m[m
+ [m[m
+ import sentry_sdk[m[m
+:[K[K[31m-from sentry_sdk.integrations.django import DjangoIntegration[m[m
+ from dotenv import load_dotenv[m[m
+[32m+[m[32mfrom sentry_sdk.integrations.django import DjangoIntegration[m[m
+ [m[m
+ load_dotenv()[m[m
+ [m[m
+ # Build paths inside the project like this: os.path.join(BASE_DIR, ...)[m[m
+ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))[m[m
+ [m[m
+[31m-[m[m
+ # SECURITY WARNING: keep the secret key used in production secret![m[m
+ SECRET_KEY = "d*nm^^af$a-we$u1wg4ot244!jzkp!mx5(0g8fbd5rp17$z9!!"[m[m
+ [m[m
+[36m@@ -25,7 +24,6 @@[m [mALLOWED_HOSTS = [[m[m
+     "village.archive.house",[m[m
+ ][m[m
+ [m[m
+[31m-[m[m
+ # Application definition[m[m
+ [m[m
+ INSTALLED_APPS = [[m[m
+[36m@@ -56,7 +54,6 @@[m [mSILENCED_SYSTEM_CHECKS = ["admin.E408"][m[m
+ [m[m
+ ROOT_URLCONF = "server.urls"[m[m
+ [m[m
+[31m-[m[m
+ TEMPLATES = [[m[m
+     {[m[m
+         "BACKEND": "django.template.backends.django.DjangoTemplates",[m[m
+[36m@@ -76,6 +73,11 @@[m [mTEMPLATES = [[m[m
+ [m[m
+ WSGI_APPLICATION = "server.wsgi.application"[m[m
+ [m[m
+[32m+[m[32mLOGGING = {[m[m
+[32m+[m[32m    "version": 1,[m[m
+[32m+[m[32m    "handlers": {"null": {"class": "logging.NullHandler"}},[m[m
+[32m+[m[32m    "loggers": {"django.security.DisallowedHost": {"handlers": ["null"], "propagate": False}},[m[m
+[32m+[m[32m}[m[m
+ [m[m
+ # Database[m[m
+ # https://docs.djangoproject.com/en/2.2/ref/settings/#databases[m[m
+[36m@@ -101,7 +103,6 @@[m [mAUTH_PASSWORD_VALIDATORS = [[m[m
+     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},[m[m
+ ][m[m
+ [m[m
+[31m-[m[m
+ # Internationalization[m[m
+ # https://docs.djangoproject.com/en/2.2/topics/i18n/[m[m
+ [m[m
+[36m@@ -120,7 +121,6 @@[m [mUSE_TZ = True[m[m
+ [m[m
+ STATIC_URL = "/static/"[m[m
+ [m[m
+[31m-[m[m
+ # Auth0 stuff[m[m
+ [m[m
+ SOCIAL_AUTH_TRAILING_SLASH = False  # Remove trailing slash from routes[m[m
+[36m@@ -137,7 +137,6 @@[m [mAUTHENTICATION_BACKENDS = {"flock.auth0backend.Auth0", "django.contrib.auth.back[m[m
+ LOGIN_URL = "/login/auth0"[m[m
+ LOGIN_REDIRECT_URL = "/"[m[m
+ [m[m
+[31m-[m[m
+ # Sentry[m[m
+ [m[m
+ if os.getenv("PRODUCTION") == "1":[m[m
+:[K[K[m
+[33mcommit 85c09ee[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Nov 4 00:01:35 2019 -0800[m
+[m
+    Add action to SensorReading admin page.[m
+[m
+[1mdiff --git a/server/flock/admin.py b/server/flock/admin.py[m[m
+[1mindex b50b6b1..a52ca7c 100644[m[m
+[1m--- a/server/flock/admin.py[m[m
+[1m+++ b/server/flock/admin.py[m[m
+[36m@@ -51,7 +51,14 @@[m [mdef make_readings_current(modeladmin, request, queryset):[m[m
+         reading.save()[m[m
+ [m[m
+ [m[m
+[31m-make_readings_current.short_description = "Make readings current"[m[m
+[32m+[m[32mdef make_readings_present(modeladmin, request, queryset):[m[m
+[32m+[m[32m    for reading in queryset:[m[m
+[32m+[m[32m        reading.rssi = 10[m[m
+[32m+[m[32m        reading.save()[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mmake_readings_current.short_description = "Make present and current"[m[m
+[32m+[m[32mmake_readings_present.short_description = "Make present"[m[m
+ [m[m
+ [m[m
+ class CreatedAtListFilter(admin.SimpleListFilter):[m[m
+[36m@@ -168,7 +175,7 @@[m [mclass SensorReadingAdmin(FilterableByCreatedAt, admin.ModelAdmin):[m[m
+     list_display = ["device", "location", "rssi", "created_at", "present"][m[m
+     exclude = ("person", "present")[m[m
+     list_filter = ("present", "location", CreatedAtListFilter, RssiListFilter, DeviceTypeListFilter, "person")[m[m
+[31m-    actions = [make_readings_current]  # <-- Add the list action function here[m[m
+[32m+[m[32m    actions = [make_readings_current, make_readings_present]  # <-- Add the list action function here[m[m
+ [m[m
+ [m[m
+ admin.site.register(SensorReading, SensorReadingAdmin)[m[m
+[m
+[33mcommit 9961866[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Nov 4 00:01:24 2019 -0800[m
+[m
+    Fix requirements file.[m
+[m
+[1mdiff --git a/sensor/requirements.txt b/sensor/requirements.txt[m[m
+[1mindex ebff255..530ea7d 100644[m[m
+[1m--- a/sensor/requirements.txt[m[m
+[1m+++ b/sensor/requirements.txt[m[m
+[36m@@ -4,4 +4,4 @@[m [mrequests==2.21.0[m[m
+ backoff==1.8.1[m[m
+ -e git+https://github.com/pybluez/pybluez.git#egg=pybluez[m[m
+ attrs==19.*[m[m
+[31m-pytz==*[m[m
+\ No newline at end of file[m[m
+[32m+[m[32mpytz[m[m
+\ No newline at end of file[m[m
+[m
+[33mcommit 365d6e7[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Nov 4 00:01:13 2019 -0800[m
+[m
+    More make commands, SSH adjustments.[m
+[m
+[1mdiff --git a/.gitignore b/.gitignore[m[m
+[1mindex 9281e05..9b76550 100644[m[m
+[1m--- a/.gitignore[m[m
+:[K[K[1m+++ b/.gitignore[m[m
+[36m@@ -5,4 +5,5 @@[m[m
+ data[m[m
+ __pycache__[m[m
+ .pyc[m[m
+[31m-scratch.py[m[m
+\ No newline at end of file[m[m
+[32m+[m[32mscratch.py[m[m
+[32m+[m[32mdb_backups[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex 6b34c52..c5df02d 100644[m[m
+[1m--- a/makefile[m[m
+[1m+++ b/makefile[m[m
+[36m@@ -21,7 +21,11 @@[m [mreload_db:[m[m
+ runserver:[m[m
+        FREEZE_TIME=1 server/manage.py runserver[m[m
+ [m[m
+[31m-# Sensors[m[m
+[32m+[m[32mDB_URL=postgresql://flock:flock@127.0.0.1:5432/flock[m[m
+[32m+[m[32mdump_db:[m[m
+[32m+[m       [32mpg_dump $(DB_URL) -a > backup_2.sql[m[m
+[32m+[m[m
+[32m+[m[32m# All sensors[m[m
+ check_sensors:[m[m
+        bash ops/run_on_all_sensors.sh ops/check_sensor.sh[m[m
+ [m[m
+[36m@@ -34,6 +38,18 @@[m [minit_sensors:[m[m
+ pip_install_sensors:[m[m
+        bash ops/run_on_all_sensors.sh ops/pip_install_sensor.sh[m[m
+ [m[m
+[32m+[m[32m# Single sensor[m[m
+[32m+[m[32mSENSOR = workshop[m[m
+[32m+[m[32mdeploy_sensor:[m[m
+[32m+[m       [32mops/deploy_sensor.sh $(SENSOR)[m[m
+[32m+[m[m
+[32m+[m[32minit_sensor:[m[m
+[32m+[m       [32mops/init_sensor.sh $(SENSOR)[m[m
+[32m+[m[m
+[32m+[m[32mpip_install_sensor:[m[m
+[32m+[m       [32mops/pip_install_sensor.sh $(SENSOR)[m[m
+[32m+[m[m
+[32m+[m[m
+ # Server[m[m
+ deploy_server:[m[m
+        bash ops/server/deploy.sh[m[m
+[1mdiff --git a/ops/init_sensor.sh b/ops/init_sensor.sh[m[m
+[1mindex ce02923..3dde231 100755[m[m
+[1m--- a/ops/init_sensor.sh[m[m
+[1m+++ b/ops/init_sensor.sh[m[m
+[36m@@ -21,5 +21,5 @@[m [mssh pi_$1 touch /home/pi/.config/flock/$1[m[m
+ [m[m
+ # Misc[m[m
+ sudo chown -R pi /var/log[m[m
+[31m-sudo hciconfig hci0 pageto 3200  # shorten BT timeout from 5s to 2s[m[m
+[32m+[m[32m#sudo hciconfig hci0 pageto 3200  # shorten BT timeout from 5s to 2s[m[m
+ sudo timedatectl set-timezone UTC[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/ops/run_on_all_sensors.sh b/ops/run_on_all_sensors.sh[m[m
+[1mindex 57174db..53298bb 100755[m[m
+[1m--- a/ops/run_on_all_sensors.sh[m[m
+[1m+++ b/ops/run_on_all_sensors.sh[m[m
+[36m@@ -8,8 +8,8 @@[m [mecho "Working..."[m[m
+     echo common_room_external[m[m
+     echo study_external[m[m
+:[K[K     echo middle_kingdom_kitchen_external[m[m
+[31m-    # echo jasons_room_external[m[m
+[31m-    # echo workshop_arrams_room[m[m
+[31m-    # echo backyard[m[m
+[32m+[m[32m    echo jasons_room[m[m
+[32m+[m[32m    echo workshop[m[m
+[32m+[m[32m    echo backyard[m[m
+     # echo roof[m[m
+ } | parallel -k bash $1[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/ops/server/deploy.sh b/ops/server/deploy.sh[m[m
+[1mindex 3e9bd42..24f5af6 100755[m[m
+[1m--- a/ops/server/deploy.sh[m[m
+[1m+++ b/ops/server/deploy.sh[m[m
+[36m@@ -1,3 +1,3 @@[m[m
+ #!/usr/bin/env bash[m[m
+ rsync .prod_env flock:/home/flock/code/server/server/.env[m[m
+[31m-rsync -avhr . flock:/home/flock/code --exclude .env[m[m
+\ No newline at end of file[m[m
+[32m+[m[32mrsync -avhr . flock:/home/flock/code --exclude .env --exclude backup[m[m
+\ No newline at end of file[m[m
+[m
+[33mcommit cca933d[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Nov 4 00:00:47 2019 -0800[m
+[m
+    View helper for testing CSS changes.[m
+[m
+[1mdiff --git a/server/flock/algorithm.py b/server/flock/algorithm.py[m[m
+[1mindex 409a78b..08d0c25 100644[m[m
+[1m--- a/server/flock/algorithm.py[m[m
+[1m+++ b/server/flock/algorithm.py[m[m
+[36m@@ -3,6 +3,7 @@[m [mfrom datetime import datetime[m[m
+ from datetime import timedelta[m[m
+ from functools import partial[m[m
+ from operator import attrgetter[m[m
+[32m+[m[32mfrom random import shuffle[m[m
+ from statistics import mean[m[m
+ from typing import Dict[m[m
+ from typing import List[m[m
+[36m@@ -185,3 +186,13 @@[m [mdef get_location_to_people([m[m
+ [m[m
+ def get_most_mobile_device(devices):[m[m
+     return sorted(devices, key=lambda x: x.device_type)[0][m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef get_stubbed_location_to_people(num_locations: int = 2) -> Dict[Location, List[Person]]:[m[m
+[32m+[m[32m    random_locations = list(Location.objects.all()[:num_locations])[m[m
+[32m+[m[32m    random_people = list(Person.objects.all()[: 2 * num_locations])[m[m
+[32m+[m[32m    shuffle(random_people)[m[m
+[32m+[m[32m    stubbed_location_to_people = {}[m[m
+[32m+[m[32m    for i, location in enumerate(random_locations):[m[m
+[32m+[m[32m        stubbed_location_to_people[location] = random_people[i * 2 : i * 2 + 2][m[m
+[32m+[m[32m    return stubbed_location_to_people[m[m
+[1mdiff --git a/server/flock/urls.py b/server/flock/urls.py[m[m
+[1mindex 7ec9505..fb58849 100644[m[m
+[1m--- a/server/flock/urls.py[m[m
+[1m+++ b/server/flock/urls.py[m[m
+[36m@@ -14,4 +14,5 @@[m [murlpatterns = [[m[m
+     path("", include("django.contrib.auth.urls")),[m[m
+     path("", include("social_django.urls")),[m[m
+     path("login", views.login),[m[m
+[32m+[m[32m    path("stubbed_data", views.stubbed_data),[m[m
+ ][m[m
+[1mdiff --git a/server/flock/views.py b/server/flock/views.py[m[m
+:[K[K[1mindex bf8b8fb..3041ce3 100644[m[m
+[1m--- a/server/flock/views.py[m[m
+[1m+++ b/server/flock/views.py[m[m
+[36m@@ -9,7 +9,7 @@[m [mfrom django.shortcuts import redirect[m[m
+ from django.shortcuts import render[m[m
+ from django.views.decorators.csrf import csrf_exempt[m[m
+ [m[m
+[31m-from flock.algorithm import get_location_to_people[m[m
+[32m+[m[32mfrom flock.algorithm import get_location_to_people, get_stubbed_location_to_people[m[m
+ from flock.models import Device[m[m
+ from flock.models import GroundTruth[m[m
+ from flock.models import Location[m[m
+[36m@@ -95,3 +95,8 @@[m [mdef scans(request):[m[m
+         )[m[m
+ [m[m
+     return HttpResponse(status=204)[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef stubbed_data(request):[m[m
+[32m+[m[32m    num_locations = request.GET["num_locations"] and int(request.GET["num_locations"])[m[m
+[32m+[m[32m    return render(request, "index.html", {"location_to_people": get_stubbed_location_to_people(num_locations)})[m[m
+[m
+[33mcommit a3f085d[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Nov 4 00:00:27 2019 -0800[m
+[m
+    Responsive styles.[m
+[m
+[1mdiff --git a/server/flock/static/styles.css b/server/flock/static/styles.css[m[m
+[1mindex 3b9809a..824f6f3 100644[m[m
+[1m--- a/server/flock/static/styles.css[m[m
+[1m+++ b/server/flock/static/styles.css[m[m
+[36m@@ -7,12 +7,10 @@[m [mhtml, body {[m[m
+     height: 100vh;[m[m
+     margin: 0;[m[m
+     font-size: 18px;[m[m
+[31m-}[m[m
+[31m-[m[m
+[31m-@media (max-width: 40em) and (orientation: landscape) {[m[m
+[31m-    body {[m[m
+[31m-        font-size: 12px;[m[m
+[31m-    }[m[m
+[32m+[m[32m    overflow-x: hidden;[m[m
+[32m+[m[32m    display: flex;[m[m
+[32m+[m[32m    flex-direction: column;[m[m
+[32m+[m[32m    justify-content: center;[m[m
+ }[m[m
+ [m[m
+ p {[m[m
+[36m@@ -23,21 +21,26 @@[m [mp {[m[m
+ }[m[m
+ [m[m
+ .container {[m[m
+[31m-    height: 100%;[m[m
+     display: flex;[m[m
+     flex-direction: row;[m[m
+[32m+[m[32m    flex-wrap: wrap;[m[m
+     justify-content: center;[m[m
+     align-items: center;[m[m
+[31m-    width: auto;[m[m
+[32m+[m[32m    width: 100%;[m[m
+[32m+[m[32m    height: 100%;[m[m
+     margin-left: auto;[m[m
+     margin-right: auto;[m[m
+ }[m[m
+:[K[K [m[m
+[32m+[m[32m.locationPanelContainer {[m[m
+[32m+[m[32m    padding: 0 1em;[m[m
+[32m+[m[32m    margin-top: 1em;[m[m
+[32m+[m[32m    flex: 0 1 14em;[m[m
+[32m+[m[32m}[m[m
+[32m+[m[m
+ .locationPanel {[m[m
+[31m-    width: 10em;[m[m
+     height: 20em;[m[m
+[31m-    padding: 1.8em;[m[m
+[31m-    margin: 1em;[m[m
+[32m+[m[32m    padding: 1em 1.5em;[m[m
+     background-color: #FEF9F9;[m[m
+     border-radius: 1em;[m[m
+ }[m[m
+[36m@@ -67,17 +70,12 @@[m [mp {[m[m
+     font-size: 1.8em;[m[m
+ }[m[m
+ [m[m
+[31m-.workshopArramsRoomIcon:after {[m[m
+[31m-    content: "🔨";[m[m
+[31m-    font-size: 1.8em;[m[m
+[31m-}[m[m
+[31m-[m[m
+ .roofIcon:after {[m[m
+     content: "🌇";[m[m
+     font-size: 1.8em;[m[m
+ }[m[m
+ [m[m
+[31m-.middleKingdomKitchenIcon:after {[m[m
+[32m+[m[32m.middleKitchenIcon:after {[m[m
+     content: "🥘";[m[m
+     font-size: 1.8em;[m[m
+ }[m[m
+[36m@@ -88,7 +86,6 @@[m [mp {[m[m
+     line-height: 1.5em;[m[m
+     text-transform: uppercase;[m[m
+     color: #051937;[m[m
+[31m-    /*white-space: nowrap;*/[m[m
+ }[m[m
+ [m[m
+ .locationHolder {[m[m
+[36m@@ -108,13 +105,14 @@[m [mp {[m[m
+ }[m[m
+ [m[m
+ ::-webkit-scrollbar {[m[m
+[31m-  -webkit-appearance: none;[m[m
+[31m-  width: 7px;[m[m
+[32m+[m[32m    -webkit-appearance: none;[m[m
+[32m+[m[32m    width: 7px;[m[m
+ }[m[m
+[32m+[m[m
+ ::-webkit-scrollbar-thumb {[m[m
+[31m-  border-radius: 4px;[m[m
+[31m-  background-color: rgba(0, 0, 0, .2);[m[m
+[31m-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .3);[m[m
+[32m+[m[32m    border-radius: 4px;[m[m
+[32m+[m[32m    background-color: rgba(0, 0, 0, .2);[m[m
+[32m+[m[32m    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .3);[m[m
+ }[m[m
+ [m[m
+ .red {[m[m
+[36m@@ -146,10 +144,15 @@[m [mp {[m[m
+ }[m[m
+:[K[K [m[m
+ .bottom {[m[m
+[31m-    position: absolute;[m[m
+[31m-    right: 1em;[m[m
+[31m-    bottom: 1em;[m[m
+[32m+[m[32m    /*margin-top: 2em;*/[m[m
+[32m+[m[32m    margin-bottom: 2em;[m[m
+[32m+[m[32m    margin-right: 2em;[m[m
+     text-align: right;[m[m
+[32m+[m[32m    height: 4em;[m[m
+[32m+[m[32m    position: absolute;[m[m
+[32m+[m[32m    bottom: 0;[m[m
+[32m+[m[32m    right: 0;[m[m
+[32m+[m[32m    width: 100%;[m[m
+ }[m[m
+ [m[m
+ [m[m
+[36m@@ -157,15 +160,14 @@[m [mp {[m[m
+     margin-top: 0.7em;[m[m
+ }[m[m
+ [m[m
+[31m-.center-contents {[m[m
+[32m+[m[32m.report-ground-truth {[m[m
+     display: flex;[m[m
+[31m-    justify-content: space-evenly;[m[m
+[31m-    align-content: center;[m[m
+[32m+[m[32m    flex-flow: wrap;[m[m
+ }[m[m
+ [m[m
+[31m-.center-contents > div {[m[m
+[31m-    margin: 3em;[m[m
+[31m-    width: 50%;[m[m
+[32m+[m[32m.report-ground-truth > div {[m[m
+[32m+[m[32m    flex: 1 1 15em;[m[m
+[32m+[m[32m    margin: 1em;[m[m
+ }[m[m
+ [m[m
+ input[type="radio"]:not(:checked) + label {[m[m
+[36m@@ -173,7 +175,7 @@[m [minput[type="radio"]:not(:checked) + label {[m[m
+ }[m[m
+ [m[m
+ input[type="checkbox"]:indeterminate + label {[m[m
+[31m-  color: lightgray;[m[m
+[32m+[m[32m    color: lightgray;[m[m
+ }[m[m
+ [m[m
+ input[type="submit"] {[m[m
+[36m@@ -190,4 +192,42 @@[m [minput[type="submit"] {[m[m
+ [m[m
+ .hide {[m[m
+     display: none;[m[m
+[32m+[m[32m}[m[m
+[32m+[m[m
+[32m+[m[32m@media (max-width: 45em) {[m[m
+[32m+[m[32m    body {[m[m
+[32m+[m[32m        font-size: 12px;[m[m
+[32m+[m[32m        justify-content: initial;[m[m
+[32m+[m[32m    }[m[m
+[32m+[m[m
+[32m+[m[32m    .locationPanel {[m[m
+[32m+[m[32m        padding: 1em 1.5em;[m[m
+[32m+[m[32m        height: 16em;[m[m
+[32m+[m[32m    }[m[m
+[32m+[m[m
+[32m+[m[32m    .locationPanelContainer {[m[m
+:[K[K[32m+[m[32m        flex: 0 1 12em;[m[m
+[32m+[m[32m    }[m[m
+[32m+[m[m
+[32m+[m[32m    @media (orientation: portrait) {[m[m
+[32m+[m[32m        body {[m[m
+[32m+[m[32m            font-size: 16px;[m[m
+[32m+[m[32m        }[m[m
+[32m+[m[m
+[32m+[m[32m        .container {[m[m
+[32m+[m[32m            align-items: initial;[m[m
+[32m+[m[32m        }[m[m
+[32m+[m[m
+[32m+[m[32m        .locationPanel {[m[m
+[32m+[m[32m            height: auto;[m[m
+[32m+[m[32m        }[m[m
+[32m+[m[m
+[32m+[m[32m        .locationPanelContainer {[m[m
+[32m+[m[32m            flex-grow: 1;[m[m
+[32m+[m[32m        }[m[m
+[32m+[m[m
+[32m+[m[32m        .bottom {[m[m
+[32m+[m[32m            position: initial;[m[m
+[32m+[m[32m        }[m[m
+[32m+[m[32m    }[m[m
+ }[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/server/flock/templates/base.html b/server/flock/templates/base.html[m[m
+[1mindex 2b42d04..c8bb92f 100644[m[m
+[1m--- a/server/flock/templates/base.html[m[m
+[1m+++ b/server/flock/templates/base.html[m[m
+[36m@@ -16,9 +16,5 @@[m[m
+         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>[m[m
+ {% block scripts %}[m[m
+ {% endblock %}[m[m
+[31m-<div class="bottom">[m[m
+[31m-  <p><a class="gray" href="/report_ground_truth">Report a mistake</a></p>[m[m
+[31m-  <p><a class="gray" href="/admin/flock/device/add/">Add your device(s)</a></p>[m[m
+[31m-</div>[m[m
+ [m[m
+ </body>[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/server/flock/templates/contents.html b/server/flock/templates/contents.html[m[m
+[1mindex a206d2a..9f7b71b 100644[m[m
+[1m--- a/server/flock/templates/contents.html[m[m
+[1m+++ b/server/flock/templates/contents.html[m[m
+[36m@@ -6,7 +6,7 @@[m[m
+   </div>[m[m
+ {% endif %}[m[m
+ {% for location, people in location_to_people.items %}[m[m
+[31m-  <a class="gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">[m[m
+[32m+[m[32m  <a class="locationPanelContainer gray no-underline" href="/report_ground_truth?location_id={{ location.id }}">[m[m
+     <div id='loc_{{ location.clean_name|snake_case }}' class='locationPanel'>[m[m
+       <div class="locationHolder">[m[m
+         <p class='locationName'>{{ location.name }}</p>[m[m
+[1mdiff --git a/server/flock/templates/report_ground_truth.html b/server/flock/templates/report_ground_truth.html[m[m
+[1mindex 5343b61..3c43a39 100644[m[m
+[1m--- a/server/flock/templates/report_ground_truth.html[m[m
+[1m+++ b/server/flock/templates/report_ground_truth.html[m[m
+[36m@@ -1,30 +1,28 @@[m[m
+ {% extends "base.html" %}[m[m
+ [m[m
+ {% block container %}[m[m
+[31m-  <form action="/ground_truths" method="post">[m[m
+[32m+[m[32m  <form action="/ground_truths" method="post" class="report-ground-truth">[m[m
+     {% csrf_token %}[m[m
+:[K[K[31m-    <div class="center-contents">[m[m
+[31m-      <div class="control-group">[m[m
+[31m-        <h2>Which location?</h2>[m[m
+[31m-        {% for location in locations %}[m[m
+[31m-          <div>[m[m
+[31m-            <input name="location_id" value="{{ location.id }}" type="radio"[m[m
+[31m-                   {% if location.id == current_location_id %}checked="checked"{% endif %}/>[m[m
+[31m-            <label>{{ location.name }}</label>[m[m
+[31m-          </div>[m[m
+[31m-        {% endfor %}[m[m
+[31m-      </div>[m[m
+[31m-      <div class="control-group">[m[m
+[31m-        <h2>Who's there?</h2>[m[m
+[31m-        <div>To show or hide a person from a room, check/uncheck their box.</div>[m[m
+[31m-        {% for person in people %}[m[m
+[31m-          <div>[m[m
+[31m-            <input name="present_person_id" value="{{ person.id }}" type="checkbox"/>[m[m
+[31m-            <label for="person_id">{{ person.name }}</label>[m[m
+[31m-            <input class="hide" name="not_present_person_id" value="{{ person.id }}" type="checkbox"/>[m[m
+[31m-          </div>[m[m
+[31m-        {% endfor %}[m[m
+[31m-      </div>[m[m
+[32m+[m[32m    <div class="control-group">[m[m
+[32m+[m[32m      <h2>Which location?</h2>[m[m
+[32m+[m[32m      {% for location in locations %}[m[m
+[32m+[m[32m        <div>[m[m
+[32m+[m[32m          <input name="location_id" value="{{ location.id }}" type="radio"[m[m
+[32m+[m[32m                 {% if location.id == current_location_id %}checked="checked"{% endif %}/>[m[m
+[32m+[m[32m          <label>{{ location.name }}</label>[m[m
+[32m+[m[32m        </div>[m[m
+[32m+[m[32m      {% endfor %}[m[m
+[32m+[m[32m    </div>[m[m
+[32m+[m[32m    <div class="control-group">[m[m
+[32m+[m[32m      <h2>Who's there?</h2>[m[m
+[32m+[m[32m      <div>To show or hide a person from a room, check/uncheck their box.</div>[m[m
+[32m+[m[32m      {% for person in people %}[m[m
+[32m+[m[32m        <div>[m[m
+[32m+[m[32m          <input name="present_person_id" value="{{ person.id }}" type="checkbox"/>[m[m
+[32m+[m[32m          <label for="person_id">{{ person.name }}</label>[m[m
+[32m+[m[32m          <input class="hide" name="not_present_person_id" value="{{ person.id }}" type="checkbox"/>[m[m
+[32m+[m[32m        </div>[m[m
+[32m+[m[32m      {% endfor %}[m[m
+     </div>[m[m
+     <input type="submit">[m[m
+   </form>[m[m
+[36m@@ -34,7 +32,7 @@[m[m
+   <script>[m[m
+       $("input[type=checkbox]:not(:checked):not(.hide)").prop('indeterminate', true).data('checked', 1)[m[m
+ [m[m
+[31m-      $("input[type=checkbox]").click(function() {[m[m
+[32m+[m[32m      $("input[type=checkbox]").click(function () {[m[m
+           const presentEl = $(this);[m[m
+           const notPresentEl = presentEl.siblings('input.hide')[m[m
+ [m[m
+[m
+[33mcommit 71b6d63[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Thu Oct 31 20:55:26 2019 -0700[m
+[m
+    Convenience: don't reload if we're in FREEZE_TIME mode.[m
+[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex d540d98..6b34c52 100644[m[m
+[1m--- a/makefile[m[m
+[1m+++ b/makefile[m[m
+:[K[K[36m@@ -10,6 +10,17 @@[m [mtest:[m[m
+ test_one:[m[m
+        server/manage.py test -s flock.tests:LocationEstimationTests.test_hidden_person_location[m[m
+ [m[m
+[32m+[m[32m# Local development[m[m
+[32m+[m[32mreload_runserver:[m[m
+[32m+[m       [32mbash ops/load_prod_data.sh[m[m
+[32m+[m       [32mFREEZE_TIME=1 server/manage.py runserver[m[m
+[32m+[m[m
+[32m+[m[32mreload_db:[m[m
+[32m+[m       [32mbash ops/load_prod_data.sh[m[m
+[32m+[m[m
+[32m+[m[32mrunserver:[m[m
+[32m+[m       [32mFREEZE_TIME=1 server/manage.py runserver[m[m
+[32m+[m[m
+ # Sensors[m[m
+ check_sensors:[m[m
+        bash ops/run_on_all_sensors.sh ops/check_sensor.sh[m[m
+[36m@@ -27,13 +38,6 @@[m [mpip_install_sensors:[m[m
+ deploy_server:[m[m
+        bash ops/server/deploy.sh[m[m
+ [m[m
+[31m-reload_server:[m[m
+[31m-       bash ops/load_prod_data.sh[m[m
+[31m-       server/manage.py runserver[m[m
+[31m-[m[m
+[31m-reload_db:[m[m
+[31m-       bash ops/load_prod_data.sh[m[m
+[31m-[m[m
+ update_crontab:[m[m
+        # crontab -e, copy ./ops/crontab over[m[m
+        ssh flock sudo systemctl restart cron[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/server/flock/context_processors.py b/server/flock/context_processors.py[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..a609d60[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/server/flock/context_processors.py[m[m
+[36m@@ -0,0 +1,5 @@[m[m
+[32m+[m[32mimport os[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef export_environ(request):[m[m
+[32m+[m[32m    return {"environ": os.environ}[m[m
+[1mdiff --git a/server/flock/templates/base.html b/server/flock/templates/base.html[m[m
+[1mindex 3743a76..2b42d04 100644[m[m
+[1m--- a/server/flock/templates/base.html[m[m
+[1m+++ b/server/flock/templates/base.html[m[m
+[36m@@ -9,10 +9,16 @@[m[m
+ [m[m
+ [m[m
+ <body>[m[m
+[31m-    <div class="container">[m[m
+[31m-        {% block container %}{% endblock %}[m[m
+[31m-    </div>[m[m
+[31m-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw[m [31m8HfCJo=" crossorigin="anonymous"></script>[m[m
+[31m-    {% block scripts %}[m[m
+[31m-    {% endblock %}[m[m
+[32m+[m[32m<div class="container">[m[m
+[32m+[m[32m  {% block container %}{% endblock %}[m[m
+[32m+[m[32m</div>[m[m
+[32m+[m[32m<script src="https://code.jquery.com/jquery-3.4.1.min.js"[m[m
+[32m+[m[32m        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>[m[m
+[32m+[m[32m{% block scripts %}[m[m
+:[K[K[32m+[m[32m{% endblock %}[m[m
+[32m+[m[32m<div class="bottom">[m[m
+[32m+[m[32m  <p><a class="gray" href="/report_ground_truth">Report a mistake</a></p>[m[m
+[32m+[m[32m  <p><a class="gray" href="/admin/flock/device/add/">Add your device(s)</a></p>[m[m
+[32m+[m[32m</div>[m[m
+[32m+[m[m
+ </body>[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/server/flock/templates/index.html b/server/flock/templates/index.html[m[m
+[1mindex 6260543..9a0975e 100644[m[m
+[1m--- a/server/flock/templates/index.html[m[m
+[1m+++ b/server/flock/templates/index.html[m[m
+[36m@@ -7,11 +7,13 @@[m[m
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js"[m[m
+         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>[m[m
+ {% block scripts %}[m[m
+[31m-  <script>[m[m
+[31m-      window.interval = setInterval(function () {[m[m
+[31m-          $.get("/get_contents")[m[m
+[31m-              .done(data => $('.container').html((data)))[m[m
+[31m-              .fail(() => $('.container').html("<div style='text-align: center'><div>WHAT THE FLOCK!!</div><div>serve[m [31mr (temporarily) down</div></div>"))[m[m
+[31m-      }, 10000);[m[m
+[31m-  </script>[m[m
+[32m+[m[32m  {% if not environ.FREEZE_TIME %}[m[m
+[32m+[m[32m    <script>[m[m
+[32m+[m[32m        window.interval = setInterval(function () {[m[m
+[32m+[m[32m            $.get("/get_contents")[m[m
+[32m+[m[32m                .done(data => $('.container').html((data)))[m[m
+[32m+[m[32m                .fail(() => $('.container').html("<div style='text-align: center'><div>WHAT THE FLOCK!!</div><div>ser[m [32m[m[32mver (temporarily) down</div></div>"))[m[m
+[32m+[m[32m        }, 10000);[m[m
+[32m+[m[32m    </script>[m[m
+[32m+[m[32m  {% endif %}[m[m
+ {% endblock %}[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/server/server/settings.py b/server/server/settings.py[m[m
+[1mindex 335f391..c730778 100644[m[m
+[1m--- a/server/server/settings.py[m[m
+[1m+++ b/server/server/settings.py[m[m
+[36m@@ -56,6 +56,7 @@[m [mSILENCED_SYSTEM_CHECKS = ["admin.E408"][m[m
+ [m[m
+ ROOT_URLCONF = "server.urls"[m[m
+ [m[m
+[32m+[m[m
+ TEMPLATES = [[m[m
+     {[m[m
+         "BACKEND": "django.template.backends.django.DjangoTemplates",[m[m
+[36m@@ -67,6 +68,7 @@[m [mTEMPLATES = [[m[m
+                 "django.template.context_processors.request",[m[m
+                 "django.contrib.auth.context_processors.auth",[m[m
+                 "django.contrib.messages.context_processors.messages",[m[m
+[32m+[m[32m                "flock.context_processors.export_environ",[m[m
+             ][m[m
+         },[m[m
+     }[m[m
+[m
+[33mcommit 0c34b5f[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Oct 28 01:52:42 2019 -0700[m
+[m
+    Duh.[m
+[m
+[1mdiff --git a/server/flock/management/commands/grade_algorithm.py b/server/flock/management/commands/grade_algorithm.py[m[m
+[1mindex ca75118..6b4d8b6 100644[m[m
+:[K[K[1m--- a/server/flock/management/commands/grade_algorithm.py[m[m
+[1m+++ b/server/flock/management/commands/grade_algorithm.py[m[m
+[36m@@ -17,4 +17,4 @@[m [mclass Command(BaseCommand):[m[m
+                 correct.append(truth)[m[m
+             else:[m[m
+                 incorrect.append(truth)[m[m
+[31m-        print(f"{len(correct) / len(incorrect)*100:.0f}% correct! ({len(correct)}/{len(incorrect)})")[m[m
+[32m+[m[32m        print(f"{len(correct) / len(correct + incorrect)*100:.0f}% correct! ({len(correct)}/{len(incorrect)})")[m[m
+[m
+[33mcommit 5a80b3e[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Oct 28 01:41:17 2019 -0700[m
+[m
+    Notes about updating crontab.[m
+[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex e10fb38..d540d98 100644[m[m
+[1m--- a/makefile[m[m
+[1m+++ b/makefile[m[m
+[36m@@ -33,3 +33,7 @@[m [mreload_server:[m[m
+ [m[m
+ reload_db:[m[m
+        bash ops/load_prod_data.sh[m[m
+[32m+[m[m
+[32m+[m[32mupdate_crontab:[m[m
+[32m+[m       [32m# crontab -e, copy ./ops/crontab over[m[m
+[32m+[m       [32mssh flock sudo systemctl restart cron[m[m
+\ No newline at end of file[m[m
+[1mdiff --git a/ops/crontab b/ops/crontab[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..4e52f39[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/ops/crontab[m[m
+[36m@@ -0,0 +1 @@[m[m
+[32m+[m[32m*/5 * * * * /usr/local/bin/python /home/flock/code/server/manage.py maybe_post_chill_times >> /var/log/cron.log 2>&1[m[m
+\ No newline at end of file[m[m
+[m
+[33mcommit f2fc4fd[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Oct 28 01:21:24 2019 -0700[m
+[m
+    Post to #chill-times![m
+[m
+[1mdiff --git a/server/flock/management/commands/maybe_post_chill_times.py b/server/flock/management/commands/maybe_post_[m [1mchill_times.py[m[m
+[1mindex c197de8..047a7b8 100644[m[m
+[1m--- a/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[1m+++ b/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[36m@@ -43,5 +43,5 @@[m [mdef post_chill_times(location: Location, people: List[Person]) -> Response:[m[m
+     message = ([m[m
+         f"<!here> chill times in the {title_case(location.name)} with {', '.join(people_head)} and {last_person}!"[m[m
+     )[m[m
+[31m-    data = {"channel": "#testing", "username": "Flock", "text": message, "icon_emoji": ":bird:"}[m[m
+[32m+[m[32m    data = {"channel": "#chill-times", "username": "Flock", "text": message, "icon_emoji": ":bird:"}[m[m
+     return requests.post(os.getenv("SLACK_URL"), data=json.dumps(data), headers={"Content-Type": "application/json"})[m[m
+[m
+[33mcommit f85b789[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Oct 28 01:19:48 2019 -0700[m
+[m
+    Admin site for ChillTime.[m
+[m
+[1mdiff --git a/server/flock/admin.py b/server/flock/admin.py[m[m
+[1mindex 7e9a877..b50b6b1 100644[m[m
+[1m--- a/server/flock/admin.py[m[m
+:[K[K[1m+++ b/server/flock/admin.py[m[m
+[36m@@ -3,10 +3,11 @@[m [mfrom datetime import timedelta[m[m
+ import pytz[m[m
+ from dateutil.parser import parse[m[m
+ from django.contrib import admin[m[m
+[32m+[m[32mfrom django.contrib.admin import ModelAdmin[m[m
+ from django.contrib.auth.models import Group[m[m
+ from django.utils.translation import gettext_lazy as _[m[m
+ [m[m
+[31m-from flock.models import CustomThreshold, DeviceType[m[m
+[32m+[m[32mfrom flock.models import CustomThreshold, DeviceType, ChillTime[m[m
+ from flock.models import Device[m[m
+ from flock.models import GroundTruth[m[m
+ from flock.models import Location[m[m
+[36m@@ -191,4 +192,18 @@[m [mclass GroundTruthAdmin(FilterableByCreatedAt, admin.ModelAdmin):[m[m
+ [m[m
+ admin.site.register(GroundTruth, GroundTruthAdmin)[m[m
+ [m[m
+[32m+[m[m
+[32m+[m[32mdef display_people(obj):[m[m
+[32m+[m[32m    people = Person.objects.filter(id__in=obj.person_ids)[m[m
+[32m+[m[32m    return ", ".join([x.name for x in people])[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdisplay_people.short_description = "people"[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mclass ChillTimeAdmin(ModelAdmin):[m[m
+[32m+[m[32m    list_display = [display_people, "location", "created_at"][m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32madmin.site.register(ChillTime, ChillTimeAdmin)[m[m
+ admin.site.unregister(Group)[m[m
+[1mdiff --git a/server/flock/models.py b/server/flock/models.py[m[m
+[1mindex 79386e5..8cdebe6 100644[m[m
+[1m--- a/server/flock/models.py[m[m
+[1m+++ b/server/flock/models.py[m[m
+[36m@@ -171,3 +171,7 @@[m [mclass ChillTime(models.Model):[m[m
+     person_ids = ArrayField(IntegerField())[m[m
+     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)[m[m
+     created_at = DateTimeField(default=now)[m[m
+[32m+[m[m
+[32m+[m[32m    def __str__(self):[m[m
+[32m+[m[32m        people = Person.objects.filter(id__in=self.person_ids)[m[m
+[32m+[m[32m        return f"{', '.join([x.name for x in people])} in {self.location} at {friendly_time(self.created_at)}"[m[m
+[m
+[33mcommit d58531e[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Mon Oct 28 01:10:47 2019 -0700[m
+[m
+    Post to #chill-times, once a day, when 5+ people are detected in the common room.[m
+[m
+[1mdiff --git a/server/flock/management/commands/maybe_post_chill_times.py b/server/flock/management/commands/maybe_post_[m [1mchill_times.py[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..c197de8[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/server/flock/management/commands/maybe_post_chill_times.py[m[m
+[36m@@ -0,0 +1,47 @@[m[m
+[32m+[m[32mimport json[m[m
+[32m+[m[32mimport os[m[m
+[32m+[m[32mfrom typing import List[m[m
+[32m+[m[m
+[32m+[m[32mimport requests[m[m
+[32m+[m[32mfrom django.core.management import BaseCommand[m[m
+:[K[K[32m+[m[32mfrom requests import Response[m[m
+[32m+[m[m
+[32m+[m[32mfrom flock.algorithm import get_location_to_people[m[m
+[32m+[m[32mfrom flock.models import ChillTime, Location, Person[m[m
+[32m+[m[32mfrom flock.utils import as_pdt, now, title_case[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mclass Command(BaseCommand):[m[m
+[32m+[m[32m    def handle(self, *args, **options):[m[m
+[32m+[m[32m        if already_posted_today():[m[m
+[32m+[m[32m            print("Already posted today!")[m[m
+[32m+[m[32m            return[m[m
+[32m+[m[m
+[32m+[m[32m        common_room = Location.objects.get(name="Common room")[m[m
+[32m+[m[32m        people = get_location_to_people().get(common_room, [])[m[m
+[32m+[m[32m        if len(people) >= 5:[m[m
+[32m+[m[32m            response = post_chill_times(common_room, people)[m[m
+[32m+[m[32m            if response.status_code == 200:[m[m
+[32m+[m[32m                ChillTime.objects.create(person_ids=[x.id for x in people], location=common_room)[m[m
+[32m+[m[32m                print("Created ChillTime!")[m[m
+[32m+[m[32m            else:[m[m
+[32m+[m[32m                print("Something went wrong...!")[m[m
+[32m+[m[32m        else:[m[m
+[32m+[m[32m            print(f"Only saw {len(people)}, not POSTing.")[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef already_posted_today() -> bool:[m[m
+[32m+[m[32m    last_post = ChillTime.objects.last()[m[m
+[32m+[m[32m    if not last_post:[m[m
+[32m+[m[32m        return False[m[m
+[32m+[m[32m    last_post_created_at = last_post.created_at[m[m
+[32m+[m[32m    return as_pdt(last_post_created_at).date() == as_pdt(now()).date()[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef post_chill_times(location: Location, people: List[Person]) -> Response:[m[m
+[32m+[m[32m    *people_head, last_person = [x.first_name for x in people][m[m
+[32m+[m[32m    message = ([m[m
+[32m+[m[32m        f"<!here> chill times in the {title_case(location.name)} with {', '.join(people_head)} and {last_person}!"[m[m
+[32m+[m[32m    )[m[m
+[32m+[m[32m    data = {"channel": "#testing", "username": "Flock", "text": message, "icon_emoji": ":bird:"}[m[m
+[32m+[m[32m    return requests.post(os.getenv("SLACK_URL"), data=json.dumps(data), headers={"Content-Type": "application/json"})[m[m
+[1mdiff --git a/server/flock/management/commands/today_report.py b/server/flock/management/commands/today_report.py[m[m
+[1mindex df52c92..02cc19a 100644[m[m
+[1m--- a/server/flock/management/commands/today_report.py[m[m
+[1m+++ b/server/flock/management/commands/today_report.py[m[m
+[36m@@ -8,6 +8,8 @@[m [mfrom django.core.management.base import BaseCommand[m[m
+ from tqdm import tqdm[m[m
+ [m[m
+ from flock.algorithm import get_location_to_people[m[m
+[32m+[m[32mfrom flock.management.commands.maybe_post_chill_times import already_posted_today[m[m
+[32m+[m[32mfrom flock.models import Location[m[m
+ from flock.utils import friendly_time, now[m[m
+ [m[m
+ [m[m
+[36m@@ -17,10 +19,15 @@[m [mclass Command(BaseCommand):[m[m
+         day = (now() - timedelta(days=days_ago)).date()[m[m
+         start_day = datetime.combine(day, time(hour=5), tzinfo=pytz.UTC)[m[m
+         end_day = datetime.combine(now().date(), time(hour=23), tzinfo=pytz.UTC)[m[m
+[31m-        for current_dt in tqdm(list(rrule.rrule(rrule.MINUTELY, interval=15, dtstart=start_day, until=end_day))):[m[m
+[31m-            location_to_people = get_location_to_people(current_dt)[m[m
+[31m-            for location, people in location_to_people.items():[m[m
+[31m-                if len(people) >= 5:[m[m
+[31m-                    print(f"{friendly_time(current_dt)}\t{len(people)}")[m[m
+[31m-                    *people, last_person = [x.first_name for x in people][m[m
+[31m-                    print(f"@here chill times in the common room (with {', '.join(people)} and {last_person})")[m[m
+:[K[K[32m+[m[32m        common_room = Location.objects.get(name="Common room")[m[m
+[32m+[m[m
+[32m+[m[32m        for current_dt in tqdm(list(rrule.rrule(rrule.MINUTELY, interval=2, dtstart=start_day, until=end_day))):[m[m
+[32m+[m[32m            if already_posted_today():[m[m
+[32m+[m[32m                continue[m[m
+[32m+[m[m
+[32m+[m[32m            people = get_location_to_people(current_dt).get(common_room)[m[m
+[32m+[m[32m            if len(people) >= 5:[m[m
+[32m+[m[32m                print(f"{friendly_time(current_dt)}\t{len(people)}")[m[m
+[32m+[m[32m                *people, last_person = [x.first_name for x in people][m[m
+[32m+[m[32m                message = f"@here chill times in the common room (with {', '.join(people)} and {last_person})"[m[m
+[32m+[m[32m                print(message)[m[m
+[1mdiff --git a/server/flock/migrations/0011_chilltime.py b/server/flock/migrations/0011_chilltime.py[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..a4c48fc[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/server/flock/migrations/0011_chilltime.py[m[m
+[36m@@ -0,0 +1,25 @@[m[m
+[32m+[m[32m# Generated by Django 2.2.5 on 2019-10-28 07:22[m[m
+[32m+[m[m
+[32m+[m[32mimport django.contrib.postgres.fields[m[m
+[32m+[m[32mfrom django.db import migrations, models[m[m
+[32m+[m[32mimport django.db.models.deletion[m[m
+[32m+[m[32mimport flock.utils[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mclass Migration(migrations.Migration):[m[m
+[32m+[m[m
+[32m+[m[32m    dependencies = [[m[m
+[32m+[m[32m        ('flock', '0010_groundtruth_fixed_at'),[m[m
+[32m+[m[32m    ][m[m
+[32m+[m[m
+[32m+[m[32m    operations = [[m[m
+[32m+[m[32m        migrations.CreateModel([m[m
+[32m+[m[32m            name='ChillTime',[m[m
+[32m+[m[32m            fields=[[m[m
+[32m+[m[32m                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),[m[m
+[32m+[m[32m                ('persons', django.contrib.postgres.fields.ArrayField(base_field=models.IntegerField(), size=None)),[m[m
+[32m+[m[32m                ('created_at', models.DateTimeField(default=flock.utils.now)),[m[m
+[32m+[m[32m                ('location', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='flock.Location')),[m[m
+[32m+[m[32m            ],[m[m
+[32m+[m[32m        ),[m[m
+[32m+[m[32m    ][m[m
+[1mdiff --git a/server/flock/migrations/0012_auto_20191028_0758.py b/server/flock/migrations/0012_auto_20191028_0758.py[m[m
+[1mnew file mode 100644[m[m
+[1mindex 0000000..f4c94f7[m[m
+[1m--- /dev/null[m[m
+[1m+++ b/server/flock/migrations/0012_auto_20191028_0758.py[m[m
+[36m@@ -0,0 +1,18 @@[m[m
+[32m+[m[32m# Generated by Django 2.2.5 on 2019-10-28 07:58[m[m
+[32m+[m[m
+[32m+[m[32mfrom django.db import migrations[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mclass Migration(migrations.Migration):[m[m
+[32m+[m[m
+[32m+[m[32m    dependencies = [[m[m
+[32m+[m[32m        ('flock', '0011_chilltime'),[m[m
+[32m+[m[32m    ][m[m
+[32m+[m[m
+[32m+[m[32m    operations = [[m[m
+[32m+[m[32m        migrations.RenameField([m[m
+[32m+[m[32m            model_name='chilltime',[m[m
+[32m+[m[32m            old_name='persons',[m[m
+[32m+[m[32m            new_name='person_ids',[m[m
+:[K[K[32m+[m[32m        ),[m[m
+[32m+[m[32m    ][m[m
+[1mdiff --git a/server/flock/models.py b/server/flock/models.py[m[m
+[1mindex 0c4e084..79386e5 100644[m[m
+[1m--- a/server/flock/models.py[m[m
+[1m+++ b/server/flock/models.py[m[m
+[36m@@ -1,10 +1,11 @@[m[m
+ import re[m[m
+ [m[m
+ import pytz[m[m
+[32m+[m[32mfrom django.contrib.postgres.fields import ArrayField[m[m
+ from django.contrib.postgres.indexes import BrinIndex[m[m
+ from django.core.exceptions import ValidationError[m[m
+ from django.db import models[m[m
+[31m-from django.db.models import BooleanField, DateTimeField[m[m
+[32m+[m[32mfrom django.db.models import BooleanField, DateTimeField, IntegerField[m[m
+ from django.db.models import ForeignKey[m[m
+ from django.db.models import TextField[m[m
+ from django.db.models.signals import pre_save[m[m
+[36m@@ -164,3 +165,9 @@[m [mclass CustomThreshold(models.Model):[m[m
+         if self.device:[m[m
+             components.append(DeviceType.get(self.device.device_type).name)[m[m
+         return ", ".join([x for x in components if x])[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mclass ChillTime(models.Model):[m[m
+[32m+[m[32m    person_ids = ArrayField(IntegerField())[m[m
+[32m+[m[32m    location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)[m[m
+[32m+[m[32m    created_at = DateTimeField(default=now)[m[m
+[1mdiff --git a/server/flock/utils.py b/server/flock/utils.py[m[m
+[1mindex f2d8486..52b892a 100644[m[m
+[1m--- a/server/flock/utils.py[m[m
+[1m+++ b/server/flock/utils.py[m[m
+[36m@@ -2,6 +2,7 @@[m [mfrom collections import defaultdict[m[m
+ from datetime import datetime[m[m
+ from typing import Optional[m[m
+ [m[m
+[32m+[m[32mimport pytz[m[m
+ from django.conf import settings[m[m
+ from django.db.models import Max[m[m
+ from django.utils import timezone[m[m
+[36m@@ -32,3 +33,12 @@[m [mdef now() -> datetime:[m[m
+ [m[m
+ def friendly_time(dt: datetime) -> str:[m[m
+     return dt.strftime("%-m/%-d %-I:%M %p")[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef as_pdt(dt: datetime) -> datetime:[m[m
+[32m+[m[32m    pdt = pytz.timezone("America/Los_Angeles")[m[m
+[32m+[m[32m    return dt.astimezone(pdt)[m[m
+[32m+[m[m
+[32m+[m[m
+[32m+[m[32mdef title_case(string: str) -> str:[m[m
+[32m+[m[32m    return " ".join([x[0].upper() + x[1:] for x in string.split(" ")])[m[m
+[m
+[33mcommit 34d3532[m[m
+Author: Jason Benn <jasoncbenn@gmail.com>[m
+Date:   Sun Oct 27 22:49:51 2019 -0700[m
+[m
+    Clean up scripts.[m
+[m
+[1mdiff --git a/makefile b/makefile[m[m
+[1mindex c309303..e10fb38 100644[m[m
+[1m--- a/makefile[m[m
+[1m+++ b/makefile[m[m
+:[K[K[36m@@ -30,3 +30,6 @@[m [mdeploy_server:[m[m
+ reload_server:[m[m
+        bash ops/load_prod_data.sh[m[m
+        server/manage.py runserver[m[m
+[32m+[m[m
+[32m+[m[32mreload_db:[m[m
+[32m+[m       [32mbash ops/load_prod_data.sh[m[m
+[1mdiff --git a/server/flock/management/commands/grade_algorithm.py b/server/flock/management/commands/grade_algorithm.py[m[m
+[1mindex a4ef058..ca75118 100644[m[m
+[1m--- a/server/flock/management/commands/grade_algorithm.py[m[m
+[1m+++ b/server/flock/management/commands/grade_algorithm.py[m[m
+[36m@@ -1,3 +1,5 @@[m[m
+[32m+[m[32mfrom datetime import timedelta[m[m
+[32m+[m[m
+ from django.core.management.base import BaseCommand[m[m
+ from tqdm import tqdm[m[m
+ [m[m
+[36m@@ -10,11 +12,9 @@[m [mclass Command(BaseCommand):[m[m
+         correct = [][m[m
+         incorrect = [][m[m
+         for truth in tqdm(GroundTruth.objects.all()):[m[m
+[31m-            location_to_people = get_location_to_people(truth.created_at, True)[m[m
+[31m-            # print("Looking for:", truth.person, truth.location)[m[m
+[31m-            # print("Found:", location_to_people)[m[m
+[31m-            if location_to_people.get(truth.person) == truth.location:[m[m
+[32m+[m[32m            location_to_people = get_location_to_people(truth.created_at + timedelta(minutes=5), True)[m[m
+[32m+[m[32m            if truth.fixed_at or truth.person in location_to_people.get(truth.location, []):[m[m
+                 correct.append(truth)[m[m
+             else:[m[m
+                 incorrect.append(truth)[m[m
+[31m-        print(len(correct), len(incorrect))[m[m
+[32m+[m[32m        print(f"{len(correct) / len(incorrect)*100:.0f}% correct! ({len(correct)}/{len(incorrect)})")[m[m
+[1mdiff --git a/server/flock/management/commands/graph_location.py b/server/flock/management/commands/graph_location.py[m[m
+[1mdeleted file mode 100644[m[m
+[1mindex a7cd858..0000000[m[m
+[1m--- a/server/flock/management/commands/graph_location.py[m[m
+[1m+++ /dev/null[m[m
+[36m@@ -1,47 +0,0 @@[m[m
+[31m-from datetime import timedelta[m[m
+[31m-[m[m
+[31m-from django.core.management.base import BaseCommand[m[m
+[31m-[m[m
+[31m-from flock.models import Location[m[m
+[31m-from flock.models import SensorReading[m[m
+[31m-from flock.utils import now[m[m
+[31m-[m[m
+[31m-[m[m
+[31m-class Command(BaseCommand):[m[m
+[31m-    def add_arguments(self, parser):[m[m
+[31m-        parser.add_argument("-n", "--name")[m[m
+[31m-[m[m
+[31m-    def handle(self, *args, **options):[m[m
+[31m-        location = Location.objects.get(name__icontains=options["name"])[m[m
+[31m-        for reading in SensorReading.objects.filter(location=location, created_at__gte=now() - timedelta(hours=2)):[m[m
+[31m-            print(reading)[m[m
+[31m-[m[m
+[31m-        # xs = [][m[m
+[31m-        # ys = [][m[m
+[31m-        # colors = [][m[m
+[31m-        # # Create DataFrame with x, y, color columns.[m[m
+[31m-        # detected = set(SensorReading.objects.values_list("device", flat=True).distinct())[m[m
+[31m-        # y_ids = {v: k for k, v in enumerate(detected)}[m[m
+[31m-        # for reading in SensorReading.objects.all().filter([m[m
+[31m-        #     location=location, created_at__gte=max_created_at - timedelta(minutes=90)[m[m
+[31m-        # ):[m[m
+:[K[K[31m-        #     xs.append(reading.created_at)[m[m
+[31m-        #     ys.append(y_ids[reading.device_id])
