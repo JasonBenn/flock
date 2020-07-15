@@ -192,5 +192,4 @@ class LocationEstimationTests(TestCase):
         ChoreAction.objects.create(person=self.ben, created_at=now() - timedelta(days=9), chore=ChoreTypes.TOOK_OUT_TRASH)
         ChoreAction.objects.create(person=self.ben, created_at=now() - timedelta(days=6), chore=ChoreTypes.TOOK_OUT_TRASH)
         ChoreAction.objects.create(person=self.ben, created_at=yesterday, chore=ChoreTypes.TOOK_OUT_TRASH)
-        lazy_housemates = get_lazy_housemates()
-        self.assertEqual(lazy_housemates, {self.jason: ten_days_ago, self.ben: yesterday, self.michael: five_days_ago})
+        self.assertEqual(get_lazy_housemates(), {self.jason: ten_days_ago, self.ben: yesterday, self.michael: five_days_ago})

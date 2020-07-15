@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 from flock.models import ChillTime
 from flock.models import ChillTimesThreshold
+from flock.models import ChoreAction
 from flock.models import CustomThreshold
 from flock.models import Device
 from flock.models import DeviceType
@@ -242,4 +243,13 @@ class ChillTimeAdmin(ModelAdmin):
 
 
 admin.site.register(ChillTime, ChillTimeAdmin)
+
+
+class ChoreActionAdmin(ModelAdmin):
+    list_display = ["person", "chore", "created_at"]
+
+
+admin.site.register(ChoreAction, ChoreActionAdmin)
+
+
 admin.site.unregister(Group)
