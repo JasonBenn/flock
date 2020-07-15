@@ -52,7 +52,7 @@ terminaltables==3.1.0
 toml==0.10.0
 traitlets==4.3.2
 wcwidth==0.1.7
-Werkzeug==0.15.2
+Werkzeug==0.15.3
 tqdm==4.*
 attrs==19.*
 django-nose==1.4.*
