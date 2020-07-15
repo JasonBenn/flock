@@ -32,7 +32,7 @@ Deploying:
 
 Tests:
 `server/manage.py test flock --debug-sql  #tests`
-`server/manage.py test flock.tests.LocationEstimationTests.test_hidden_person_location --debug-sql`
+`server/manage.py test flock.tests.LocationEstimationTests.test_detect_laziness --debug-sql`
 
 Seed a development database:
 `server/manage.py seed`

@@ -16,6 +16,7 @@ from django.utils.functional import partition
 
 from flock.constants import MAX_THRESHOLD
 from flock.constants import READING_WINDOW_MINUTES
+from flock.models import ChoreAction
 from flock.models import CustomThreshold
 from flock.models import Estimate
 from flock.models import GroundTruth
@@ -207,3 +208,11 @@ def quiet_locations() -> Dict[Location, datetime]:
         for x in Location.objects.filter(active=True)
     }
     return {location: reading for location, reading in recent_readings.items() if reading < now() - timedelta(hours=1)}
+
+
+def get_lazy_housemates() -> Dict[Person, ChoreAction]:
+    return {
+        x: ChoreAction.objects.filter(person=x).aggregate(Max("created_at"))["created_at__max"]
+        # TODO: get housemates that have been in common room in last 2 weeks
+        for x in Person.objects.filter(active=True)
+    }

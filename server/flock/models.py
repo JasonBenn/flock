@@ -189,3 +189,9 @@ class ChillTime(models.Model):
     def __str__(self):
         people = Person.objects.filter(id__in=self.person_ids)
         return f"{', '.join([x.name for x in people])} in {self.location} at {friendly_time(self.created_at)}"
+
+
+class ChoreAction(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    chore = models.CharField(max_length=200)
+    created_at = DateTimeField(default=now)
