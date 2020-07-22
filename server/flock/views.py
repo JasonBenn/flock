@@ -50,7 +50,7 @@ def chore_leaderboard(request):
 
 @login_required
 def report_chore(request):
-    person = Person.objects.get(email=request.user.email)
+    person = Person.objects.get(email__iexact=request.user.email)
     ChoreAction.objects.create(person=person, chore=request.GET.get('name'), minutes=request.GET.get('mins'))
     return render(request, "chore_leaderboard.html", {"floors_people_chores": get_chore_leaderboard()})
 
