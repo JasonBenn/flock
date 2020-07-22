@@ -37,10 +37,19 @@ class Location(models.Model):
         return re.sub(r"[^\w ]+", "", self.name.replace("/", " ")).lower().replace(" ", "_")
 
 
+class Floor(Enum):
+    NOT_HOUSEMATE = 0
+    FLOOR_279 = 1
+    FLOOR_281 = 2
+    FLOOR_283 = 3
+
+
 class Person(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     active = BooleanField(default=True)
+    email = models.TextField(help_text="Should match your login email!")
+    floor = EnumField(Floor)
 
     class Meta:
         unique_together = ("first_name", "last_name")
@@ -194,4 +203,5 @@ class ChillTime(models.Model):
 class ChoreAction(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     chore = models.CharField(max_length=200)
+    minutes = models.IntegerField(default=5)
     created_at = DateTimeField(default=now)

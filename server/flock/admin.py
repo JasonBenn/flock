@@ -13,6 +13,7 @@ from flock.models import ChoreAction
 from flock.models import CustomThreshold
 from flock.models import Device
 from flock.models import DeviceType
+from flock.models import Floor
 from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
@@ -45,10 +46,40 @@ def toggle_active(modeladmin, request, queryset):
 toggle_active.short_description = "Toggle active status"
 
 
+def change_not(modeladmin, request, queryset):
+    for model in queryset:
+        model.floor = Floor.NOT_HOUSEMATE
+        model.save()
+
+
+def change_279(modeladmin, request, queryset):
+    for model in queryset:
+        model.floor = Floor.FLOOR_279
+        model.save()
+
+
+def change_281(modeladmin, request, queryset):
+    for model in queryset:
+        model.floor = Floor.FLOOR_281
+        model.save()
+
+
+def change_283(modeladmin, request, queryset):
+    for model in queryset:
+        model.floor = Floor.FLOOR_283
+        model.save()
+
+
+change_not.short_description = "Change floor to NOT_HOUSEMATE"
+change_279.short_description = "Change floor to 279"
+change_281.short_description = "Change floor to 281"
+change_283.short_description = "Change floor to 283"
+
+
 class PersonAdmin(admin.ModelAdmin):
     ordering = ("first_name",)
-    list_display = ["first_name", "last_name", "active"]
-    actions = [toggle_active]
+    list_display = ["first_name", "last_name", "email", "active", "floor"]
+    actions = [toggle_active, change_not, change_279, change_281, change_283]
 
 
 admin.site.register(Person, PersonAdmin)
@@ -246,10 +277,9 @@ admin.site.register(ChillTime, ChillTimeAdmin)
 
 
 class ChoreActionAdmin(ModelAdmin):
-    list_display = ["person", "chore", "created_at"]
+    list_display = ["person", "chore", "minutes", "created_at"]
 
 
 admin.site.register(ChoreAction, ChoreActionAdmin)
-
 
 admin.site.unregister(Group)

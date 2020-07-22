@@ -11,7 +11,9 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from flock.algorithm import get_chore_leaderboard
 from flock.algorithm import get_location_to_people, get_stubbed_location_to_people, quiet_locations
+from flock.models import ChoreAction
 from flock.models import Device
 from flock.models import GroundTruth
 from flock.models import Location
@@ -39,6 +41,18 @@ def get_contents(request):
         return redirect(login)
 
     return render(request, "contents.html", get_homepage_context_data())
+
+
+def chore_leaderboard(request):
+    print({"people_chores": get_chore_leaderboard()})
+    return render(request, "chore_leaderboard.html", {"floors_people_chores": get_chore_leaderboard()})
+
+
+@login_required
+def report_chore(request):
+    person = Person.objects.get(email=request.user.email)
+    ChoreAction.objects.create(person=person, chore=request.GET.get('name'), minutes=request.GET.get('mins'))
+    return render(request, "chore_leaderboard.html", {"floors_people_chores": get_chore_leaderboard()})
 
 
 @login_required

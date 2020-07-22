@@ -19,12 +19,14 @@ from flock.constants import READING_WINDOW_MINUTES
 from flock.models import ChoreAction
 from flock.models import CustomThreshold
 from flock.models import Estimate
+from flock.models import Floor
 from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
 from flock.models import SensorReading
-from flock.utils import get_at_time, now
+from flock.utils import get_at_time
 from flock.utils import group_by
+from flock.utils import now
 
 
 def get_recent_estimates_by_type(at_time: Optional[datetime] = None) -> Dict[Person, Dict[str, List[Estimate]]]:
@@ -170,7 +172,7 @@ def mask_people_to_location(people_to_location: Dict[Person, Location]) -> Dict[
 
 
 def get_location_to_people(
-    at_time: Optional[datetime] = None, exclude_ground_truths=False
+        at_time: Optional[datetime] = None, exclude_ground_truths=False
 ) -> Dict[Location, List[Person]]:
     recent_estimates_by_type = get_recent_estimates_by_type(at_time)
     if exclude_ground_truths:
@@ -197,7 +199,7 @@ def get_stubbed_location_to_people(num_locations: int = 2) -> Dict[Location, Lis
     shuffle(random_people)
     stubbed_location_to_people = {}
     for i, location in enumerate(random_locations):
-        stubbed_location_to_people[location] = random_people[i * 2 : i * 2 + 2]
+        stubbed_location_to_people[location] = random_people[i * 2: i * 2 + 2]
     return stubbed_location_to_people
 
 
@@ -210,9 +212,19 @@ def quiet_locations() -> Dict[Location, datetime]:
     return {location: reading for location, reading in recent_readings.items() if reading < now() - timedelta(hours=1)}
 
 
-def get_lazy_housemates() -> Dict[Person, ChoreAction]:
-    return {
-        x: ChoreAction.objects.filter(person=x).aggregate(Max("created_at"))["created_at__max"]
-        # TODO: get housemates that have been in common room in last 2 weeks
-        for x in Person.objects.filter(active=True)
-    }
+def present_by_floor_in_last_week() -> Dict[Floor, List[Person]]:
+    present_people_ids = SensorReading.objects.filter(created_at__gte=now() - timedelta(days=7)).values_list(
+        'person_id', flat=True).distinct()
+    return group_by(Person.objects.filter(id__in=present_people_ids, active=True).exclude(floor=Floor.NOT_HOUSEMATE), key=attrgetter("floor"))
+
+
+def get_chore_leaderboard() -> Dict[Floor, Dict[Person, int]]:
+    by_floor_and_person = {Floor.FLOOR_279: {}, Floor.FLOOR_281: {}, Floor.FLOOR_283: {}}
+    chores = ChoreAction.objects.filter(created_at__gte=now() - timedelta(days=7))
+    chores_by_person = group_by(chores, key=attrgetter("person"))
+
+    for floor, people in present_by_floor_in_last_week().items():
+        for person in sorted(people, key=attrgetter("first_name")):
+            by_floor_and_person[floor][person] = len(chores_by_person.get(person, []))
+
+    return dict(by_floor_and_person)

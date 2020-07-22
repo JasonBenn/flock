@@ -7,6 +7,7 @@ from django import template
 from stringcase import camelcase
 from stringcase import snakecase
 
+from flock.models import Floor
 from flock.models import GroundTruth
 from flock.utils import now
 
@@ -48,3 +49,12 @@ def brief_time(dt: datetime) -> str:
         return f"{delta.days} days"
     else:
         return f"{delta.seconds // 3600} hours"
+
+@register.filter
+def translate_floor_enum(floor: Floor) -> str:
+    if floor == Floor.FLOOR_279:
+        return "Space Dungeon 🏴‍☠️"
+    elif floor == Floor.FLOOR_281:
+        return "Middle Kingdom 🌿"
+    elif floor == Floor.FLOOR_283:
+        return "283 ☕️"

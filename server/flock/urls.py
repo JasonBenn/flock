@@ -11,6 +11,8 @@ urlpatterns = [
     path("scans", views.scans),
     path("macs", views.macs),
     path("thanks", views.thanks),
+    path("chore_leaderboard", views.chore_leaderboard),
+    path("reportchore", views.report_chore),
     path("", include("django.contrib.auth.urls")),
     path("", include("social_django.urls")),
     path("login", views.login),

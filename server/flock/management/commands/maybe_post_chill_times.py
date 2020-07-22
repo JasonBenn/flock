@@ -10,6 +10,7 @@ from flock.algorithm import get_location_to_people
 from flock.models import ChillTime, Location, Person
 from flock.models import ChillTimesThreshold
 from flock.utils import as_pdt, now, title_case
+from flock.utils import post_slack
 
 
 class Command(BaseCommand):
@@ -47,8 +48,3 @@ def post_chill_times(location: Location, people: List[Person]) -> Response:
         f"<!here> chill times in the {title_case(location.name)} with {', '.join(people_head)} and {last_person}!"
     )
     return post_slack(message, "chill-times")
-
-
-def post_slack(message, channel, username="Flock", icon_emoji="bird"):
-    data = {"channel": f"#{channel}", "username": username, "text": message, "icon_emoji": f":{icon_emoji}:"}
-    return requests.post(os.getenv("SLACK_URL"), data=json.dumps(data), headers={"Content-Type": "application/json"})

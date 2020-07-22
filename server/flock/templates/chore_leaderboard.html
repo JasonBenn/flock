@@ -1,0 +1,13 @@
+{% load template_utils %}
+<h1>Chore Leaderboard</h1>
+{% for floor, people in floors_people_chores.items %}
+  <h2>{{ floor|translate_floor_enum }}</h2>
+  {% for person, num_chores in people.items %}
+    <p><span style="min-width: 100px; display: inline-block">{{ person.first_name }}</span><span>{{ num_chores }}</span></p>
+  {% endfor %}
+{% endfor %}
+<br>
+
+<p>
+  Made a mistake? <a href="/admin/flock/choreaction/">Fix it here</a>
+</p>

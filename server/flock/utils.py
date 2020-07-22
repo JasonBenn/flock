@@ -1,8 +1,11 @@
+import json
+import os
 from collections import defaultdict
 from datetime import datetime
 from typing import Optional
 
 import pytz
+import requests
 from django.conf import settings
 from django.db.models import Max
 from django.utils import timezone
@@ -42,3 +45,8 @@ def as_pdt(dt: datetime) -> datetime:
 
 def title_case(string: str) -> str:
     return " ".join([x[0].upper() + x[1:] for x in string.split(" ")])
+
+
+def post_slack(message, channel, username="Flock", icon_emoji="bird"):
+    data = {"channel": f"#{channel}", "username": username, "text": message, "icon_emoji": f":{icon_emoji}:"}
+    return requests.post(os.getenv("SLACK_URL"), data=json.dumps(data), headers={"Content-Type": "application/json"})
