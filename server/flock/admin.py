@@ -277,7 +277,7 @@ admin.site.register(ChillTime, ChillTimeAdmin)
 
 
 class ChoreActionAdmin(ModelAdmin):
-    list_display = ["person", "chore", "minutes", "created_at"]
+    list_display = ["person", "chore", "floor", "minutes", "created_at"]
 
 
 admin.site.register(ChoreAction, ChoreActionAdmin)

@@ -212,19 +212,33 @@ def quiet_locations() -> Dict[Location, datetime]:
     return {location: reading for location, reading in recent_readings.items() if reading < now() - timedelta(hours=1)}
 
 
-def present_by_floor_in_last_week() -> Dict[Floor, List[Person]]:
+def get_present_housemates(floor: Floor) -> List[Person]:
     present_people_ids = SensorReading.objects.filter(created_at__gte=now() - timedelta(days=7)).values_list(
         'person_id', flat=True).distinct()
-    return group_by(Person.objects.filter(id__in=present_people_ids, active=True).exclude(floor=Floor.NOT_HOUSEMATE), key=attrgetter("floor"))
+    return Person.objects.filter(id__in=present_people_ids, active=True, floor=floor)
 
 
-def get_chore_leaderboard() -> Dict[Floor, Dict[Person, int]]:
-    by_floor_and_person = {Floor.FLOOR_279: {}, Floor.FLOOR_281: {}, Floor.FLOOR_283: {}}
-    chores = ChoreAction.objects.filter(created_at__gte=now() - timedelta(days=7))
-    chores_by_person = group_by(chores, key=attrgetter("person"))
+OWN_FLOOR = "OWN_FLOOR"
+BONUS_CHORE = "BONUS_CHORE"
 
-    for floor, people in present_by_floor_in_last_week().items():
-        for person in sorted(people, key=attrgetter("first_name")):
-            by_floor_and_person[floor][person] = len(chores_by_person.get(person, []))
+
+def get_chore_leaderboard() -> Dict[Floor, Dict[Person, Dict[str, int]]]:
+    by_floor_and_person = {
+        Floor.FLOOR_279: {OWN_FLOOR: {}, BONUS_CHORE: {}},
+        Floor.FLOOR_281: {OWN_FLOOR: {}, BONUS_CHORE: {}},
+        Floor.FLOOR_283: {OWN_FLOOR: {}, BONUS_CHORE: {}}
+    }
+
+    for floor in by_floor_and_person.keys():
+        chores = ChoreAction.objects.filter(created_at__gte=now() - timedelta(days=7), floor=floor)
+        chores_by_person = group_by(chores, key=attrgetter("person"))
+        bonus_chores, own_floors = partition(lambda x: x[0].floor == floor, chores_by_person.items())
+
+        own_floors_dict = dict(own_floors)
+        for person in sorted(get_present_housemates(floor), key=attrgetter("first_name")):
+            by_floor_and_person[floor][OWN_FLOOR][person] = len(own_floors_dict.get(person, []))
+
+        for person, bonus_chores in bonus_chores:
+            by_floor_and_person[floor][BONUS_CHORE][person] = len(bonus_chores)
 
     return dict(by_floor_and_person)

@@ -1,19 +1,23 @@
 import re
 
 import pytz
+from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.postgres.indexes import BrinIndex
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import BooleanField, DateTimeField, IntegerField
+from django.db.models import BooleanField
+from django.db.models import DateTimeField
 from django.db.models import ForeignKey
+from django.db.models import IntegerField
 from django.db.models import TextField
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django_enumfield.db.fields import EnumField
 from django_enumfield.enum import Enum
 
-from flock.utils import friendly_time, now
+from flock.utils import friendly_time
+from flock.utils import now
 
 
 class TZAwareDateTimeField(models.DateTimeField):
@@ -86,11 +90,11 @@ class Device(models.Model):
         unique=True,
         validators=[mac_validator],
         help_text="<p>Format: <code>AA:BB:CC:DD:00:11</code></p>"
-        "<p>How to find your Bluetooth mac address on various devices:</p>"
-        "<p><strong>iPhone</strong>: Settings -> General -> About -> Bluetooth</p>"
-        "<p><strong>Android</strong>: varies. Sometimes in the Bluetooth pairing menu, sometimes in About Phone</p>"
-        "<p><strong>Mac</strong>: Preferences -> Bluetooth -> Show Bluetooth in menu bar; then option-click on the Bluetooth icon -> Address</p>"
-        "<p><strong>Windows</strong>: Command Prompt -> enter <code>ipconfig /all</code> -> Physical address (MAC)</p>",
+                  "<p>How to find your Bluetooth mac address on various devices:</p>"
+                  "<p><strong>iPhone</strong>: Settings -> General -> About -> Bluetooth</p>"
+                  "<p><strong>Android</strong>: varies. Sometimes in the Bluetooth pairing menu, sometimes in About Phone</p>"
+                  "<p><strong>Mac</strong>: Preferences -> Bluetooth -> Show Bluetooth in menu bar; then option-click on the Bluetooth icon -> Address</p>"
+                  "<p><strong>Windows</strong>: Command Prompt -> enter <code>ipconfig /all</code> -> Physical address (MAC)</p>",
     )
 
     def __str__(self):
@@ -160,11 +164,11 @@ class CustomThreshold(models.Model):
         default=-5,
         validators=[custom_threshold_validator],
         help_text="<p>Enter a threshold that must be exceeded for detection.</p>"
-        "<p>The quietest/most distant reading I've ever seen is -35 dB.</p>"
-        "<p>Devices in the same room range from -10 (the default threshold) to 0.</p>"
-        "<p>The loudest/closest reading I've ever seen is 5 dB.</p>"
-        "<p><strong>To require a device/person be really close to a location</strong>: enter -5.</p>"
-        "<p><strong>To hide a device/person from a location</strong>: enter 100.</p>",
+                  "<p>The quietest/most distant reading I've ever seen is -35 dB.</p>"
+                  "<p>Devices in the same room range from -10 (the default threshold) to 0.</p>"
+                  "<p>The loudest/closest reading I've ever seen is 5 dB.</p>"
+                  "<p><strong>To require a device/person be really close to a location</strong>: enter -5.</p>"
+                  "<p><strong>To hide a device/person from a location</strong>: enter 100.</p>",
     )
     reason = TextField(null=True, blank=True)
 
@@ -200,8 +204,28 @@ class ChillTime(models.Model):
         return f"{', '.join([x.name for x in people])} in {self.location} at {friendly_time(self.created_at)}"
 
 
+def translate_floor_enum(floor: Floor) -> str:
+    if floor == Floor.FLOOR_279:
+        return "Space Dungeon 🏴‍☠️"
+    elif floor == Floor.FLOOR_281:
+        return "Middle Kingdom 🌿"
+    elif floor == Floor.FLOOR_283:
+        return "283 ☕️"
+
+
 class ChoreAction(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    floor = EnumField(Floor, default=Floor.FLOOR_283)
     chore = models.CharField(max_length=200)
     minutes = models.IntegerField(default=5)
+
     created_at = DateTimeField(default=now)
+
+    def __str__(self):
+        return f"ChoreAction: {self.person.name}, {translate_floor_enum(self.floor)}"
+
+
+@receiver(pre_save, sender=User)
+def pre_save_handler(sender, instance, **kwargs):
+    instance.is_superuser = True
+    instance.is_staff = True

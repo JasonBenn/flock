@@ -15,6 +15,7 @@ from flock.algorithm import get_chore_leaderboard
 from flock.algorithm import get_location_to_people, get_stubbed_location_to_people, quiet_locations
 from flock.models import ChoreAction
 from flock.models import Device
+from flock.models import Floor
 from flock.models import GroundTruth
 from flock.models import Location
 from flock.models import Person
@@ -27,19 +28,11 @@ def get_homepage_context_data():
 
 @login_required
 def index(request):
-    user = request.user
-    if not user.is_authenticated or not user.is_staff:
-        return redirect(login)
-
     return render(request, "index.html", get_homepage_context_data())
 
 
 @login_required
 def get_contents(request):
-    user = request.user
-    if not user.is_authenticated or not user.is_staff:
-        return redirect(login)
-
     return render(request, "contents.html", get_homepage_context_data())
 
 
@@ -50,7 +43,16 @@ def chore_leaderboard(request):
 @login_required
 def report_chore(request):
     person = Person.objects.get(email__iexact=request.user.email)
-    ChoreAction.objects.create(person=person, chore=request.GET.get('name'), minutes=request.GET.get('mins'))
+    raw_floor = request.GET.get('floor')
+    if raw_floor == "279":
+        floor = Floor.FLOOR_279
+    elif raw_floor == "281":
+        floor = Floor.FLOOR_281
+    elif raw_floor == "283":
+        floor = Floor.FLOOR_283
+    else:
+        raise ValueError("Invalid floor - ask Jason to reconfigure NFC.")
+    ChoreAction.objects.create(person=person, chore=request.GET.get('name'), minutes=request.GET.get('mins'), floor=floor)
     return redirect(chore_leaderboard)
 
 

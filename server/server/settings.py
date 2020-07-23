@@ -150,3 +150,4 @@ if os.getenv("PRODUCTION") == "1":
 # Other
 
 FREEZE_TIME = os.environ.get("FREEZE_TIME", None)
+SESSION_COOKIE_SAMESITE = None

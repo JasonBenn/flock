@@ -10,6 +10,7 @@ from stringcase import snakecase
 from flock.models import Floor
 from flock.models import GroundTruth
 from flock.utils import now
+from flock.models import translate_floor_enum
 
 register = template.Library()
 
@@ -51,10 +52,5 @@ def brief_time(dt: datetime) -> str:
         return f"{delta.seconds // 3600} hours"
 
 @register.filter
-def translate_floor_enum(floor: Floor) -> str:
-    if floor == Floor.FLOOR_279:
-        return "Space Dungeon 🏴‍☠️"
-    elif floor == Floor.FLOOR_281:
-        return "Middle Kingdom 🌿"
-    elif floor == Floor.FLOOR_283:
-        return "283 ☕️"
+def render_floor_enum(floor: Floor) -> str:
+    return translate_floor_enum(floor)
