@@ -44,7 +44,6 @@ def get_contents(request):
 
 
 def chore_leaderboard(request):
-    print({"people_chores": get_chore_leaderboard()})
     return render(request, "chore_leaderboard.html", {"floors_people_chores": get_chore_leaderboard()})
 
 
@@ -52,7 +51,7 @@ def chore_leaderboard(request):
 def report_chore(request):
     person = Person.objects.get(email__iexact=request.user.email)
     ChoreAction.objects.create(person=person, chore=request.GET.get('name'), minutes=request.GET.get('mins'))
-    return render(request, "chore_leaderboard.html", {"floors_people_chores": get_chore_leaderboard()})
+    return redirect(chore_leaderboard)
 
 
 @login_required
