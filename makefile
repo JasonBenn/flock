@@ -63,3 +63,4 @@ download_prod_env:
 
 upload_prod_env:
 	scp /Users/jasonbenn/code/flock/.prod_env flock:/home/flock/code/server/server/.env
+    # log in, reboot server
