@@ -77,8 +77,8 @@ change_283.short_description = "Change floor to 283"
 
 
 class PersonAdmin(admin.ModelAdmin):
-    ordering = ("first_name",)
-    list_display = ["first_name", "last_name", "email", "active", "floor"]
+    ordering = ["room", "-active"]
+    list_display = ["first_name", "last_name", "nickname", "email", "active", "room"]
     actions = [toggle_active, change_not, change_279, change_281, change_283]
 
 
@@ -89,7 +89,7 @@ class DeviceAdmin(admin.ModelAdmin):
     ordering = ("person__first_name",)
     list_display = ["person", "device_type", "active", "person_active"]
     actions = [toggle_active]
-    readonly_fields = ('person_active',)
+    readonly_fields = ("person_active",)
 
     def person_active(self, device):
         return device.person.active

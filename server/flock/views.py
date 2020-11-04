@@ -43,7 +43,7 @@ def chore_leaderboard(request):
 @login_required
 def report_chore(request):
     person = Person.objects.get(email__iexact=request.user.email)
-    raw_floor = request.GET.get('floor')
+    raw_floor = request.GET.get("floor")
     if raw_floor == "279":
         floor = Floor.FLOOR_279
     elif raw_floor == "281":
@@ -52,7 +52,9 @@ def report_chore(request):
         floor = Floor.FLOOR_283
     else:
         raise ValueError("Invalid floor - ask Jason to reconfigure NFC.")
-    ChoreAction.objects.create(person=person, chore=request.GET.get('name'), minutes=request.GET.get('mins'), floor=floor)
+    ChoreAction.objects.create(
+        person=person, chore=request.GET.get("name"), minutes=request.GET.get("mins"), floor=floor
+    )
     return redirect(chore_leaderboard)
 
 
@@ -62,7 +64,9 @@ def report_ground_truth(request):
         request,
         "report_ground_truth.html",
         {
-            "people": [{"name": x.name, "id": x.id} for x in Person.objects.all().order_by("first_name")],
+            "people": [
+                {"name": x.name, "id": x.id} for x in Person.objects.filter(active=True).order_by("first_name")
+            ],
             "locations": Location.objects.all().order_by("name"),
             "current_location_id": (int(request.GET.get("location_id", -1))),
         },
@@ -90,7 +94,12 @@ def login(request):
 
 def macs(request):
     return JsonResponse(
-        {x.mac: x.person.name for x in Device.objects.filter(active=True, person__active=True).select_related("person").order_by("device_type", "mac")}
+        {
+            x.mac: x.person.name
+            for x in Device.objects.filter(active=True, person__active=True)
+            .select_related("person")
+            .order_by("device_type", "mac")
+        }
     )
 
 

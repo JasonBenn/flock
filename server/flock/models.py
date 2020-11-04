@@ -48,12 +48,40 @@ class Floor(Enum):
     FLOOR_283 = 3
 
 
+class Room(Enum):
+    ONE_A = 0
+    ONE_B = 1
+    ONE_C = 2
+    ONE_D = 3
+    ONE_E = 4
+    ONE_F = 5
+    TWO_B = 6
+    TWO_C = 7
+    TWO_D = 8
+    TWO_E = 9
+    THREE_A = 10
+    THREE_B = 11
+    THREE_C = 12
+    THREE_D = 13
+    THREE_E = 14
+    THREE_F = 15
+    FOUR_A = 16
+    FOUR_B = 17
+    FOUR_C = 18
+    FOUR_D = 19
+    FOUR_E = 20
+    FOUR_F = 21
+    NONE = 22
+
+
 class Person(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     active = BooleanField(default=True)
     email = models.TextField(help_text="Should match your login email!")
     floor = EnumField(Floor)
+    room = EnumField(Room, default=Room.NONE)
+    nickname = TextField(max_length=200, null=True, default=None, blank=True)
 
     class Meta:
         unique_together = ("first_name", "last_name")
@@ -63,7 +91,9 @@ class Person(models.Model):
 
     @property
     def name(self):
-        return f"{self.first_name} {self.last_name[0]}"
+        if self.nickname:
+            return self.nickname
+        return self.first_name
 
 
 class DeviceType(Enum):
@@ -90,11 +120,11 @@ class Device(models.Model):
         unique=True,
         validators=[mac_validator],
         help_text="<p>Format: <code>AA:BB:CC:DD:00:11</code></p>"
-                  "<p>How to find your Bluetooth mac address on various devices:</p>"
-                  "<p><strong>iPhone</strong>: Settings -> General -> About -> Bluetooth</p>"
-                  "<p><strong>Android</strong>: varies. Sometimes in the Bluetooth pairing menu, sometimes in About Phone</p>"
-                  "<p><strong>Mac</strong>: Preferences -> Bluetooth -> Show Bluetooth in menu bar; then option-click on the Bluetooth icon -> Address</p>"
-                  "<p><strong>Windows</strong>: Command Prompt -> enter <code>ipconfig /all</code> -> Physical address (MAC)</p>",
+        "<p>How to find your Bluetooth mac address on various devices:</p>"
+        "<p><strong>iPhone</strong>: Settings -> General -> About -> Bluetooth</p>"
+        "<p><strong>Android</strong>: varies. Sometimes in the Bluetooth pairing menu, sometimes in About Phone</p>"
+        "<p><strong>Mac</strong>: Preferences -> Bluetooth -> Show Bluetooth in menu bar; then option-click on the Bluetooth icon -> Address</p>"
+        "<p><strong>Windows</strong>: Command Prompt -> enter <code>ipconfig /all</code> -> Physical address (MAC)</p>",
     )
 
     def __str__(self):
@@ -164,11 +194,11 @@ class CustomThreshold(models.Model):
         default=-5,
         validators=[custom_threshold_validator],
         help_text="<p>Enter a threshold that must be exceeded for detection.</p>"
-                  "<p>The quietest/most distant reading I've ever seen is -35 dB.</p>"
-                  "<p>Devices in the same room range from -10 (the default threshold) to 0.</p>"
-                  "<p>The loudest/closest reading I've ever seen is 5 dB.</p>"
-                  "<p><strong>To require a device/person be really close to a location</strong>: enter -5.</p>"
-                  "<p><strong>To hide a device/person from a location</strong>: enter 100.</p>",
+        "<p>The quietest/most distant reading I've ever seen is -35 dB.</p>"
+        "<p>Devices in the same room range from -10 (the default threshold) to 0.</p>"
+        "<p>The loudest/closest reading I've ever seen is 5 dB.</p>"
+        "<p><strong>To require a device/person be really close to a location</strong>: enter -5.</p>"
+        "<p><strong>To hide a device/person from a location</strong>: enter 100.</p>",
     )
     reason = TextField(null=True, blank=True)
 
@@ -185,8 +215,8 @@ class CustomThreshold(models.Model):
 
 class ChillTimesThreshold(models.Model):
     threshold = models.IntegerField(
-        default=5,
-        help_text="<p>The first time this many people are detected (>=) that day, post to Slack.</p>")
+        default=5, help_text="<p>The first time this many people are detected (>=) that day, post to Slack.</p>"
+    )
     location = models.ForeignKey(Location, on_delete=models.DO_NOTHING)
     created_at = DateTimeField(default=now)
 
