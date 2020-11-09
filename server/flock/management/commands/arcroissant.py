@@ -1,15 +1,30 @@
 import datetime
 import random
-from typing import List
+from typing import List, Optional
 
 from django.core.management.base import BaseCommand
+from pgspecial.main import chunks
 
 from flock.models import Floor
 from flock.models import Person
-from flock.utils import post_slack
+from flock.utils import group_by, post_slack, squeeze_values
+
+Group = List[Person]
 
 
-def get_random_groups(n=4) -> List[List[Person]]:
+def couple_in_same_group(group: Group) -> Optional[Person]:
+    grouped_by_rooms = group_by(group, lambda x: x.room).values()
+    return next((x for x in grouped_by_rooms if len(x) > 1), None)
+
+
+def swap_groups(group_a: Group, group_a_person: Person, group_b: Group, group_b_person: Person):
+    group_a.pop(group_a.index(group_a_person))
+    group_b.pop(group_b.index(group_b_person))
+    group_a.append(group_b_person)
+    group_b.append(group_a_person)
+
+
+def get_random_groups(n=4) -> List[Group]:
     people = list(Person.objects.exclude(floor=Floor.NOT_HOUSEMATE).exclude(active=False))
     random.shuffle(people)
     groups = [people[x : x + n] for x in range(0, len(people), n)]
@@ -20,6 +35,19 @@ def get_random_groups(n=4) -> List[List[Person]]:
         max_group = next(x for x in groups if len(x) == max(group_lengths))
         min_group = next(x for x in groups if len(x) == min(group_lengths))
         min_group.append(max_group.pop())
+
+    # Swap people in the same room.
+    couples = squeeze_values({i: couple_in_same_group(x) for (i, x) in enumerate(groups)})
+    print(f"{len(couples)} couples")
+    if len(couples) % 2 == 1:
+        random_group_index = next(iter(set(range(len(groups))) - set(couples.keys())))
+        couples[random_group_index] = groups[random_group_index][:2]
+
+    for (group_a_index, group_b_index) in chunks(list(couples.keys()), 2):
+        print("Swapping...")
+        person_a = couples[group_a_index][0]
+        person_b = couples[group_b_index][0]
+        swap_groups(groups[group_a_index], person_a, groups[group_b_index], person_b)
 
     return groups
 

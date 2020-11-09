@@ -2,7 +2,7 @@ import json
 import os
 from collections import defaultdict
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Iterable, List, TypeVar, Dict
 
 import pytz
 import requests
@@ -16,6 +16,19 @@ def group_by(iterable, key):
     for x in iterable:
         grouped[key(x)].append(x)
     return {k: list(v) for k, v in grouped.items()}
+
+
+T = TypeVar("T")
+TK = TypeVar("TK")
+TV = TypeVar("TV")
+
+
+def squeeze(iterable: Iterable[T]) -> List[T]:
+    return [x for x in iterable if x]
+
+
+def squeeze_values(dictionary: Dict[TK, Optional[TV]]) -> Dict[TK, TV]:
+    return {k: v for k, v in dictionary.items() if v}
 
 
 def get_at_time(at_time: Optional[datetime] = None) -> datetime:
