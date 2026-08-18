@@ -1,5 +1,5 @@
 ipdb==0.12.2
-sentry-sdk==0.12.1
+sentry-sdk==1.45.1
 requests==2.21.0
 backoff==1.8.1
 -e git+https://github.com/pybluez/pybluez.git#egg=pybluez
