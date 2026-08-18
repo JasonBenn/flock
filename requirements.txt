@@ -45,7 +45,7 @@ sentry-sdk==0.*
 setproctitle==1.1.10
 six==1.12.0
 social-auth-app-django~=3.1
-sqlparse==0.3.0
+sqlparse==0.6.0
 stringcase==1.2.0
 tabulate==0.8.3
 terminaltables==3.1.0
