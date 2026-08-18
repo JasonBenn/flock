@@ -1,0 +1,113 @@
+import asyncio
+import json
+import os
+import re
+from datetime import datetime
+from json import JSONDecodeError
+from random import shuffle
+from typing import List
+from typing import Tuple
+
+import attr
+import backoff
+import pytz
+import requests
+import sentry_sdk
+
+# Init location, Sentry
+RASPBERRY_PI_LOCATION_DIRPATH = "/home/pi/.config/flock"
+location = os.listdir(RASPBERRY_PI_LOCATION_DIRPATH)[0]
+sentry_sdk.init(os.getenv("SENTRY_DSN"), environment=f"sensor_{location}")
+BASE_URL = "https://flock.archive.house"
+RSSI_REGEX = re.compile("RSSI return value: (-?\d+)\n")
+
+session = requests.Session()
+
+
+MacAddress = str
+PersonName = str
+
+
+@attr.s
+class ScanResult:
+    scanned_at: datetime = attr.ib()
+    rssi: int = attr.ib()
+    mac: str = attr.ib()
+
+
+async def scan_mac(mac_tup: Tuple[MacAddress, PersonName]) -> ScanResult:
+    mac, name = mac_tup
+    print(f"  {mac} ping...", flush=True)
+    scanned_at = datetime.now(pytz.UTC)
+    proc = await asyncio.create_subprocess_shell(
+
+        ## old method 
+        # f"sudo hcitool cc {mac} && hcitool rssi {mac} && sudo hcitool dc {mac}",
+
+        ### improved RSSI checking!
+        # "hcitool rssi" only works if some sort of connection with the device already exists.
+        # creating a full connection with "hcitool cc" is the classic way to do this
+        # BUT apparently while/right after l2ping is used some more basic connection exists
+        # that's sufficent enough for "hcitool rssi" to work! And importantly
+        # this consume way less bluetooth traffic and doesn't interfere with
+        # WiFi connectivity as much.  Bluetooth tcpdump's shows this method
+        # uses 30% of the data used previously.
+        f"sudo l2ping -t 2 -c 1 {mac} > /dev/null 2> /dev/null && hcitool rssi {mac};",
+
+
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    stdout, stderr = await proc.communicate()
+    match = RSSI_REGEX.match(stdout.decode("utf-8"))
+    rssi = None
+    if match:
+        rssi = int(match.group(1))
+        print(f"    ✅ {mac} ({name}): {rssi}", flush=True)
+    else:
+        print(f"    ❌ {mac} ({name}): {stdout} ({stderr})", flush=True)
+    return ScanResult(scanned_at=scanned_at, rssi=rssi, mac=mac)
+
+
+def giveup_and_reboot(details: dict):
+    print("Giving up and rebooting! Details:", details)
+    reboot()
+
+
+@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8, on_giveup=giveup_and_reboot)
+async def post_scans(scan_results: List[ScanResult]) -> int:
+    data = json.dumps({"location": location, "scan_results": [attr.asdict(x) for x in scan_results]}, default=str)
+    return session.post(f"{BASE_URL}/scans", data).status_code
+
+
+def reboot():
+    os.system("sudo shutdown -r now")
+
+
+async def scan_macs(mac_tups: List[Tuple[MacAddress, PersonName]]):
+    scan_results = await asyncio.gather(*[scan_mac(x) for x in mac_tups])
+    try:
+        response_code = await post_scans(scan_results)
+    except requests.exceptions.ConnectionError:
+        return reboot()
+    print(f"Sent {scan_results}, response code {response_code}", flush=True)
+
+
+@backoff.on_exception(backoff.expo, (requests.exceptions.ConnectionError, JSONDecodeError), max_tries=8, on_giveup=giveup_and_reboot)
+def load_macs():
+    mac_request = session.get(f"{BASE_URL}/macs")
+    macs = json.loads(mac_request.text)
+    print(f"GET {len(macs)} macs total", flush=True)
+    return macs
+
+
+async def main():
+    while True:
+        macs = load_macs()
+        mac_tups = list(macs.items())
+        for x in mac_tups:
+            await scan_macs([x])
+            await asyncio.sleep(2)
+
+
+asyncio.run(main())

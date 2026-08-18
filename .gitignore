@@ -1,0 +1,14 @@
+.git
+.env
+.prod_env
+.idea
+data
+__pycache__
+.pyc
+db_backups
+
+.env
+.prod_env
+ops/authorized_keys
+db.sqlite3
+typescript

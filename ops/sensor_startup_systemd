@@ -1,0 +1,13 @@
+[Unit]
+Description=Flock
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/code/flock
+ExecStart=/usr/bin/python3 main.py
+StandardOutput=syslog+console
+StandardError=syslog+console
+
+[Install]
+WantedBy=multi-user.target

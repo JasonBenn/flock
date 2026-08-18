@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block container %}
+  {% include "contents.html" %}
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+{% block scripts %}
+  {% if not environ.FREEZE_TIME %}
+    <script>
+        window.interval = setInterval(function () {
+            $.get("/get_contents")
+                .done(data => $('.container').html((data)))
+                .fail(() => $('.container').html("<div style='text-align: center'><div>WHAT THE FLOCK!!</div><div>server (temporarily) down</div></div>"))
+        }, 10000);
+    </script>
+  {% endif %}
+{% endblock %}

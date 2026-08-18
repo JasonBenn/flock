@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+html, body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: #F1EFEF;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    font-size: 18px;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+p {
+    margin: 0;
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #051937;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.locationPanelContainer {
+    padding: 0 1em;
+    margin-top: 1em;
+    flex: 0 1 14em;
+}
+
+.locationPanel {
+    height: 20em;
+    padding: 1em 1.5em;
+    background-color: #FEF9F9;
+    border-radius: 1em;
+}
+
+.commonRoomIcon:after {
+    content: '🏠';
+    font-size: 1.8em;
+}
+
+.studyIcon:after {
+    content: '📚';
+    font-size: 1.8em;
+}
+
+.jasonsRoomIcon:after {
+    content: '🌞';
+    font-size: 1.8em;
+}
+
+.backyardIcon:after {
+    content: "🌴";
+    font-size: 1.8em;
+}
+
+.workshopIcon:after {
+    content: "🔨";
+    font-size: 1.8em;
+}
+
+.roofIcon:after {
+    content: "🌇";
+    font-size: 1.8em;
+}
+
+.middleKitchenIcon:after {
+    content: "🥘";
+    font-size: 1.8em;
+}
+
+.locationName {
+    font-weight: 800;
+    font-size: 1em;
+    line-height: 1.5em;
+    text-transform: uppercase;
+    color: #051937;
+}
+
+.locationHolder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5em;
+    padding-bottom: 1.5em;
+    border-bottom: 1px solid rgba(5, 25, 55, .33);
+    text-decoration: none;
+}
+
+.locationBody {
+    max-height: 75%;
+    overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .2);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .3);
+}
+
+.red {
+    color: #E21010;
+}
+
+.green {
+    color: #12C023;
+}
+
+.blue {
+    color: #2175F4;
+}
+
+.yellow {
+    color: #FFAE12;
+}
+
+.purple {
+    color: #B86AF5;
+}
+
+.gray {
+    color: darkgray;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+.bottom {
+    /*margin-top: 2em;*/
+    margin-bottom: 2em;
+    margin-right: 2em;
+    text-align: right;
+    height: 4em;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+
+
+.bottom p {
+    margin-top: 0.7em;
+}
+
+.report-ground-truth {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.report-ground-truth > div {
+    flex: 1 1 15em;
+    margin: 1em;
+}
+
+input[type="radio"]:not(:checked) + label {
+    color: lightgray;
+}
+
+input[type="checkbox"]:indeterminate + label {
+    color: lightgray;
+}
+
+input[type="submit"] {
+    position: fixed;
+    bottom: 3em;
+    right: 3em;
+    background-color: green;
+    padding: 1em 2em;
+    outline: none;
+    border-radius: 1em;
+    color: white;
+    font-weight: bold;
+}
+
+.hide {
+    display: none;
+}
+
+@media (max-width: 45em) {
+    body {
+        font-size: 12px;
+        justify-content: initial;
+    }
+
+    .locationPanel {
+        padding: 1em 1.5em;
+        height: 16em;
+    }
+
+    .locationPanelContainer {
+        flex: 0 1 12em;
+    }
+
+    @media (orientation: portrait) {
+        body {
+            font-size: 16px;
+        }
+
+        .container {
+            align-items: initial;
+        }
+
+        .locationPanel {
+            height: auto;
+        }
+
+        .locationPanelContainer {
+            flex-grow: 1;
+        }
+
+        .bottom {
+            position: initial;
+        }
+    }
+}
