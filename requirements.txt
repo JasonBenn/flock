@@ -2,7 +2,7 @@
 appdirs==1.4.3
 appnope==0.1.0
 backcall==0.1.0
-black==19.3b0
+black==26.10.1
 cli-helpers==1.2.1
 Click==7.0
 configobj==5.0.6
